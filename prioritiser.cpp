@@ -248,7 +248,7 @@ public:
 // SECTION 3 : CORE DATA STRUCTURES IMPLEMENTED BY HAND (TCS302)
 // =====================================================================
 
-// --- 3.1 HANDWRITTEN STACK ADT (LINKED LIST IMPLEMENTATION) ---
+
 template <typename T>
 class MyStack {
 private:
@@ -335,7 +335,7 @@ public:
     }
 };
 
-// --- 3.2 HANDWRITTEN QUEUE ADT (LINKED LIST IMPLEMENTATION) ---
+
 template <typename T>
 class MyQueue {
 private:
@@ -419,7 +419,7 @@ public:
     }
 };
 
-// --- 3.3 BINARY MAX-HEAP (PRIORITY QUEUE) ---
+// ---  BINARY MAX-HEAP (PRIORITY QUEUE) ---
 class MaxHeap {
 private:
     vector<Topic> heapArray;
@@ -480,7 +480,7 @@ public:
     void clear() { heapArray.clear(); }
 };
 
-// --- 3.4 BINARY SEARCH TREE (TopicBST) ---
+// --- BINARY SEARCH TREE (TopicBST) ---
 struct BSTNode {
     string key;
     Topic topicData;
@@ -582,7 +582,7 @@ public:
     }
 };
 
-// --- 3.5 DIRECTED GRAPH FOR PREREQUISITES (PrereqGraph) ---
+// ---  DIRECTED GRAPH FOR PREREQUISITES (PrereqGraph) ---
 class PrereqGraph {
 private:
     vector<string> topicIds;
@@ -722,7 +722,7 @@ public:
     }
 };
 
-// --- 3.6 SINGLY LINKED LIST (PlanList) ---
+// ---  SINGLY LINKED LIST (PlanList) ---
 struct PlanNode {
     int sessionOrder;
     string topicId;
@@ -1376,7 +1376,7 @@ public:
     }
 
     // -------------------------------------------------------------
-    // MENU 3: VIEW STORED DATA (PHASE 2 + PHASE 3 VIEWS)
+    // MENU 3: VIEW STORED DATA
     // -------------------------------------------------------------
     void viewStoredData() {
         int s = chooseSubject();
@@ -1490,7 +1490,7 @@ public:
     }
 
     // -------------------------------------------------------------
-    // MENU 5: STANDALONE EVALUATION TEST
+    // MENU 5:  EVALUATION TEST
     // -------------------------------------------------------------
     void runStandaloneTest() {
         int s = chooseSubject();
