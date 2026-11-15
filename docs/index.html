@@ -3,1040 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Study Prioritiser | GEHU B.Tech CSE</title>
-    <style>
-        :root {
-            --bg-base: #090d16;
-            --bg-surface: #111827;
-            --bg-card: #1a2234;
-            --bg-hover: #232d43;
-            --border: #2d3748;
-            --accent-primary: #38bdf8;
-            --accent-indigo: #6366f1;
-            --accent-green: #10b981;
-            --accent-amber: #f59e0b;
-            --accent-rose: #f43f5e;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --text-dim: #64748b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.5;
-        }
-
-        /* Top Navigation Header */
-        header {
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .brand-badge {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-indigo));
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.85rem;
-            padding: 0.35rem 0.65rem;
-            border-radius: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .brand-text h1 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .brand-text p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-primary);
-        }
-
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--accent-green);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.25rem 0.6rem;
-            border-radius: 999px;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-green);
-        }
-
-        /* Hero Banner */
-        .hero {
-            padding: 2rem 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-            margin-top: 1.25rem;
-        }
-
-        .stat-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-dim);
-        }
-
-        .stat-val {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--accent-primary);
-        }
-
-        .stat-desc {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* Subject Selector */
-        .subject-bar {
-            display: flex;
-            gap: 0.5rem;
-            overflow-x: auto;
-            padding: 0.5rem 0;
-            margin-top: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .sub-btn {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 0.55rem 1rem;
-            border-radius: 10px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .sub-btn:hover {
-            border-color: var(--accent-primary);
-            color: var(--text-main);
-        }
-
-        .sub-btn.active {
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15));
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
-        }
-
-        /* Navigation Tabs */
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            border-bottom: 1px solid var(--border);
-            margin-top: 1.5rem;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 0.75rem 0.5rem;
-            cursor: pointer;
-            position: relative;
-            transition: color 0.2s;
-        }
-
-        .tab-btn:hover {
-            color: var(--text-main);
-        }
-
-        .tab-btn.active {
-            color: var(--accent-primary);
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--accent-primary);
-            box-shadow: 0 0 8px var(--accent-primary);
-        }
-
-        /* Main Container */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            padding: 1.5rem 2rem 3rem;
-            flex: 1;
-        }
-
-        .tab-panel {
-            display: none;
-            animation: fadeIn 0.25s ease-in-out;
-        }
-
-        .tab-panel.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards & Grids */
-        .card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Data Tables */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.85rem;
-        }
-
-        th {
-            background: var(--bg-card);
-            color: var(--text-dim);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            letter-spacing: 0.5px;
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        td {
-            padding: 0.85rem 1rem;
-            border-bottom: 1px solid rgba(45, 55, 72, 0.5);
-            color: var(--text-muted);
-        }
-
-        tr:hover td {
-            background: rgba(35, 45, 67, 0.4);
-            color: var(--text-main);
-        }
-
-        .rank-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.75rem;
-        }
-
-        .rank-1 { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
-        .rank-2 { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.4); }
-        .rank-3 { background: rgba(217, 119, 6, 0.2); color: #f97316; border: 1px solid rgba(217, 119, 6, 0.4); }
-        .rank-other { background: rgba(100, 116, 139, 0.15); color: var(--text-dim); }
-
-        .score-pill {
-            background: rgba(56, 189, 248, 0.12);
-            color: var(--accent-primary);
-            font-weight: 700;
-            padding: 0.2rem 0.5rem;
-            border-radius: 6px;
-            border: 1px solid rgba(56, 189, 248, 0.25);
-        }
-
-        /* Planner Controls */
-        .planner-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            align-items: center;
-            background: var(--bg-card);
-            padding: 1.25rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-
-        .control-label {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        input[type="range"] {
-            accent-color: var(--accent-primary);
-            width: 200px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-indigo));
-            color: #fff;
-            border: none;
-            padding: 0.65rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        /* Plan Cards */
-        .plan-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .session-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1rem;
-            border-left: 4px solid var(--accent-primary);
-        }
-
-        .session-order {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .session-topic {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
-        }
-
-        .session-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* Prereq Flow Visualizer */
-        .graph-flow {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .graph-node-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .node-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 0.5rem 0.85rem;
-            border-radius: 8px;
-            font-size: 0.82rem;
-            font-weight: 600;
-        }
-
-        .node-arrow {
-            color: var(--accent-primary);
-            font-weight: 800;
-        }
-
-        /* Quiz Box */
-        .quiz-container {
-            max-width: 650px;
-        }
-
-        .quiz-question {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 1rem;
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .quiz-opt {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: left;
-            color: var(--text-muted);
-        }
-
-        .quiz-opt:hover {
-            border-color: var(--accent-primary);
-            color: var(--text-main);
-        }
-
-        .quiz-opt.correct {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: var(--accent-green);
-            color: var(--accent-green);
-            font-weight: 600;
-        }
-
-        .quiz-opt.wrong {
-            background: rgba(244, 63, 94, 0.15);
-            border-color: var(--accent-rose);
-            color: var(--accent-rose);
-        }
-
-        /* DSA Architecture Badges */
-        .dsa-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-        }
-
-        .dsa-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.25rem;
-        }
-
-        .dsa-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--accent-primary);
-            margin-bottom: 0.35rem;
-        }
-
-        .dsa-role {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.65rem;
-        }
-
-        .code-snippet {
-            background: #060911;
-            padding: 0.5rem 0.75rem;
-            border-radius: 6px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-            font-size: 0.75rem;
-            color: #38bdf8;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 1.5rem 2rem;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            background: var(--bg-surface);
-        }
-    </style>
+    <title>Smart Study Prioritiser | B.Tech CSE Semester III</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header>
         <div class="brand">
             <div class="brand-badge">GEHU PBL</div>
-            <div class="brand-text">
+            <div class="brand-info">
                 <h1>Smart Study Prioritiser</h1>
-                <p>Graphic Era Hill University | B.Tech CSE Semester III</p>
+                <p>Graphic Era Hill University &bull; B.Tech CSE Semester III</p>
             </div>
         </div>
-        <div class="nav-links">
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                Phase 3 Verified (Zero STL Core)
+        <div class="header-right">
+            <div class="rev-queue-pill" onclick="switchView('view-queue')">
+                <span>⚠️ Revision Queue:</span>
+                <span id="navQueueBadge">0</span>
             </div>
-            <a href="https://github.com/gehu-cse/SmartStudyPlanner" target="_blank">GitHub Repo</a>
+            <a class="github-link" href="https://github.com/gehu-cse/SmartStudyPlanner" target="_blank">
+                GitHub Repository &rarr;
+            </a>
         </div>
     </header>
 
-    <div class="hero">
-        <div class="hero-stats">
-            <div class="stat-card">
-                <span class="stat-label">Curriculum Scope</span>
-                <span class="stat-val">5 Subjects</span>
-                <span class="stat-desc">DS, OOPS, Python, LDCO, Crypto</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Core Architecture</span>
-                <span class="stat-val">6 Custom DSA</span>
-                <span class="stat-desc">Heap, Graph, BST, Stack, Queue, List</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Ranking Performance</span>
-                <span class="stat-val">O(log N)</span>
-                <span class="stat-desc">Binary Max-Heap siftUp / siftDown</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Study Scheduling</span>
-                <span class="stat-val">2-Round</span>
-                <span class="stat-desc">Greedy coverage + 15% revision buffer</span>
-            </div>
-        </div>
+    <div class="app-container">
+        <!-- Sidebar Navigation (Matching 8 Menus from prioritiser.cpp) -->
+        <aside>
+            <div class="menu-category">Main Workflows</div>
+            <button class="nav-item active" data-view="view-pyq" onclick="switchView('view-pyq')">
+                <span class="icon">📜</span> 1. View all PYQs
+            </button>
+            <button class="nav-item" data-view="view-planner" onclick="switchView('view-planner')">
+                <span class="icon">⚡</span> 2. Start Study Session
+            </button>
+            <button class="nav-item" data-view="view-syllabus" onclick="switchView('view-syllabus')">
+                <span class="icon">✏️</span> 3. Modify Syllabus (Undo)
+            </button>
 
-        <!-- Subject Switcher -->
-        <div class="subject-bar" id="subjectBar">
-            <button class="sub-btn active" onclick="switchSubject('ds')">Data Structures (TCS 302)</button>
-            <button class="sub-btn" onclick="switchSubject('oops')">Object-Oriented C++ (TCS 301)</button>
-            <button class="sub-btn" onclick="switchSubject('python')">Python Programming (PCS 305)</button>
-            <button class="sub-btn" onclick="switchSubject('logic')">Logic Design (TCS 307)</button>
-            <button class="sub-btn" onclick="switchSubject('crypto')">Cryptography (TCS 308)</button>
-        </div>
+            <div class="menu-category">Analytics & Data</div>
+            <button class="nav-item" data-view="view-analytics" onclick="switchView('view-analytics')">
+                <span class="icon">📊</span> 4. Priority Heap & Data
+            </button>
+            <button class="nav-item" data-view="view-notes" onclick="switchView('view-notes')">
+                <span class="icon">📖</span> 5. Study Notes & Videos
+            </button>
+            <button class="nav-item" data-view="view-quiz" onclick="switchView('view-quiz')">
+                <span class="icon">📝</span> 6. Evaluation Test
+            </button>
+            <button class="nav-item" data-view="view-analysis" onclick="switchView('view-analysis')">
+                <span class="icon">🎯</span> 7. Post-Exam Analysis
+            </button>
+            <button class="nav-item" data-view="view-queue" onclick="switchView('view-queue')">
+                <span class="icon">🔄</span> 8. Revision Queue
+            </button>
+        </aside>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('tab-rankings')">Exam Priority Rankings (Max-Heap)</button>
-            <button class="tab-btn" onclick="switchTab('tab-planner')">Study Plan Generator (2-Round)</button>
-            <button class="tab-btn" onclick="switchTab('tab-prereq')">Prerequisite Graph (Topological)</button>
-            <button class="tab-btn" onclick="switchTab('tab-quiz')">Diagnostic Quiz & Feedback</button>
-            <button class="tab-btn" onclick="switchTab('tab-dsa')">C++ Data Structures Architecture</button>
+        <!-- Main Content Area -->
+        <main>
+            <!-- Subject Selector Bar -->
+            <div class="subject-banner">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Active Subject:</span>
+                    <div class="sub-pills" id="subjectPills"></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span id="currentSubjectTitle" style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);"></span>
+                    <span id="currentSubjectCode" class="subject-code-tag"></span>
+                </div>
+            </div>
+
+            <!-- VIEW 1: PYQ EXPLORER -->
+            <div id="view-pyq" class="view-panel active">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Previous Year Question Database</div>
+                            <div class="card-subtitle">Browse and search real university exam paper questions extracted by topic.</div>
+                        </div>
+                        <span class="score-badge" id="pyqCountBadge">0 Questions</span>
+                    </div>
+
+                    <div class="filter-bar">
+                        <select id="pyqYearFilter" onchange="filterPYQs()"></select>
+                        <select id="pyqTopicFilter" onchange="filterPYQs()"></select>
+                        <input type="text" id="pyqSearchInput" placeholder="Search keywords (e.g. stack, BST)..." oninput="filterPYQs()" style="flex: 1; min-width: 200px;">
+                    </div>
+
+                    <div id="pyqListContainer"></div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: STUDY PLANNER & INTERACTIVE SESSION -->
+            <div id="view-planner" class="view-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Interactive Study Planner (2-Round Greedy Algorithm)</div>
+                            <div class="card-subtitle">Combines Binary Max-Heap priority scores and Directed Graph prerequisites to build custom study schedules.</div>
+                        </div>
+                        <div id="planStatsSummary" style="font-size: 0.8rem; color: var(--text-muted);"></div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <div class="form-group">
+                            <span class="form-label">Available Study Hours:</span>
+                            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                                <input type="number" id="studyHoursInput" min="1" max="40" value="6" style="width: 120px;">
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Hours</span>
+                                <button class="btn btn-primary" onclick="runStudyPlanner()">⚡ Generate Schedule</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="form-label" style="display: block; margin-bottom: 0.4rem;">Topics Already Mastered (Skip/Deprioritize):</span>
+                            <div id="knownTopicsChecklist" style="max-height: 120px; overflow-y: auto; background: var(--bg-card); padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.35rem;"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.75rem;">Generated Study Plan & Sessions</div>
+                    <div class="plan-grid" id="generatedPlanContainer">
+                        <div style="padding: 2rem; color: var(--text-muted); text-align: center; grid-column: 1 / -1;">
+                            Enter your available study hours above and click "Generate Schedule" to compute the custom plan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: SYLLABUS MANAGER WITH UNDO -->
+            <div id="view-syllabus" class="view-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Syllabus Management Engine</div>
+                            <div class="card-subtitle">Add or delete topics dynamically. All modifications are protected by the handwritten <b>MyStack Undo ADT</b>.</div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-undo" id="syllabusUndoBtn" onclick="undoSyllabusChange()">↺ Undo (Empty Stack)</button>
+                            <button class="btn btn-primary" onclick="openAddTopicModal()">+ Add New Topic</button>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Unit</th>
+                                    <th>Topic Name</th>
+                                    <th>Est. Minutes</th>
+                                    <th>Difficulty</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="syllabusTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: PRIORITY HEAP & DATA ANALYTICS -->
+            <div id="view-analytics" class="view-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Exam Priority Rankings (Binary Max-Heap)</div>
+                            <div class="card-subtitle">Generated via <code>MaxHeap.pop()</code> using the mathematical formula: (Freq &times; 50) + (AvgMarks &times; 3) + (10 / Hours).</div>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper" style="margin-bottom: 2rem;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Topic ID</th>
+                                    <th>Topic Name</th>
+                                    <th>Appearances</th>
+                                    <th>Avg Marks</th>
+                                    <th>Est. Time</th>
+                                    <th>Priority Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="heapRankingTbody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">PrereqGraph Topological Learning Order</div>
+                            <div class="card-subtitle">Kahn's Algorithm resolves incoming dependencies so foundational concepts precede advanced ones.</div>
+                        </div>
+                    </div>
+                    <div id="topoOrderFlow" style="background: var(--bg-card); padding: 1rem; border-radius: 10px; border: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 2rem;"></div>
+
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Binary Search Tree (TopicBST) Search</div>
+                            <div class="card-subtitle">Exact O(log N) lookup by Topic ID using our custom BST structure.</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem; align-items: center;">
+                        <input type="text" id="bstSearchInput" placeholder="Enter Topic ID (e.g. STACK, TREE_BST)..." style="width: 280px;" oninput="searchTopicBST()">
+                    </div>
+                    <div id="bstSearchResult"></div>
+                </div>
+            </div>
+
+            <!-- VIEW 5: STUDY NOTES & VIDEO LINKS -->
+            <div id="view-notes" class="view-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Exam Study Notes & Lecture Links</div>
+                            <div class="card-subtitle">Curated revision excerpts and high-yield video links unit by unit.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Select Topic:</span>
+                            <select id="notesTopicSelect" onchange="displayTopicNotes(this.value)"></select>
+                        </div>
+                    </div>
+                    <div id="notesContentContainer"></div>
+                </div>
+            </div>
+
+            <!-- VIEW 6: EVALUATION QUIZ -->
+            <div id="view-quiz" class="view-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Diagnostic Evaluation Test</div>
+                            <div class="card-subtitle">5-question practice test. Topics scoring &lt; 50% are automatically flagged as weak and added to <b>MyQueue</b>.</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="renderStandaloneQuizView()">New Random Test</button>
+                    </div>
+
+                    <div id="quizQuestionsContainer"></div>
+
+                    <div style="text-align: right; margin-top: 1rem;">
+                        <button class="btn btn-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;" onclick="submitEvaluationTest()">Submit Test & Calculate Score</button>
+                    </div>
+
+                    <div id="quizResultCard" class="card" style="display: none; margin-top: 1.5rem; border-left: 4px solid var(--accent-emerald);">
+                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">Diagnostic Test Result</div>
+                        <div style="font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: 0.25rem;" id="quizScorePct">0%</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);" id="quizScoreDetails"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 7: POST-EXAM ANALYSIS -->
+            <div id="view-analysis" class="view-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Post-Exam Variance Analysis</div>
+                            <div class="card-subtitle">Evaluate actual student marks against past-paper predicted weightage to quantify model accuracy.</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.25rem;">
+                        <div class="form-group">
+                            <span class="form-label">Predicted Exam Weightage:</span>
+                            <input type="number" id="examExpectedMarks" value="75" style="width: 140px;">
+                        </div>
+                        <div class="form-group">
+                            <span class="form-label">Actual Marks Scored:</span>
+                            <input type="number" id="examActualMarks" value="72" style="width: 140px;">
+                        </div>
+                        <div style="align-self: flex-end; margin-bottom: 1rem;">
+                            <button class="btn btn-primary" onclick="computePostExamVariance()">Compute Accuracy</button>
+                        </div>
+                    </div>
+
+                    <div id="examVarianceResult" class="card" style="display: none; background: var(--bg-card);"></div>
+                </div>
+            </div>
+
+            <!-- VIEW 8: REVISION QUEUE (MyQueue FIFO) -->
+            <div id="view-queue" class="view-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Spaced Repetition Revision Queue (MyQueue)</div>
+                            <div class="card-subtitle">Weak topics enqueued automatically from diagnostic testing. Follows strict FIFO (First In, First Out) discipline.</div>
+                        </div>
+                    </div>
+
+                    <div id="revisionQueueContainer"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Study Room Modal -->
+    <div class="modal-overlay" id="studyModal">
+        <div class="modal-box" style="max-width: 650px;">
+            <div class="modal-header">
+                <div>
+                    <div style="font-size: 0.72rem; font-weight: 800; color: var(--accent); text-transform: uppercase;">Active Study Session</div>
+                    <div style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);" id="modalTopicTitle"></div>
+                    <div style="font-size: 0.75rem; font-family: monospace; color: var(--text-muted);" id="modalTopicCode"></div>
+                </div>
+                <div style="font-size: 1.3rem; font-family: monospace; font-weight: 800; color: var(--accent-emerald);" id="sessionTimer">15:00</div>
+            </div>
+
+            <div id="modalNotesContainer" style="max-height: 280px; overflow-y: auto; margin-bottom: 1.25rem; background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border);"></div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <button class="btn" onclick="closeStudyModal()">Pause / Close</button>
+                <button class="btn btn-primary" onclick="completeSessionAndQuiz()">Complete & Take Diagnostic Quiz &rarr;</button>
+            </div>
         </div>
     </div>
 
-    <main>
-        <!-- TAB 1: RANKINGS TABLE -->
-        <div id="tab-rankings" class="tab-panel active">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span>Topics Ranked by Exam Yield (Binary Max-Heap)</span>
-                    </div>
-                    <span style="font-size: 0.8rem; color: var(--text-dim);" id="topicCountDisplay">Showing 10 topics</span>
+    <!-- Add Topic Modal -->
+    <div class="modal-overlay" id="addTopicModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary);">Add Topic to Syllabus</div>
+                <button class="modal-close" onclick="closeAddTopicModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <span class="form-label">Topic ID (e.g. TRIE, B_PLUS_TREE):</span>
+                <input type="text" id="newTopicId" placeholder="TRIE">
+            </div>
+            <div class="form-group">
+                <span class="form-label">Unit:</span>
+                <input type="text" id="newTopicUnit" value="Unit 5">
+            </div>
+            <div class="form-group">
+                <span class="form-label">Topic Name:</span>
+                <input type="text" id="newTopicName" placeholder="Trie Data Structure and Prefix Search">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <span class="form-label">Base Minutes:</span>
+                    <input type="number" id="newTopicMinutes" value="60">
                 </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Topic ID</th>
-                                <th>Topic Name</th>
-                                <th>Appearances</th>
-                                <th>Avg Marks</th>
-                                <th>Base Time</th>
-                                <th>Priority Score</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rankingTableBody">
-                            <!-- Populated dynamically via JS -->
-                        </tbody>
-                    </table>
+                <div class="form-group">
+                    <span class="form-label">Difficulty (1 to 5):</span>
+                    <input type="number" id="newTopicDiff" min="1" max="5" value="3">
                 </div>
             </div>
-        </div>
-
-        <!-- TAB 2: STUDY PLAN SCHEDULER -->
-        <div id="tab-planner" class="tab-panel">
-            <div class="card">
-                <div class="card-title" style="margin-bottom: 1rem;">2-Round Greedy Study Time Allocator</div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-                    Allocates available study hours by extracting top topics from the custom Max-Heap. Round 1 guarantees core coverage (65% base time) for maximum exam marks, while Round 2 allocates buffer time for revision.
-                </p>
-                <div class="planner-controls">
-                    <div class="control-group">
-                        <span class="control-label">Available Study Hours</span>
-                        <div style="display: flex; align-items: center; gap: 0.75rem;">
-                            <input type="range" id="hourSlider" min="2" max="25" value="10" oninput="updateHourVal(this.value)">
-                            <span id="hourVal" style="font-weight: 700; color: var(--accent-primary);">10 hrs</span>
-                        </div>
-                    </div>
-                    <button class="btn-primary" onclick="generateSchedule()">Generate Study Schedule</button>
-                </div>
-
-                <div class="plan-grid" id="planGrid">
-                    <!-- Populated dynamically -->
-                </div>
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
+                <button class="btn" onclick="closeAddTopicModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitNewTopic()">Push to Syllabus (MyStack)</button>
             </div>
         </div>
+    </div>
 
-        <!-- TAB 3: PREREQUISITE GRAPH -->
-        <div id="tab-prereq" class="tab-panel">
-            <div class="card">
-                <div class="card-title" style="margin-bottom: 0.5rem;">Directed Prerequisite Graph (Topological Ordering)</div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                    Solves the "AVL Trees before Arrays" flaw. Even if an advanced topic has the highest exam marks, the PrereqGraph ensures foundational topics are scheduled first using Kahn's Topological Sorting algorithm.
-                </p>
-                <div class="graph-flow" id="graphFlow">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-        </div>
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
-        <!-- TAB 4: DIAGNOSTIC QUIZ -->
-        <div id="tab-quiz" class="tab-panel">
-            <div class="card quiz-container">
-                <div class="card-title" style="margin-bottom: 0.5rem;">Diagnostic Self-Assessment Quiz</div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-                    Test your understanding. Topics scoring &lt; 50% automatically receive a +30% priority boost and are enqueued into the MyQueue Revision Pipeline.
-                </p>
-                <div id="quizBox">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 5: C++ ARCHITECTURE -->
-        <div id="tab-dsa" class="tab-panel">
-            <div class="card">
-                <div class="card-title" style="margin-bottom: 1rem;">Handwritten C++ Data Structures (TCS 302 Alignment)</div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                    The terminal C++ executable (`prioritiser.exe`) relies on zero STL containers for core algorithms. Below is how each custom data structure operates:
-                </p>
-                <div class="dsa-grid">
-                    <div class="dsa-card">
-                        <div class="dsa-title">1. Binary Max-Heap (MaxHeap)</div>
-                        <div class="dsa-role">Dynamically ranks topics by calculated past-paper priority score.</div>
-                        <div class="code-snippet">void siftUp(int i); void siftDown(int i); // O(log N)</div>
-                    </div>
-                    <div class="dsa-card">
-                        <div class="dsa-title">2. Directed Graph (PrereqGraph)</div>
-                        <div class="dsa-role">Adjacency list with DFS cycle detection and Topological Sort.</div>
-                        <div class="code-snippet">vector&lt;string&gt; topologicalSort(); // Kahn's Algorithm</div>
-                    </div>
-                    <div class="dsa-card">
-                        <div class="dsa-title">3. Binary Search Tree (TopicBST)</div>
-                        <div class="dsa-role">Provides rapid O(log N) search by Topic ID and in-order traversal.</div>
-                        <div class="code-snippet">Topic* search(string key); void inOrder();</div>
-                    </div>
-                    <div class="dsa-card">
-                        <div class="dsa-title">4. Stack ADT (MyStack)</div>
-                        <div class="dsa-role">Linked-list stack powering multi-level syllabus undo / redo.</div>
-                        <div class="code-snippet">void push(T val); T pop(); bool empty();</div>
-                    </div>
-                    <div class="dsa-card">
-                        <div class="dsa-title">5. Queue ADT (MyQueue)</div>
-                        <div class="dsa-role">Linked-list queue organizing weak topics into revision pipeline.</div>
-                        <div class="code-snippet">void push(T val); T pop(); int size();</div>
-                    </div>
-                    <div class="dsa-card">
-                        <div class="dsa-title">6. Singly Linked List (PlanList)</div>
-                        <div class="dsa-role">Dynamically links allocated study sessions for clean reporting.</div>
-                        <div class="code-snippet">struct PlanNode { int order; string id; PlanNode* next; }</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <p>Smart Study Prioritiser &bull; Graphic Era Hill University B.Tech CSE Semester III Project-Based Learning</p>
-        <p style="margin-top: 0.35rem; color: #475569;">C++ Implementation &bull; Team: Rahul Singh Panwar, Siddharth Saklani, Shaurya Kanyal, Vedansh Gwari</p>
-    </footer>
-
-    <script>
-        // Subject Databases
-        const datasets = {
-            ds: {
-                name: "Data Structures",
-                code: "TCS 302",
-                topics: [
-                    { id: "TREE_BST", name: "Binary Search Trees", freq: 4, marks: 32, time: 90, prereq: "LL" },
-                    { id: "AVL", name: "AVL Trees & Rotations", freq: 3, marks: 28, time: 75, prereq: "TREE_BST" },
-                    { id: "GRAPH_TRAV", name: "Graph Traversal (BFS & DFS)", freq: 4, marks: 35, time: 100, prereq: "GRAPH_REPR" },
-                    { id: "SHORTEST_PATH", name: "Dijkstra's Shortest Path", freq: 3, marks: 25, time: 80, prereq: "GRAPH_TRAV" },
-                    { id: "STACK", name: "Stack Operations & Infix/Postfix", freq: 4, marks: 24, time: 60, prereq: "ARRAYS" },
-                    { id: "QUEUE", name: "Circular & Priority Queues", freq: 3, marks: 20, time: 60, prereq: "ARRAYS" },
-                    { id: "LL", name: "Singly & Doubly Linked Lists", freq: 4, marks: 30, time: 80, prereq: "ARRAYS" },
-                    { id: "HEAP", name: "Binary Heap & Heap Sort", freq: 2, marks: 18, time: 70, prereq: "TREE_BST" },
-                    { id: "HASH", name: "Hashing & Collision Resolution", freq: 2, marks: 15, time: 50, prereq: "ARRAYS" },
-                    { id: "ARRAYS", name: "Array Search, Insert & Delete", freq: 3, marks: 12, time: 45, prereq: "None" }
-                ],
-                graph: [
-                    ["ARRAYS", "STACK", "QUEUE", "LL"],
-                    ["LL", "TREE_BST", "GRAPH_REPR"],
-                    ["TREE_BST", "AVL", "HEAP"],
-                    ["GRAPH_REPR", "GRAPH_TRAV", "SHORTEST_PATH"]
-                ],
-                quiz: {
-                    q: "What is the worst-case time complexity of searching in an unbalanced Binary Search Tree?",
-                    opts: ["O(log N)", "O(N)", "O(1)", "O(N log N)"],
-                    correct: 1,
-                    topic: "TREE_BST"
-                }
-            },
-            oops: {
-                name: "Object-Oriented Programming in C++",
-                code: "TCS 301",
-                topics: [
-                    { id: "INHERITANCE", name: "Inheritance (Multiple & Virtual)", freq: 4, marks: 30, time: 85, prereq: "CLASSES" },
-                    { id: "POLYMORPHISM", name: "Virtual Functions & Abstract Base", freq: 4, marks: 32, time: 90, prereq: "INHERITANCE" },
-                    { id: "OP_OVERLOAD", name: "Operator Overloading (<, +, ==)", freq: 3, marks: 24, time: 70, prereq: "CLASSES" },
-                    { id: "CONSTRUCTORS", name: "Copy Constructors & Destructors", freq: 4, marks: 26, time: 60, prereq: "CLASSES" },
-                    { id: "FILE_IO", name: "File Streams & Delimited Parsing", freq: 3, marks: 22, time: 65, prereq: "CLASSES" },
-                    { id: "TEMPLATES", name: "Function & Class Templates", freq: 2, marks: 18, time: 55, prereq: "CLASSES" },
-                    { id: "EXCEPTION", name: "Exception Handling (try-catch)", freq: 2, marks: 15, time: 45, prereq: "CLASSES" },
-                    { id: "CLASSES", name: "Classes, Objects & Encapsulation", freq: 4, marks: 20, time: 50, prereq: "None" }
-                ],
-                graph: [
-                    ["CLASSES", "CONSTRUCTORS", "OP_OVERLOAD", "FILE_IO"],
-                    ["CLASSES", "INHERITANCE"],
-                    ["INHERITANCE", "POLYMORPHISM", "TEMPLATES"]
-                ],
-                quiz: {
-                    q: "Which keyword is used in C++ to achieve runtime polymorphism via base class pointers?",
-                    opts: ["static", "virtual", "inline", "friend"],
-                    correct: 1,
-                    topic: "POLYMORPHISM"
-                }
-            },
-            python: {
-                name: "Python Programming",
-                code: "PCS 305",
-                topics: [
-                    { id: "OOP_PY", name: "Python Classes & Magic Methods", freq: 4, marks: 28, time: 75, prereq: "FUNCTIONS" },
-                    { id: "LIST_DICT", name: "Lists, Dicts & Comprehensions", freq: 4, marks: 25, time: 60, prereq: "BASICS" },
-                    { id: "FILE_PY", name: "File Handling & CSV Parsing", freq: 3, marks: 20, time: 50, prereq: "BASICS" },
-                    { id: "DECORATORS", name: "Generators & Decorators", freq: 2, marks: 18, time: 65, prereq: "FUNCTIONS" },
-                    { id: "FUNCTIONS", name: "Functions, *args & **kwargs", freq: 4, marks: 22, time: 55, prereq: "BASICS" },
-                    { id: "BASICS", name: "Variables, Loops & Control Flow", freq: 3, marks: 15, time: 40, prereq: "None" }
-                ],
-                graph: [
-                    ["BASICS", "LIST_DICT", "FUNCTIONS", "FILE_PY"],
-                    ["FUNCTIONS", "OOP_PY", "DECORATORS"]
-                ],
-                quiz: {
-                    q: "Which data structure in Python is immutable?",
-                    opts: ["List", "Dictionary", "Tuple", "Set"],
-                    correct: 2,
-                    topic: "LIST_DICT"
-                }
-            },
-            logic: {
-                name: "Logic Design & Computer Organization",
-                code: "TCS 307",
-                topics: [
-                    { id: "KMAP", name: "Karnaugh Maps (K-Maps 3 & 4 Var)", freq: 4, marks: 30, time: 80, prereq: "BOOLEAN" },
-                    { id: "FLIP_FLOPS", name: "JK, D, T Flip-Flops & Excitation", freq: 4, marks: 32, time: 85, prereq: "COMBINATIONAL" },
-                    { id: "COUNTERS", name: "Synchronous & Asynchronous Counters", freq: 3, marks: 25, time: 75, prereq: "FLIP_FLOPS" },
-                    { id: "ALU_CPU", name: "ALU Design & Register Organization", freq: 3, marks: 24, time: 70, prereq: "COUNTERS" },
-                    { id: "COMBINATIONAL", name: "Multiplexers, Decoders & Adders", freq: 4, marks: 25, time: 65, prereq: "KMAP" },
-                    { id: "BOOLEAN", name: "Boolean Laws & DeMorgan's Theorem", freq: 3, marks: 18, time: 45, prereq: "None" }
-                ],
-                graph: [
-                    ["BOOLEAN", "KMAP"],
-                    ["KMAP", "COMBINATIONAL"],
-                    ["COMBINATIONAL", "FLIP_FLOPS"],
-                    ["FLIP_FLOPS", "COUNTERS", "ALU_CPU"]
-                ],
-                quiz: {
-                    q: "What problem occurs in an unclocked SR flip-flop when both inputs are 1?",
-                    opts: ["Race Condition", "Memory Leak", "Bus Contention", "Zero Latency"],
-                    correct: 0,
-                    topic: "FLIP_FLOPS"
-                }
-            },
-            crypto: {
-                name: "Cryptography & Network Security",
-                code: "TCS 308",
-                topics: [
-                    { id: "RSA", name: "RSA Asymmetric Public Key Cryptosystem", freq: 4, marks: 32, time: 90, prereq: "MATH_CRYPTO" },
-                    { id: "AES", name: "AES (Advanced Encryption Standard)", freq: 4, marks: 28, time: 85, prereq: "DES" },
-                    { id: "HASH_SHA", name: "Cryptographic Hashes (SHA-256 / MD5)", freq: 3, marks: 24, time: 65, prereq: "MATH_CRYPTO" },
-                    { id: "DIFFIE", name: "Diffie-Hellman Key Exchange", freq: 3, marks: 22, time: 60, prereq: "RSA" },
-                    { id: "DES", name: "DES Structure & Feistel Cipher", freq: 3, marks: 20, time: 60, prereq: "CLASSICAL" },
-                    { id: "MATH_CRYPTO", name: "Modular Arithmetic & Euler's Totient", freq: 3, marks: 18, time: 50, prereq: "None" },
-                    { id: "CLASSICAL", name: "Caesar & Playfair Substitution Ciphers", freq: 2, marks: 12, time: 40, prereq: "None" }
-                ],
-                graph: [
-                    ["MATH_CRYPTO", "RSA", "HASH_SHA"],
-                    ["CLASSICAL", "DES", "AES"],
-                    ["RSA", "DIFFIE"]
-                ],
-                quiz: {
-                    q: "What mathematical property ensures the security of the RSA algorithm?",
-                    opts: ["Matrix Multiplication", "Prime Factorization of large integers", "Polynomial Addition", "Fast Fourier Transform"],
-                    correct: 1,
-                    topic: "RSA"
-                }
-            }
-        };
-
-        let currentSub = 'ds';
-
-        // Calculate Priority using project formula
-        function calcPriority(t) {
-            const avgMarks = t.marks / t.freq;
-            // Formula: (Freq * 50) + (AvgMarks * 3) + (10 / (time/60))
-            const score = (t.freq * 50.0) + (avgMarks * 3.0) + (10.0 / (t.time / 60.0));
-            return score.toFixed(1);
-        }
-
-        function switchSubject(subKey) {
-            currentSub = subKey;
-            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderAll();
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
-
-        function renderRankings() {
-            const sub = datasets[currentSub];
-            // Sort copy by priority descending (simulating Max-Heap)
-            const sorted = [...sub.topics].sort((a, b) => calcPriority(b) - calcPriority(a));
-
-            document.getElementById('topicCountDisplay').innerText = `Displaying ${sorted.length} topics`;
-            const tbody = document.getElementById('rankingTableBody');
-            tbody.innerHTML = '';
-
-            sorted.forEach((t, i) => {
-                const p = calcPriority(t);
-                let badgeClass = "rank-other";
-                if (i === 0) badgeClass = "rank-1";
-                else if (i === 1) badgeClass = "rank-2";
-                else if (i === 2) badgeClass = "rank-3";
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><span class="rank-badge ${badgeClass}">${i + 1}</span></td>
-                    <td style="font-family: monospace; font-weight: 600; color: var(--accent-primary);">${t.id}</td>
-                    <td style="font-weight: 600; color: var(--text-main);">${t.name}</td>
-                    <td>${t.freq} past exams</td>
-                    <td>${(t.marks / t.freq).toFixed(1)} marks</td>
-                    <td>${t.time} mins</td>
-                    <td><span class="score-pill">${p}</span></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function updateHourVal(val) {
-            document.getElementById('hourVal').innerText = val + " hrs";
-        }
-
-        function generateSchedule() {
-            const sub = datasets[currentSub];
-            const sorted = [...sub.topics].sort((a, b) => calcPriority(b) - calcPriority(a));
-            const hours = parseInt(document.getElementById('hourSlider').value);
-            let availableMinutes = hours * 60;
-
-            const planGrid = document.getElementById('planGrid');
-            planGrid.innerHTML = '';
-
-            let order = 1;
-            sorted.forEach(t => {
-                const targetTime = Math.round(t.time * 0.65); // Round 1 core coverage
-                if (availableMinutes >= targetTime) {
-                    availableMinutes -= targetTime;
-                    const card = document.createElement('div');
-                    card.className = 'session-card';
-                    card.innerHTML = `
-                        <div class="session-order">Study Session #${order++} &bull; Priority Rank</div>
-                        <div class="session-topic">${t.name}</div>
-                        <div class="session-meta">
-                            <span>Target: <b>${targetTime} mins</b></span>
-                            <span>Yield: <b>${calcPriority(t)} pts</b></span>
-                        </div>
-                    `;
-                    planGrid.appendChild(card);
-                }
-            });
-
-            if (availableMinutes > 0 && order > 1) {
-                const bufferCard = document.createElement('div');
-                bufferCard.className = 'session-card';
-                bufferCard.style.borderLeftColor = 'var(--accent-green)';
-                bufferCard.innerHTML = `
-                    <div class="session-order" style="color: var(--accent-green);">Round 2 Buffer Allocation</div>
-                    <div class="session-topic">Revision & Diagnostic Practice</div>
-                    <div class="session-meta">
-                        <span>Buffer Time: <b>${availableMinutes} mins</b></span>
-                        <span>Spaced Repetition</span>
-                    </div>
-                `;
-                planGrid.appendChild(bufferCard);
-            }
-        }
-
-        function renderGraph() {
-            const sub = datasets[currentSub];
-            const flow = document.getElementById('graphFlow');
-            flow.innerHTML = '';
-
-            sub.graph.forEach(chain => {
-                const row = document.createElement('div');
-                row.className = 'graph-node-row';
-                chain.forEach((node, i) => {
-                    const box = document.createElement('div');
-                    box.className = 'node-box';
-                    box.innerText = node;
-                    row.appendChild(box);
-
-                    if (i < chain.length - 1) {
-                        const arrow = document.createElement('span');
-                        arrow.className = 'node-arrow';
-                        arrow.innerHTML = '&rarr;';
-                        row.appendChild(arrow);
-                    }
-                });
-                flow.appendChild(row);
-            });
-        }
-
-        function renderQuiz() {
-            const sub = datasets[currentSub];
-            const q = sub.quiz;
-            const quizBox = document.getElementById('quizBox');
-            quizBox.innerHTML = `
-                <div class="quiz-question">${q.q}</div>
-                <div class="quiz-options">
-                    ${q.opts.map((opt, i) => `
-                        <button class="quiz-opt" onclick="checkAnswer(this, ${i}, ${q.correct})">${opt}</button>
-                    `).join('')}
-                </div>
-                <div id="quizFeedback" style="font-size: 0.85rem; font-weight: 600;"></div>
-            `;
-        }
-
-        function checkAnswer(btn, chosen, correct) {
-            const fb = document.getElementById('quizFeedback');
-            const opts = btn.parentElement.querySelectorAll('.quiz-opt');
-            opts.forEach(o => o.disabled = true);
-
-            if (chosen === correct) {
-                btn.classList.add('correct');
-                fb.style.color = 'var(--accent-green)';
-                fb.innerText = 'Correct! Concept verified in diagnostic testing.';
-            } else {
-                btn.classList.add('wrong');
-                opts[correct].classList.add('correct');
-                fb.style.color = 'var(--accent-rose)';
-                fb.innerText = 'Incorrect! Topic score updated to weak — automatically enqueued to MyQueue Revision Pipeline.';
-            }
-        }
-
-        function renderAll() {
-            renderRankings();
-            generateSchedule();
-            renderGraph();
-            renderQuiz();
-        }
-
-        // Initialize on load
-        renderAll();
-    </script>
+    <!-- Scripts (Dependency order) -->
+    <script src="datasets.js"></script>
+    <script src="dsa.js"></script>
+    <script src="planner.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
