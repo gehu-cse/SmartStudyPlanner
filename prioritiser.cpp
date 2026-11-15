@@ -11,9 +11,9 @@
 
 using namespace std;
 
-// =====================================================================
-// SECTION 1 : HELPER UTILITIES
-// =====================================================================
+// ===========================================
+// SECTION 1 : HELPERS
+// ===========================================
 const int DEFAULT_BUFFER_PERCENT = 15;
 
 string formatDuration(int totalMinutes) {
@@ -111,7 +111,7 @@ string readLineString(const string& prompt) {
 }
 
 // =====================================================================
-// SECTION 2 : BASE MODELS & OOP HIERARCHY (PHASE 2 + PHASE 3)
+// SECTION 2 : BASE MODELS & OOP HIERARCHY 
 // =====================================================================
 class StudyItem {
 public:
@@ -245,7 +245,7 @@ public:
 };
 
 // =====================================================================
-// SECTION 3 : CORE DATA STRUCTURES IMPLEMENTED BY HAND (TCS302)
+// SECTION 3 : CORE DATA STRUCTURES 
 // =====================================================================
 
 
@@ -480,7 +480,7 @@ public:
     void clear() { heapArray.clear(); }
 };
 
-// --- BINARY SEARCH TREE (TopicBST) ---
+// --- BINARY SEARCH TREE  ---
 struct BSTNode {
     string key;
     Topic topicData;
@@ -792,7 +792,7 @@ public:
 };
 
 // =====================================================================
-// SECTION 4 : SUPPORTING REPOSITORIES (QUIZ, NOTES, PYQ, SUBJECT)
+// SECTION 4 :  (QUIZ, NOTES, PYQ, SUBJECT)
 // =====================================================================
 struct QuizQuestion {
     string topicId;
@@ -1064,14 +1064,14 @@ public:
     }
 
     // -------------------------------------------------------------
-    // MENU 1: START A STUDY SESSION (DYNAMIC INTERACTIVE PLANNER)
+    // MENU 1: START A STUDY SESSION 
     // -------------------------------------------------------------
     void startStudySession() {
         printTitle("Study Session Planner");
         int hours = readNumberInRange("  How many hours do you have to study? (e.g. 6): ", 1, 100);
         int totalMinutes = hours * 60;
 
-        cout << "\n  It's good to keep a small buffer (usually 10-15%) for short breaks\n"
+        cout << "\n  It's good to keep a small buffer  for short breaks\n"
              << "  or tough topics, so your schedule doesn't feel rushed.\n";
         int bufferPct = readNumberInRange("  Enter buffer percentage (0 to 50, default is 15%): ", 0, 50);
         int bufferMinutes = totalMinutes * bufferPct / 100;
@@ -1713,11 +1713,16 @@ public:
 // SECTION 6 : MAIN FUNCTION
 // =====================================================================
 int main(int argc, char** argv) {
-    string dir = "./";
+    string dir = "./data/";
     if (argc > 1) {
         dir = argv[1];
         if (!dir.empty() && dir.back() != '/' && dir.back() != '\\') {
             dir += "/";
+        }
+    } else {
+        ifstream check("./data/syllabus_ds.txt");
+        if (!check.is_open()) {
+            dir = "./";
         }
     }
 
