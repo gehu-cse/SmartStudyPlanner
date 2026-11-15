@@ -11,7 +11,7 @@
 ---
 
 ## 📌 Project Overview
-The **Smart Study Prioritiser** is an end-to-end algorithmic study planning and preparation engine designed to maximize semester exam yield under strict time constraints. It replaces ad-hoc revision with data-driven prioritization across 5 university courses:
+The **Smart Study Prioritiser** is an end-to-end algorithmic study planning and preparation engine designed to maximize semester exam yield under strict time constraints. It currently works across 5 university courses:
 1. **TCS302**: Data Structures with C/C++
 2. **TCS307**: Object Oriented Programming with C++
 3. **TCS346**: Python Programming
