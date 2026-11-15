@@ -16,7 +16,6 @@ using namespace std;
 // =====================================================================
 const int DEFAULT_BUFFER_PERCENT = 15;
 
-// Convert minutes into a simple readable format like "2 hrs 30 mins"
 string formatDuration(int totalMinutes) {
     int hours = totalMinutes / 60;
     int minutes = totalMinutes % 60;
@@ -29,7 +28,6 @@ string formatDuration(int totalMinutes) {
     }
 }
 
-// Convert a string to uppercase
 string toUpperCase(string text) {
     for (int i = 0; i < (int)text.size(); i++) {
         text[i] = toupper(text[i]);
@@ -37,7 +35,6 @@ string toUpperCase(string text) {
     return text;
 }
 
-// Remove leading and trailing spaces from a string
 string trimString(string text) {
     int start = 0;
     while (start < (int)text.size() && (text[start] == ' ' || text[start] == '\t' || text[start] == '\r')) {
@@ -51,7 +48,6 @@ string trimString(string text) {
     return text.substr(start, end - start + 1);
 }
 
-// Split a line by delimiter (like '|') into separate tokens
 vector<string> splitString(string line, char delimiter) {
     vector<string> tokens;
     stringstream ss(line);
@@ -62,7 +58,6 @@ vector<string> splitString(string line, char delimiter) {
     return tokens;
 }
 
-// Print a horizontal divider line like ----------------------------
 void printDivider(char symbol = '-') {
     for (int i = 0; i < 70; i++) {
         cout << symbol;
@@ -70,7 +65,6 @@ void printDivider(char symbol = '-') {
     cout << "\n";
 }
 
-// Print a clean section title
 void printTitle(string title) {
     cout << "\n";
     printDivider('=');
@@ -78,7 +72,6 @@ void printTitle(string title) {
     printDivider('=');
 }
 
-// Print a clean subtitle with an underline
 void printSubTitle(string subtitle) {
     cout << "\n" << subtitle << "\n";
     for (int i = 0; i < (int)subtitle.size(); i++) {
@@ -87,7 +80,6 @@ void printSubTitle(string subtitle) {
     cout << "\n";
 }
 
-// Phase 2 Heritage: Safe number input utility
 int readNumberInRange(const string& prompt, int minVal, int maxVal) {
     int value;
     while (true) {
@@ -136,13 +128,13 @@ public:
     string unit;
     string name;
     int baseMinutes;
-    int difficulty;         // 1 to 5
-    int frequency;          // times appeared in PYQ
-    double totalMarks;      // sum of marks
-    double averageMarks;    // totalMarks / frequency
-    double priority;        // calculated priority score
-    double quizScore;       // percentage score from quiz (-1 if not tested)
-    bool isCompleted;       // true if student already prepared/studied this topic beforehand
+    int difficulty;
+    int frequency;
+    double totalMarks;
+    double averageMarks;
+    double priority;
+    double quizScore;
+    bool isCompleted;
 
     Topic() {
         id = "";
@@ -196,18 +188,17 @@ public:
     double getTimeMultiplier() const override {
         if (quizScore < 0.0) return 1.0;
         if (quizScore >= 80.0) return 1.0;
-        if (quizScore >= 50.0) return 1.15; // shaky topic needs +15% time
-        return 1.30;                        // weak topic needs +30% time
+        if (quizScore >= 50.0) return 1.15;
+        return 1.30;
     }
 
     double getMarkMultiplier() const override {
         if (quizScore < 0.0) return 1.0;
         if (quizScore >= 80.0) return 1.0;
         if (quizScore >= 50.0) return 1.15;
-        return 1.35; // weak topic given higher priority weight
+        return 1.35;
     }
 
-    // Phase 2 Heritage: Priority Calculation Formula
     void calculatePriority() {
         if (frequency > 0) {
             averageMarks = totalMarks / frequency;
@@ -215,15 +206,13 @@ public:
             averageMarks = 0.0;
         }
         double density = getDensity();
-        // Combines PYQ frequency, average marks, density (marks/min), and difficulty
         priority = (frequency * 25.0) + (averageMarks * 3.0) + (density * 40.0) + (difficulty * 4.0);
 
         if (quizScore >= 0.0 && quizScore < 50.0) {
-            priority *= 1.30; // boost priority for weak topics
+            priority *= 1.30;
         }
     }
 
-    // Operator Overloading
     bool operator<(const Topic& other) const {
         return priority < other.priority;
     }
@@ -242,7 +231,6 @@ public:
     }
 };
 
-// Derived Class for Weak Topics (OOP Polymorphism)
 class RevisionTopic : public Topic {
 public:
     string revisionReason;
@@ -494,7 +482,7 @@ public:
 
 // --- 3.4 BINARY SEARCH TREE (TopicBST) ---
 struct BSTNode {
-    string key;             // Topic ID (e.g. "STACK", "QUEUE", "ARRAYS")
+    string key;
     Topic topicData;
     BSTNode* left;
     BSTNode* right;
@@ -521,7 +509,6 @@ private:
         }
     }
 
-    // Classic O(log n) BST search by Topic ID
     Topic* searchByIdHelper(BSTNode* node, const string& searchKey) const {
         if (!node) return nullptr;
         if (node->key == searchKey) return const_cast<Topic*>(&(node->topicData));
@@ -529,7 +516,6 @@ private:
         return searchByIdHelper(node->right, searchKey);
     }
 
-    // Search helper by topic name keyword (e.g. "array", "recursion")
     Topic* searchByNameHelper(BSTNode* node, const string& keyword) const {
         if (!node) return nullptr;
         string nameUpper = toUpperCase(node->topicData.name);
@@ -574,14 +560,11 @@ public:
 
     void insert(Topic item) { insertHelper(root, item); }
 
-    // Searches by Topic ID first (pure BST O(log n)), then falls back to name keyword match
     Topic* search(const string& query) const {
         string cleanQuery = toUpperCase(trimString(query));
         if (cleanQuery.empty()) return nullptr;
-        // 1. Fast O(log n) BST lookup on Topic ID
         Topic* res = searchByIdHelper(root, cleanQuery);
         if (res) return res;
-        // 2. Keyword lookup in topic name
         return searchByNameHelper(root, cleanQuery);
     }
 
@@ -647,7 +630,6 @@ public:
         return edges;
     }
 
-    // Kahn's Algorithm for Topological Sort
     vector<string> topologicalSort() const {
         int n = (int)topicIds.size();
         vector<int> inDegree(n, 0);
@@ -683,7 +665,6 @@ public:
         return sortedList;
     }
 
-    // BFS Traversal
     vector<string> breadthFirstSearch(const string& startId) const {
         vector<string> visitedOrder;
         int startIndex = findTopicIndex(startId);
@@ -711,7 +692,6 @@ public:
         return visitedOrder;
     }
 
-    // DFS Traversal
     vector<string> depthFirstSearch(const string& startId) const {
         vector<string> visitedOrder;
         int startIndex = findTopicIndex(startId);
@@ -818,7 +798,7 @@ struct QuizQuestion {
     string topicId;
     string text;
     vector<string> options;
-    int correctOption; // 1-4
+    int correctOption;
     string explanation;
 };
 
@@ -862,8 +842,8 @@ public:
 
 class NotesStore {
 public:
-    vector<pair<string, string>> notesList; // topicId, note text
-    vector<pair<string, pair<string, string>>> linksList; // topicId -> (title, url)
+    vector<pair<string, string>> notesList;
+    vector<pair<string, pair<string, string>>> linksList;
 
     void load(const string& filename) {
         notesList.clear();
@@ -1039,7 +1019,6 @@ public:
 
     void loadPYQ(int s) {
         Subject& sub = subjects[s];
-        // Reset topic stats
         for (int i = 0; i < (int)sub.topics.size(); i++) {
             sub.topics[i]->frequency = 0;
             sub.topics[i]->totalMarks = 0.0;
@@ -1106,12 +1085,10 @@ public:
         cout << "  Allocated study time: " << hours << " h (" << formatDuration(usableMinutes) 
              << " usable, " << formatDuration(bufferMinutes) << " buffer)\n";
 
-        // Reset previous completion status
         for (int i = 0; i < (int)sub.topics.size(); i++) {
             sub.topics[i]->isCompleted = false;
         }
 
-        // Check if student has already prepared any topics beforehand
         string alreadyDoneChoice = readLineString("\n  Have you already prepared/studied any topics beforehand? (y/n, default n): ");
         if (!alreadyDoneChoice.empty() && (alreadyDoneChoice[0] == 'y' || alreadyDoneChoice[0] == 'Y')) {
             cout << "\n  Select topics you have ALREADY completed (they will be skipped from this session):\n";
@@ -1137,7 +1114,6 @@ public:
             }
         }
 
-        // Build Max-Heap Priority Queue for Greedy Scheduling (uncompleted topics only)
         MaxHeap pq;
         int activeCount = 0;
         for (int i = 0; i < (int)sub.topics.size(); i++) {
@@ -1169,7 +1145,6 @@ public:
             }
         }
 
-        // Print Generated Study Plan
         printTitle("STUDY PLAN (GREEDY PRIORITY QUEUE)");
         if (studyPlan.size() == 0) {
             cout << "  No topics fit in the available time. Please allocate more study hours.\n";
@@ -1204,7 +1179,6 @@ public:
         cout << "  Time Scheduled   : " << formatDuration(studyPlan.getTotalMinutes()) << " of " << formatDuration(usableMinutes) << "\n";
         cout << "  Expected Marks   : " << fixed << setprecision(1) << studyPlan.getTotalMarks() << "\n";
 
-        // Print Dropped Topics
         if (!droppedTopics.empty()) {
             printSubTitle("Topics not included in this session");
             for (int i = 0; i < (int)droppedTopics.size(); i++) {
@@ -1215,7 +1189,6 @@ public:
             cout << "  (Note: Topics exceeding remaining time were skipped to prevent incomplete study)\n";
         }
 
-        // Study Material Viewing
         cout << "\n";
         printDivider('=');
         cout << "  STUDY MATERIAL\n";
@@ -1236,7 +1209,6 @@ public:
             }
         }
 
-        // Mandatory Evaluation Quiz
         printTitle("TOPIC EVALUATION QUIZ (5 QUESTIONS PER TOPIC)");
         curr = studyPlan.getHead();
         int totalScore = 0;
@@ -1270,7 +1242,6 @@ public:
                 totalScore += topicScore;
                 totalQuestions += count;
 
-                // Update topic's live quiz score
                 Topic* topicPtr = sub.findTopic(curr->topicId);
                 if (topicPtr) {
                     topicPtr->quizScore = topicPct;
@@ -1285,7 +1256,6 @@ public:
             curr = curr->next;
         }
 
-        // Readiness Verdict
         printTitle("EXAM READINESS REPORT");
         double overallPct = (totalQuestions > 0) ? (100.0 * totalScore / totalQuestions) : 0.0;
         cout << "  Total Quiz Score: " << totalScore << " / " << totalQuestions
@@ -1420,7 +1390,6 @@ public:
         int choice = readNumberInRange("  Enter your choice (1-4): ", 1, 4);
 
         if (choice == 1) {
-            // Phase 2 View 1: Topics Ranked by Priority Queue
             MaxHeap pq;
             for (int i = 0; i < (int)sub.topics.size(); i++) {
                 pq.push(*(sub.topics[i]));
@@ -1447,7 +1416,6 @@ public:
             }
             printDivider('=');
         } else if (choice == 2) {
-            // Phase 2 View 2: Raw PYQ Summary
             printTitle("RAW PYQ SUMMARY (DATABASE)");
             cout << left << setw(15) << "Topic ID"
                  << setw(35) << "Topic Name"
@@ -1465,7 +1433,6 @@ public:
             }
             printDivider('=');
         } else if (choice == 3) {
-            // Phase 3 BST Search
             string searchInput = readLineString("  Enter Topic ID (e.g. STACK, LL, ARRAYS) or Name to search: ");
             Topic* foundTopic = sub.bst.search(searchInput);
             if (foundTopic) {
@@ -1480,7 +1447,6 @@ public:
                 cout << "  [!] No topic found matching: " << searchInput << "\n";
             }
         } else if (choice == 4) {
-            // Phase 3 Graph Traversal
             printTitle("PREREQUISITE DIRECTED GRAPH");
             cout << "  Total Vertices : " << sub.graph.vertexCount() << "\n";
             cout << "  Total Edges    : " << sub.graph.edgeCount() << "\n";
@@ -1643,7 +1609,6 @@ public:
         printDivider('=');
     }
 
-    // Display full PYQs from the supplied exam papers, including year and topic.
     void viewAllPYQs() {
         printTitle("Previous Year Questions - Year and Topic");
         cout << "\n  Select Subject:\n";
@@ -1675,7 +1640,6 @@ public:
                      << "Topic: " << (topic ? topic->name : parts[2]) << "\n";
                 cout << "     " << parts[4] << "\n";
 
-                // Pause every 10 questions for readable output (Pagination)
                 if (count % 10 == 0) {
                     cout << "\n  [Showing 10 questions at a time. Press Enter for next 10, or 'q' to stop]: ";
                     string pauseInput;
