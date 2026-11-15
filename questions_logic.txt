@@ -1,0 +1,47 @@
+# Exact PYQ question text extracted from supplied examination-paper PDF
+# Format: QUESTION|year|topicId|questionId|question text
+QUESTION|2023|LD_BOOL|a|(A + B/overline{C} + /overline{A}C). Implement this logic expression using NAND-NAND logic gates and NOR-NOR logic gates only.
+QUESTION|2023|LD_BOOL|b|Simplify: [ F(A,B,C,D,E)=/Sigma m(0,1,6,7,8,10,11,14,15,30,31)+/Sigma d(23,28,29) ] using K-map and implement the final output with NAND gates only.
+QUESTION|2023|LD_BOOL|c|Find the minimal sum of products for the Boolean expression: [ F(A,B,C,D)=/Sigma m(1,2,3,7,8,9,10,11,14,15) ] using Quine-McCluskey method.
+QUESTION|2023|LD_BOOL|a|Design a 3-bit binary to Gray code converter and also draw its logic diagram.
+QUESTION|2023|LD_COMB|b|Design a BCD to 7-segment display decoder using unused BCD combinations of BCD as don't care condition.
+QUESTION|2023|LD_COMB|c|An 8 × 1 multiplexer has inputs A, B and C connected to selection inputs of (S_2,S_1,S_0) respectively. The data inputs (I_0) through (I_7) are as follows: [ I_1=I_2=0 ] [ I_3=I_7=1 ] [ I_4=I_5=D ] and [ I_0=I_6=/overline{D} ]
+QUESTION|2023|LD_COMB|a|Implement a full adder with decoder and NAND gates. The adder inputs are A, B and C. The adder produces the outputs S and (C_0).
+QUESTION|2023|LD_COMB|b|Implement the following two given Boolean functions with a PLA: [ F_1(A,B,C)=/Sigma(0,1,2,4) ] [ F_2(A,B,C)=/Sigma(0,5,6,7) ]
+QUESTION|2023|LD_COUNTER|c|Design a synchronous Mod-6 counter, also using J-K flip-flops, and draw its logic diagram.
+QUESTION|2023|LD_COUNTER|a|Explain the working of Johnson Counter and Universal Shift Register.
+QUESTION|2023|LD_FF|b|A sequential circuit has one positive edge-triggered DFF and one full adder with two inputs x and y and one output S. Carry output of Full Adder is connected to D input of DFF and Q output of DFF is acting as third input to Full Adder. Draw the state table and state transition diagram.
+QUESTION|2023|LD_REG|c|The contents of four bit register are initially 1011. The register is shifted six times to the right with the serial input 101111. What are the contents of the register after each shift? Illustrate with timing diagram.
+QUESTION|2023|LD_MEMORY|a|Explain the following with support of flow chart: 1. Programmed I/O 2. Interrupt driven I/O 3. Direct memory access
+QUESTION|2023|LD_ARITH|b|Explain the floating point arithmetic operations with the help of flowchart.
+QUESTION|2024|LD_COMB|c|Explain various types of addressing modes. END SEMESTER EXAMINATION — DECEMBER 2024
+QUESTION|2024|LD_BOOL|a|For the given Boolean function: [ f(w,x,y,z)=/Sigma(0,5,7,8,9,10,14,15) ] find the prime implicants and essential prime implicants using Quine-McClusky method.
+QUESTION|2024|LD_BOOL|b|Design a combinational circuit that compares two 4-bit numbers, A and B, to check if they are equal. The circuit has one output Y, so that: [ Y=1 /text{ if } A=B ] and [ Y=0 /text{ if } A/neq B ]
+QUESTION|2024|LD_BOOL|c|Design a 2-bit magnitude comparator and draw its logic diagram.
+QUESTION|2024|LD_FF|a|Perform the following flip-flop conversions: 1. D to SR 2. T to JK
+QUESTION|2024|LD_REG|b|Design and explain Universal Shift Register.
+QUESTION|2024|LD_COMB|c|Design and explain 4-bit Binary Adder-Subtractor.
+QUESTION|2024|LD_FF|a|A clocked sequential circuit with two D flip-flops A and B, an input x and output y. The next state equations for a sequential circuit are given as: [ A(t+1)=Ax+Bx ] [ B(t+1)=A'x' ] and the present state output are given as, [ y=(A+B)x' ] If x is an external input to the sequential circuit: 1. Draw the circuit diagram of the sequential circuit. 2. Obtain state diagram of the sequential circuit.
+QUESTION|2024|LD_COUNTER|b|Design mod-10 synchronous counter using JK flip-flop.
+QUESTION|2024|LD_COUNTER|c|Draw and explain 4-bit Binary ripple Up-Down Counter.
+QUESTION|2024|LD_ARCH|a|Differentiate between: 1. RISC and CISC processors 2. Von Neumann and Harvard Architecture
+QUESTION|2024|LD_ARITH|b|Discuss Booth algorithm for multiplication with flowchart.
+QUESTION|2024|LD_ARITH|c|Explain floating point arithmetic operations — addition and subtraction with flowcharts. Also discuss its hardware implementation.
+QUESTION|2024|LD_IO|a|Explain the following with flow chart approach: 1. Interrupt driven I/O 2. Programmed I/O
+QUESTION|2024|LD_MEMORY|b|Discuss memory hierarchy design and its characteristics.
+QUESTION|2025|LD_IO|c|What is DMA? How it works? Explain. END TERM (ODD) SEMESTER EXAMINATION — NOVEMBER 2025
+QUESTION|2025|LD_BOOL|a|Minimize the 5-variable function: [ F(A,B,C,D,E)=/Sigma m(1,3,7,11,15,16,17,19,23,27,31) +d/Sigma(2,6,10,14) ] using K-maps.
+QUESTION|2025|LD_COMB|b|Design a BCD adder.
+QUESTION|2025|LD_BOOL|c|Design the Boolean expression: [ F(A,B,C)=/Sigma m(1,3,6,7) ] by using 4×1 MUX and 2×1 MUX.
+QUESTION|2025|LD_FF|a|Determine the characteristic equation and excitation table of JK and SR flip-flop.
+QUESTION|2025|LD_COMB|b|Draw and explain the circuit of 5-bit SISO.
+QUESTION|2025|LD_FF|c|Convert JK flip-flop into D flip-flop.
+QUESTION|2025|LD_COUNTER|a|Draw and explain the circuit of MOD-12 asynchronous counter using T flip-flop.
+QUESTION|2025|LD_FF|b|Analyze the sequential circuit whose excitation equations are shown below (assume two D flip-flops, (Q_1) and (Q_0)): [ D_1=Q'_0 ] [ D_0=Q_1 ] 1. Derive the state table and state diagram. 2. Verify by showing the sequence of outputs for clock pulses.
+QUESTION|2025|LD_COUNTER|c|Design a synchronous counter (using T flip-flop) for a count sequence of: [ 1,3,6,7,1 ]
+QUESTION|2025|LD_ARITH|a|Draw the flowchart of Booth's algorithm. Perform the following signed number multiplication operation: [ -6/times4 ]
+QUESTION|2025|LD_COMB|b|Explain Amdahl's Law and Little's Law with suitable examples.
+QUESTION|2025|LD_ARCH|c|Explain the difference between Von-Neumann and Non-Von-Neumann architecture.
+QUESTION|2025|LD_MEMORY|a|Discuss the various Cache Mapping techniques.
+QUESTION|2025|LD_COMB|b|Explain Flynn's taxonomy with suitable examples.
+QUESTION|2025|LD_MEMORY|c|Describe memory hierarchy based on parameters like speed, size, complexity, and cost.

@@ -1,0 +1,33 @@
+# ============================================================
+# PREVIOUS YEAR QUESTION WEIGHTS  --  OOP with C++ (TCS307)
+# Source: end-term question papers supplied by the student.
+# Format:  PAPER|paperId|label|year
+#          HIT|paperId|topicId|marksAsked
+# marksAsked = total marks the topic carried in that paper
+# (each sub-question of the paper is 10 marks, 15 sub-questions
+#  are printed per paper => 150 marks of questions offered).
+# ============================================================
+PAPER|P1|End Term November 2025|2025
+PAPER|P2|End Term December 2024|2024
+HIT|P1|OOP_BASICS|10
+HIT|P1|ARR_STR|10
+HIT|P1|CLASS_OBJ|30
+HIT|P1|FRIEND|10
+HIT|P1|COPY_THIS|10
+HIT|P1|OPOVL|20
+HIT|P1|INHERIT|20
+HIT|P1|FILE_IO|10
+HIT|P1|VIRTUAL|10
+HIT|P1|EXCEPT|10
+HIT|P1|TEMPLATE_STL|10
+HIT|P2|OOP_BASICS|10
+HIT|P2|ARR_STR|10
+HIT|P2|NAMESPACE|10
+HIT|P2|CLASS_OBJ|10
+HIT|P2|STATIC|10
+HIT|P2|OPOVL|10
+HIT|P2|INHERIT|30
+HIT|P2|VIRTUAL|30
+HIT|P2|TEMPLATE_STL|10
+HIT|P2|EXCEPT|10
+HIT|P2|FILE_IO|10

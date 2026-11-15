@@ -1,0 +1,17 @@
+# Python Programming: syllabus based on supplied semester III notes
+SUBJECT|PY|Python Programming|TCS346|3
+TOPIC|PY_BASIC|Unit 1|Python basics, data types and operators|50|2
+TOPIC|PY_FUNC|Unit 1|Functions, parameters, lambda and modules|60|3
+TOPIC|PY_COLLECTION|Unit 2|Lists, tuples, dictionaries and strings|70|4
+TOPIC|PY_FILE|Unit 2|Files, regular expressions and exceptions|80|2
+TOPIC|PY_OOP|Unit 3|Python classes, inheritance and polymorphism|50|3
+TOPIC|PY_NUMPY|Unit 4|NumPy and numerical computing|60|4
+TOPIC|PY_PANDAS|Unit 4|Pandas and DataFrames|70|2
+TOPIC|PY_EDA|Unit 5|Data cleaning, statistics and visualization|80|3
+PREREQ|PY_BASIC|PY_FUNC
+PREREQ|PY_FUNC|PY_COLLECTION
+PREREQ|PY_COLLECTION|PY_FILE
+PREREQ|PY_FILE|PY_OOP
+PREREQ|PY_OOP|PY_NUMPY
+PREREQ|PY_NUMPY|PY_PANDAS
+PREREQ|PY_PANDAS|PY_EDA

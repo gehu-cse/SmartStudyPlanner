@@ -1,0 +1,20 @@
+Q|CR_INTRO|Which of the following is covered by this topic?|Security attacks, services and OSI architecture;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_INTRO|Which subject includes Security attacks, services and OSI architecture?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_CLASSIC|Which of the following is covered by this topic?|Classical ciphers and cryptanalysis;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_CLASSIC|Which subject includes Classical ciphers and cryptanalysis?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_DES|Which of the following is covered by this topic?|DES, S-DES and block ciphers;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_DES|Which subject includes DES, S-DES and block ciphers?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_STREAM|Which of the following is covered by this topic?|Stream ciphers and RC4;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_STREAM|Which subject includes Stream ciphers and RC4?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_MATH|Which of the following is covered by this topic?|Modular arithmetic and Euclidean algorithm;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_MATH|Which subject includes Modular arithmetic and Euclidean algorithm?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_KEY|Which of the following is covered by this topic?|Key distribution and random numbers;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_KEY|Which subject includes Key distribution and random numbers?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_RSA|Which of the following is covered by this topic?|RSA and public key cryptography;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_RSA|Which subject includes RSA and public key cryptography?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_MAC|Which of the following is covered by this topic?|Message authentication, MAC and signatures;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_MAC|Which subject includes Message authentication, MAC and signatures?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_NETWORK|Which of the following is covered by this topic?|Firewalls, IDS, malware and DDoS;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_NETWORK|Which subject includes Firewalls, IDS, malware and DDoS?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.
+Q|CR_LAW|Which of the following is covered by this topic?|Cybercrime and intellectual property;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|CR_LAW|Which subject includes Cybercrime and intellectual property?|Introduction to Cryptography;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Introduction to Cryptography.

@@ -1,0 +1,250 @@
+# ==================================================================
+# STUDY NOTES AND VIDEO LINKS -- Data Structures with C (TCS302)
+# Built from the detailed Semester III exam-ready notes, unit by unit.
+# Format: NOTE|topicId|text   LINK|topicId|label|url
+#         PLAYLIST|label|url  TIP|text  QA|question|answer  QBANK|question
+# ==================================================================
+SUBJECT|DS|Data Structures with C (TCS302)
+TOPIC|ARRAYS
+NOTE|ARRAYS|Data: raw values. Data item: smallest unit (elementary) or group item (e.g. name = first + last). Record: collection of related fields. File: collection of records. Entity, attribute, key (field that identifies a record uniquely).
+NOTE|ARRAYS|Data structure: a particular way of organising data in memory so that it can be used efficiently. Linear: elements in sequence (array, stack, queue, linked list). Non-linear: hierarchical or network (tree, graph). Static (fixed size, array) vs dynamic (grows at run time, linked list).
+NOTE|ARRAYS|Data structure operations: traversing, searching, inserting, deleting, sorting, merging.
+NOTE|ARRAYS|Abstract Data Type (ADT): mathematical model of data plus operations, independent of implementation.
+NOTE|ARRAYS|Stack ADT: data = ordered list; operations = push, pop, peek, isEmpty, isFull. C implements ADTs using struct and functions.
+NOTE|ARRAYS|struct student { int roll; char name[20]; float marks; }; // user-defined type struct student s1 = {1, "Ved", 88.5}; struct student *p = &s1; printf("%d %s", s1.roll, p->name); // . for variable, -> for pointer int *a = (int*) malloc(5 * sizeof(int)); // dynamic memory a = (int*) realloc(a, 10 * sizeof(int)); free(a); // malloc, calloc, realloc, free
+NOTE|ARRAYS|Algorithm: finite, ordered set of unambiguous steps to solve a problem. Properties: input, output, finiteness, definiteness, effectiveness.
+NOTE|ARRAYS|Time complexity: number of basic operations as a function of input size n. Space complexity: memory needed (input + auxiliary). We count operations, not seconds.
+NOTE|ARRAYS|Best, average, worst case: e.g. linear search best O(1) (found first), worst O(n) (last or absent).
+NOTE|ARRAYS|Asymptotic notations: Big-O f(n) = O(g(n)) if f(n) <= c.g(n) for n >= n0 (upper bound). Omega f(n) >= c.g(n) (lower bound). Theta tight bound (both). Example: 3n2 + 5n + 2 = O(n2); drop constants and lower-order terms.
+NOTE|ARRAYS|Growth order: O(1) < O(log n) < O(n) < O(n log n) < O(n2) < O(n3) < O(2n) < O(n!).
+NOTE|ARRAYS|Time-space trade-off: using extra space to save time (hash table, precomputed table) or saving space by recomputing (compression). Example: store factorials in array for O(1) lookup.
+NOTE|ARRAYS|Analysis tips: single loop to n is O(n); nested loops O(n2); loop that halves/doubles i is O(log n); sequential statements add.
+NOTE|ARRAYS|for(i = 1; i <= n; i++) // O(n) for(i = 1; i <= n; i *= 2) // O(log n) for(i = 0; i < n; i++) for(j = 0; j < n; j++) // O(n^2)
+NOTE|ARRAYS|An array is a collection of elements of the same type stored in contiguous memory, accessed by index.
+NOTE|ARRAYS|Advantages: random access O(1), simple. Disadvantages: fixed size, insertion/deletion O(n) due to shifting.
+NOTE|ARRAYS|Operation Method Time Traversal visit each element O(n) Insertion at position k shift elements from k to end right by one O(n) Deletion at position k shift elements after k left by one O(n) Linear search compare one by one O(n) Access by index address calculation O(1) void insert(int a[], int *n, int k, int x){ // insert x at index k for(int i = *n - 1; i >= k; i--) a[i+1] = a[i]; // shift right a[k] = x; (*n)++; } void del(int a[], int *n, int k){ for(int i = k; i < *n - 1; i++) a[i] = a[i+1]; // shift left (*n)--; } Address calculation Array...
+NOTE|ARRAYS|Example: 2-D row major A[5][4] (indices from 0), base 2000, w = 2. Loc(A[3][2]) = 2000 + 2 [ 4 x 3 + 2 ] = 2000 + 28 = 2028. Column major: 2000 + 2 [ 5 x 2 + 3 ] = 2026.
+NOTE|ARRAYS|Sparse matrix A matrix with most elements zero. Storing all elements wastes memory, so store only non-zero elements. Triplet representation: array of (row, column, value); first row holds (total rows, total columns, number of non-zero).
+NOTE|ARRAYS|Linked representation keeps non-zero nodes in lists.
+NOTE|ARRAYS|Saves space when non-zero count is small: stores 3(k+1) numbers instead of m x n. Transpose in triplet form: swap row and column, then reorder.
+LINK|ARRAYS|YouTube search: array address calculation sparse matrix|https://www.youtube.com/results?search_query=array+address+calculation+sparse+matrix
+TOPIC|AVL
+NOTE|AVL|An AVL tree (Adelson-Velsky and Landis) is a height-balanced BST: for every node, balance factor = height(left) - height(right) is -1, 0 or +1. Because height is always O(log n), search, insert and delete are guaranteed O(log n). After insertion or deletion, if a node becomes unbalanced, restore balance by rotations.
+NOTE|AVL|Case Cause (insertion) Fix LL new node in left subtree of left child single right rotation at unbalanced node RR new node in right subtree of right child single left rotation LR new node in right subtree of left child left rotation on left child, then right rotation on node RL new node in left subtree of right child right rotation on right child, then left rotation on node Example: Insert 30, 20, 10 30 -> left 20 -> left 10 gives LL imbalance at 30 (BF = +2). Right rotation makes 20 the root with children 10 and 30.
+NOTE|AVL|Example: Insert 10, 30, 20 10 -> right 30 -> left 20 gives RL imbalance at 10. Right rotate 30 (20 becomes parent of 30), then left rotate 10: root 20, children 10 and 30.
+NOTE|AVL|Rotations are O(1); at most one rotation (single or double) is needed after an insertion. Minimum nodes in AVL tree of height h: N(h) = N(h-1) + N(h-2) + 1.
+NOTE|AVL|Exam tip: Unit 3 exam favourites: tree properties (n0 = n2 + 1); traversals of given tree; tree from inorder + preorder; BST insertion and deletion; AVL rotations with insertion sequence; heap insert/delete and heap sort; Huffman tree and codes; threaded tree; extended binary tree.
+NOTE|AVL|Q. Maximum nodes in a binary tree of height 4 (root at level 1)?
+NOTE|AVL|A. Its height is at most about 1.44 log n because balance factors stay within -1 to +1.
+LINK|AVL|YouTube search: AVL tree rotations explained|https://www.youtube.com/results?search_query=AVL+tree+rotations+explained
+TOPIC|BTREE
+NOTE|BTREE|A B-tree of order m is a balanced multiway search tree designed for disks, where one node = one disk block.
+NOTE|BTREE|Every node has at most m children and m - 1 keys. Every non-root internal node has at least ceil(m/2) children (ceil(m/2) - 1 keys). The root has at least 2 children (if not a leaf). All leaves are at the same level.
+NOTE|BTREE|Keys in a node are sorted; keys in child i lie between key i-1 and key i.
+NOTE|BTREE|Search: like BST but multiway; O(log n) block accesses. Insertion: insert in the leaf; if the node overflows (more than m-1 keys) split it around the median and push the median up to the parent (may propagate to the root, increasing height). Deletion: remove key; if a node underflows, borrow from a sibling or merge with it.
+NOTE|BTREE|Tree grows upwards (height only increases when the root splits), so it stays balanced.
+NOTE|BTREE|Example: B-tree of order 3 (2-3 tree), insert 10, 20, 30 Insert 10, 20 in one node. Inserting 30 overflows (3 keys > 2): split around median 20; 20 moves up as new root with children [10] and [30].
+NOTE|BTREE|B+ tree: a variant where all data records (or record pointers) are stored only in leaf nodes, and internal nodes hold only keys as index. Leaves are linked in a list, so range queries and sequential scans are fast. Keys may be repeated in internal nodes. Internal nodes hold more keys (no data pointers), so tree is shallower.
+NOTE|BTREE|B-tree B+ tree Data in internal and leaf nodes Data only in leaf nodes Leaves not linked Leaves linked for sequential access Search may end at internal node Search always reaches a leaf (uniform time) Better for single key lookup Better for range queries and full scans Used in some file systems Used in databases and file systems (NTFS, indexes)
+LINK|BTREE|YouTube search: B tree and B+ tree insertion|https://www.youtube.com/results?search_query=B+tree+and+B%2B+tree+insertion
+TOPIC|FILE_ORG
+NOTE|FILE_ORG|A file is a collection of records stored on secondary storage. Data is moved in blocks (pages). Blocking factor bfr = floor(block size / record size). Disk access time = seek + rotational latency + transfer; so organisation aims to minimise block accesses.
+NOTE|FILE_ORG|Sequential file: records in key order; good for batch processing; search O(n)/binary search on blocks; insertion costly. Direct (hashed) file: record address computed by hash function; fast direct access. Indexed sequential (ISAM): sequential file plus an index. Heap (pile) file: unordered, appended at the end.
+NOTE|FILE_ORG|An index is a separate structure holding (key, pointer to record/block) pairs, much smaller than the data file, so searching it is fast (like a book index).
+NOTE|FILE_ORG|Primary index: on the ordering key of a sequentially ordered file; one entry per block (sparse). Clustering index: on a non-key ordering field. Secondary index: on a non-ordering field; dense (entry for every record).
+NOTE|FILE_ORG|Multilevel index: index on the index, to reduce search to few block accesses; B-trees generalise this.
+NOTE|FILE_ORG|Dense index: one entry per record. Sparse index: one entry per block.
+LINK|FILE_ORG|YouTube search: file organization indexed sequential file|https://www.youtube.com/results?search_query=file+organization+indexed+sequential+file
+TOPIC|GRAPH_REPR
+NOTE|GRAPH_REPR|A graph G = (V, E): vertices and edges. Directed (edges have direction) or undirected; weighted (edge cost); simple (no loops/multiple edges); connected; cyclic/acyclic; degree (in-degree and out-degree). Path, cycle, tree (connected acyclic, V-1 edges), complete graph (E = V(V-1)/2 undirected).
+NOTE|GRAPH_REPR|Adjacency matrix: V x V matrix, entry 1 (or weight) if edge. Space O(V2), edge test O(1), listing neighbours O(V); good for dense graphs. Adjacency list: array of lists of neighbours. Space O(V + E), neighbours O(degree); good for sparse graphs.
+LINK|GRAPH_REPR|YouTube search: graph representation adjacency matrix list|https://www.youtube.com/results?search_query=graph+representation+adjacency+matrix+list
+TOPIC|GRAPH_TRAV
+NOTE|GRAPH_TRAV|BFS (Breadth First Search): start at source, visit all neighbours, then their neighbours (level by level) using a queue and a visited array. Finds shortest path in unweighted graph. Time O(V + E) with adjacency list (O(V2) with matrix).
+NOTE|GRAPH_TRAV|DFS (Depth First Search): go as deep as possible along a path, then backtrack, using a stack or recursion.
+NOTE|GRAPH_TRAV|Time O(V + E). Applications: cycle detection, topological sort, connected components, solving mazes, finding strongly connected components.
+NOTE|GRAPH_TRAV|int adj[10][10], vis[10], n; void dfs(int v){ vis[v] = 1; printf("%d ", v); for(int u = 0; u < n; u++) if(adj[v][u] && !vis[u]) dfs(u); } void bfs(int s){ int q[20], f = 0, r = 0; vis[s] = 1; q[r++] = s; while(f < r){ int v = q[f++]; printf("%d ", v); for(int u = 0; u < n; u++) if(adj[v][u] && !vis[u]){ vis[u] = 1; q[r++] = u; } } }
+NOTE|GRAPH_TRAV|Maintains a collection of disjoint sets with operations MakeSet(x), Find(x) (representative of the set containing x) and Union(a, b) (merge sets). Each set is a tree with the root as representative; parent[] array stores the tree.
+NOTE|GRAPH_TRAV|Path compression: during Find, make every visited node point directly to the root; flattens the tree.
+NOTE|GRAPH_TRAV|Union by rank/size: attach the shorter (smaller) tree under the taller (larger) root to keep trees shallow.
+NOTE|GRAPH_TRAV|Together they give nearly constant amortised time, O(alpha(n)) per operation where alpha is the inverse Ackermann function. Used in Kruskal's algorithm (cycle check) and connected components.
+NOTE|GRAPH_TRAV|int p[100], rk[100]; void makeset(int n){ for(int i = 0; i < n; i++){ p[i] = i; rk[i] = 0; } } int find(int x){ return p[x] == x ? x : (p[x] = find(p[x])); } // path compression void unite(int a, int b){ a = find(a); b = find(b); if(a == b) return; if(rk[a] < rk[b]){ int t = a; a = b; b = t; } // union by rank p[b] = a; if(rk[a] == rk[b]) rk[a]++; }
+LINK|GRAPH_TRAV|YouTube search: BFS DFS graph traversal|https://www.youtube.com/results?search_query=BFS+DFS+graph+traversal
+TOPIC|HASH
+NOTE|HASH|Hashing maps a key to a table index using a hash function h(k), giving average O(1) search, insert and delete. The table is the hash table of size m.
+NOTE|HASH|Good hash function: easy to compute, spreads keys uniformly, minimises collisions. Methods: division h(k) = k mod m (choose m prime); mid-square (square key, take middle digits); folding (split key into parts and add); multiplication method; digit extraction.
+NOTE|HASH|Collision: two keys give the same index. Load factor = n / m.
+NOTE|HASH|Chaining (open hashing): each slot holds a linked list of all keys that hash there; table can hold more keys than slots; search time O(1 + load factor).
+NOTE|HASH|Open addressing (closed hashing): all keys stored in table; on collision probe for another free slot. Linear probing: h(k, i) = (h(k) + i) mod m (primary clustering). Quadratic probing: (h(k) + c1 i + c2 i2) mod m (secondary clustering). Double hashing: (h1(k) + i h2(k)) mod m, fewest clusters. Deletion needs a tombstone marker.
+NOTE|HASH|Example: Linear probing, m = 10, keys 25, 35, 15, 22 25 -> 5. 35 -> 5 taken -> 6. 15 -> 5, 6 taken -> 7. 22 -> 2. Table: index 2=22, 5=25, 6=35, 7=15.
+NOTE|HASH|int table[10]; // -1 means empty void insertKey(int k){ int i = k % 10; while(table[i] != -1) i = (i + 1) % 10; // linear probing table[i] = k; } Exam tip: Unit 4 exam favourites: sorting comparison table; trace of bubble/insertion/quick/merge/heap on a sample array; quick sort worst case; binary search with trace; hashing methods and collision resolution with an example.
+NOTE|HASH|Q. Which sorting algorithm is best for nearly sorted data?
+NOTE|HASH|Q. Why is merge sort not preferred for arrays in memory-constrained systems?
+NOTE|HASH|A. It needs O(n) extra space; heap sort or quick sort are in-place.
+LINK|HASH|YouTube search: hashing collision resolution linear probing|https://www.youtube.com/results?search_query=hashing+collision+resolution+linear+probing
+TOPIC|HEAP
+NOTE|HEAP|A complete binary tree with the heap property. Max-heap: every parent >= its children (root is maximum).
+NOTE|HEAP|Min-heap: every parent <= children (root is minimum). Stored in an array: children of i at 2i and 2i+1.
+NOTE|HEAP|Insert: place at the next free position (end), then sift up (swap with parent while violating). O(log n). Delete root: replace root with the last element, reduce size, sift down (heapify, swap with larger child in max-heap).
+NOTE|HEAP|O(log n). Build heap from array: heapify from n/2 down to 1, O(n).
+NOTE|HEAP|Applications: priority queue, heap sort, k-th largest, scheduling.
+NOTE|HEAP|Example: Max-heap insertion 10, 20, 15, 30, 40 Insert 10. Insert 20: sift up, root 20, child 10. Insert 15: right child of 20. Insert 30: under 10 (left of 10), sift up past 10 and 20 -> root 30. Insert 40: becomes root; array result 40, 30, 15, 10, 20.
+NOTE|HEAP|void heapify(int a[], int n, int i){ // max-heap, 0-indexed int l = 2*i + 1, r = 2*i + 2, big = i; if(l < n && a[l] > a[big]) big = l; if(r < n && a[r] > a[big]) big = r; if(big != i){ int t = a[i]; a[i] = a[big]; a[big] = t; heapify(a, n, big); } }
+LINK|HEAP|YouTube search: binary heap insert delete heapify|https://www.youtube.com/results?search_query=binary+heap+insert+delete+heapify
+TOPIC|HUFFMAN
+NOTE|HUFFMAN|Huffman coding is a greedy lossless compression method that gives shorter prefix-free binary codes to more frequent characters. It builds a Huffman tree (a weighted extended binary tree with minimum weighted path length).
+NOTE|HUFFMAN|1. Create a leaf node for each character with its frequency and put all in a min-priority queue.
+NOTE|HUFFMAN|2. Remove the two nodes with smallest frequency; create a new internal node with frequency = their sum, with them as children.
+NOTE|HUFFMAN|3. Insert the new node back. Repeat until only one node (root) remains.
+NOTE|HUFFMAN|4. Assign 0 to left edges and 1 to right edges; the code of a character is the path from root to its leaf.
+NOTE|HUFFMAN|Example: a:45, b:13, c:12, d:16, e:9, f:5 Merge f(5)+e(9)=14; c(12)+b(13)=25; 14+d(16)=30; 25+30=55; a(45)+55=100. Codes: a=0, c=100, b=101, f=1100, e=1101, d=111. Total bits = 45x1 + 12x3 + 13x3 + 5x4 + 9x4 + 16x3 = 224 vs 300 with 3-bit fixed codes.
+LINK|HUFFMAN|YouTube search: Huffman coding algorithm example|https://www.youtube.com/results?search_query=Huffman+coding+algorithm+example
+TOPIC|LL
+NOTE|LL|A linked list is a collection of nodes placed anywhere in memory; each node holds data and a pointer to the next node. The pointer head stores the first node's address; last node's next is NULL. Memory is allocated dynamically.
+NOTE|LL|Array Linked list Contiguous memory, fixed size Non-contiguous, grows and shrinks Random access O(1) Sequential access O(n) Insert/delete O(n) (shifting) Insert/delete O(1) if position known No extra pointer memory Extra memory for pointers Memory may be wasted or insufficient Allocated as needed struct node { int data; struct node *next; }; struct node *head = NULL; void insertBeg(int x){ struct node *n = (struct node*)malloc(sizeof(struct node)); n->data = x; n->next = head; head = n; } // O(1) void insertEnd(int x){ struct node *n =...
+NOTE|LL|Header linked list: contains a special header node at the start that stores extra information (e.g. number of nodes); list nodes follow. Grounded (last next = NULL) or circular header list (last points back to header).
+NOTE|LL|Doubly linked list (two-way list): each node has prev, data, next. Traversal in both directions, easy deletion given a node pointer, but extra memory. Two-way header list: doubly linked list with a header node.
+NOTE|LL|Circular linked list: last node points to the first; no NULL; any node can be a starting point; useful for round-robin scheduling.
+NOTE|LL|Linked list in array: arrays INFO[] and LINK[] with integer indexes as pointers; START is the first index; AVAIL is a list of free cells; used in languages without pointers.
+NOTE|LL|struct dnode { struct dnode *prev; int data; struct dnode *next; }; void insertAfterD(struct dnode *p, int x){ struct dnode *n = malloc(sizeof(struct dnode)); n->data = x; n->prev = p; n->next = p->next; if(p->next) p->next->prev = n; p->next = n; } void deleteD(struct dnode *p){ if(p->prev) p->prev->next = p->next; if(p->next) p->next->prev = p->prev; free(p); }
+NOTE|LL|Stack: push = insert at head, pop = delete at head (both O(1), no overflow except memory). Queue: keep front and rear pointers; enqueue at rear (rear->next = n; rear = n;), dequeue from front.
+NOTE|LL|Each term of a polynomial is a node with coefficient, exponent, next, stored in decreasing order of exponent.
+NOTE|LL|Example 5x3 + 4x2 + 2 : (5,3) -> (4,2) -> (2,0).
+NOTE|LL|1. Take pointers p and q at heads of the two polynomials.
+NOTE|LL|2. If exponent(p) > exponent(q): copy p's term to result, move p.
+NOTE|LL|3. If exponent(p) < exponent(q): copy q's term, move q.
+NOTE|LL|4. If equal: add coefficients; if the sum is not zero, add term to result; move both.
+NOTE|LL|5. When one list ends, copy the rest of the other.
+NOTE|LL|Example: Addition (5x^3 + 4x^2 + 2) + (3x^3 + 7x + 1) = 8x^3 + 4x^2 + 7x + 3.
+NOTE|LL|A list whose elements may be atoms or other lists (sublists). Each node has a tag field (atom/list) and data or sublist pointer. Example L = (a, (b, c), d). Used to represent polynomials in many variables, nested structures, LISP lists.
+NOTE|LL|Exam tip: Unit 2 exam favourites: circular queue operations; deque types; priority queue; linked list insert/delete/reverse programs; array vs linked list; doubly and circular lists; polynomial addition; linked list in array; stack/queue using linked list.
+NOTE|LL|Q. Why is a circular queue better than a linear queue?
+NOTE|LL|A. It reuses freed front cells, avoiding false overflow.
+NOTE|LL|Q. How do you detect a loop in a linked list?
+NOTE|LL|A. Floyd's method: two pointers (slow moves 1, fast moves 2); if they meet there is a loop.
+LINK|LL|YouTube search: linked list operations in C|https://www.youtube.com/results?search_query=linked+list+operations+in+C
+TOPIC|MST
+NOTE|MST|A spanning tree connects all V vertices using V - 1 edges with no cycle. The MST of a weighted connected undirected graph is the spanning tree of minimum total weight. Both algorithms below are greedy.
+NOTE|MST|Kruskal's algorithm: sort all edges by weight; for each edge in order, add it if it does not form a cycle (check with Union-Find); stop when V - 1 edges are chosen. Time O(E log E) (sorting). Good for sparse graphs.
+NOTE|MST|Prim's algorithm: start from any vertex; repeatedly add the minimum-weight edge connecting the tree to a vertex outside it. Time O(V2) with matrix, O(E log V) with heap. Good for dense graphs.
+NOTE|MST|Example: Edges: A-B 4, A-C 3, B-C 1, B-D 2, C-D 4, D-E 2, C-E 6 Kruskal sorted: B-C 1, B-D 2, D-E 2, A-C 3, A-B 4, C-D 4, C-E 6. Take B-C, B-D, D-E, A-C (4 edges for 5 vertices). Total = 1+2+2+3 = 8.
+LINK|MST|YouTube search: Kruskal and Prim minimum spanning tree|https://www.youtube.com/results?search_query=Kruskal+and+Prim+minimum+spanning+tree
+TOPIC|QUEUE
+NOTE|QUEUE|A queue is a linear structure where insertion is at the rear and deletion at the front: FIFO (First In First Out), like a ticket line. Operations: enqueue, dequeue, front, isEmpty, isFull. Applications: CPU scheduling, printer spooling, BFS, buffers, call centres.
+NOTE|QUEUE|#define MAX 5 int q[MAX], front = -1, rear = -1; void enqueue(int x){ if(rear == MAX - 1){ printf("Overflow"); return; } if(front == -1) front = 0; q[++rear] = x; } int dequeue(){ if(front == -1 // front > rear){ printf("Underflow"); return -1; } return q[front++]; }
+NOTE|QUEUE|Drawback of linear queue: after dequeues the freed front cells cannot be reused, so overflow occurs even when the queue has empty space.
+NOTE|QUEUE|Treat the array as a circle: after the last index comes index 0. Rear moves as rear = (rear + 1) % MAX, front as front = (front + 1) % MAX. Full when (rear + 1) % MAX == front; empty when front == -1. Uses space fully.
+NOTE|QUEUE|void enq(int x){ if((rear + 1) % MAX == front){ printf("Full"); return; } if(front == -1) front = rear = 0; else rear = (rear + 1) % MAX; q[rear] = x; } int deq(){ if(front == -1){ printf("Empty"); return -1; } int x = q[front]; if(front == rear) front = rear = -1; else front = (front + 1) % MAX; return x; }
+NOTE|QUEUE|Deque (double-ended queue): insertion and deletion at both ends. Input-restricted: insert only at rear, delete at both. Output-restricted: delete only at front, insert at both. Can act as both stack and queue.
+NOTE|QUEUE|Priority queue: every element has a priority; the element with highest priority is removed first; equal priorities follow FIFO. Implementations: unsorted array/list (insert O(1), delete O(n)), sorted list (insert O(n), delete O(1)), binary heap (both O(log n)). Applications: OS scheduling, Dijkstra, Huffman coding.
+LINK|QUEUE|YouTube search: circular queue and priority queue|https://www.youtube.com/results?search_query=circular+queue+and+priority+queue
+TOPIC|SHORTEST_PATH
+NOTE|SHORTEST_PATH|Algorithm Type Negative edges Time Technique Dijkstra single source No O(V2) or O((V+E) log V) with heap greedy Bellman-Ford single source Yes, detects negative cycles O(V E) relax all edges V-1 times (DP) Floyd-Warshall all pairs Yes (no negative cycle) O(V3) dynamic programming
+NOTE|SHORTEST_PATH|Dijkstra: dist[source] = 0, others infinity. Repeatedly pick the unvisited vertex u with smallest dist, mark it, and relax its edges: if dist[u] + w(u,v) < dist[v], update dist[v]. Fails with negative edges.
+NOTE|SHORTEST_PATH|Bellman-Ford: repeat V-1 times: for every edge (u,v,w) relax. A further pass that still relaxes means a negative cycle exists.
+NOTE|SHORTEST_PATH|Floyd-Warshall: for k, i, j: d[i][j] = min(d[i][j], d[i][k] + d[k][j]) with k as the intermediate vertex.
+NOTE|SHORTEST_PATH|void floyd(int d[][N], int n){ // d[i][j] initial = weight or INF, d[i][i] = 0 for(int k = 0; k < n; k++) for(int i = 0; i < n; i++) for(int j = 0; j < n; j++) if(d[i][k] + d[k][j] < d[i][j]) d[i][j] = d[i][k] + d[k][j]; } void dijkstra(int g[][N], int s, int n){ int dist[N], done[N] = {0}; for(int i = 0; i < n; i++) dist[i] = INF; dist[s] = 0; for(int c = 0; c < n - 1; c++){ int u = -1; for(int i = 0; i < n; i++) if(!done[i] && (u == -1 // dist[i] < dist[u])) u = i; done[u] = 1; for(int v = 0; v < n; v++) if(g[u][v] && !done[v] && dist[u] + g[u][v]...
+NOTE|SHORTEST_PATH|Exam tip: Unit 5 exam favourites: file organisation types and indexing; B-tree insertion (order given) and B vs B+; adjacency matrix/list; BFS and DFS traces; Union-Find with path compression and rank; Kruskal and Prim on a graph; Dijkstra table; Bellman-Ford vs Dijkstra; Floyd-Warshall.
+NOTE|SHORTEST_PATH|A. It assumes a finalised vertex has the shortest distance, but a later negative edge could reduce it; Bellman-Ford handles this.
+NOTE|SHORTEST_PATH|A. Prim grows one tree from a start vertex by adding the cheapest connecting edge; Kruskal picks globally cheapest edges avoiding cycles, merging components.
+LINK|SHORTEST_PATH|YouTube search: Dijkstra shortest path example table|https://www.youtube.com/results?search_query=Dijkstra+shortest+path+example+table
+TOPIC|SORTING
+NOTE|SORTING|Linear (sequential) search: compare the key with each element in turn. Works on unsorted data. Best O(1), average and worst O(n).
+NOTE|SORTING|Binary search: array must be sorted. Compare key with middle; if equal done; if smaller search left half, else right half. Each step halves the range: worst/average O(log n), best O(1). Needs random access (array), not suited to linked lists.
+NOTE|SORTING|int linear(int a[], int n, int k){ for(int i = 0; i < n; i++) if(a[i] == k) return i; return -1; } int binary(int a[], int n, int k){ int low = 0, high = n - 1; while(low <= high){ int mid = (low + high) / 2; if(a[mid] == k) return mid; else if(k < a[mid]) high = mid - 1; else low = mid + 1; } return -1; } Example: Binary search for 23 in 2, 5, 8, 12, 16, 23, 38, 56 low=0, high=7, mid=3 (12) < 23 so low=4. mid=5 (23) found at index 5 in 2 comparisons.
+NOTE|SORTING|Point Linear Binary Data any order sorted only Time (worst) O(n) O(log n) Structure array or list array Simplicity simplest needs sorting first
+NOTE|SORTING|Sorting arranges data in ascending/descending order. Internal sort: data fits in memory (bubble, insertion, quick, merge, heap). External sort: data on disk (external merge sort).
+NOTE|SORTING|Stable: equal keys keep original relative order. In-place: uses O(1) extra memory. Adaptive: faster on nearly sorted input. Comparison-based sorts need at least O(n log n) comparisons in worst case.
+NOTE|SORTING|Bubble sort: repeatedly compare adjacent elements and swap if out of order; after pass i the i-th largest is at its place. n-1 passes. With a swapped flag the best case (sorted) is O(n). Best O(n), average and worst O(n2), stable, in-place.
+NOTE|SORTING|void bubble(int a[], int n){ for(int i = 0; i < n - 1; i++){ int sw = 0; for(int j = 0; j < n - 1 - i; j++) if(a[j] > a[j+1]){ int t = a[j]; a[j] = a[j+1]; a[j+1] = t; sw = 1; } if(!sw) break; } } Example: Bubble sort 5 3 8 1 Pass 1: 3 5 1 8. Pass 2: 3 1 5 8. Pass 3: 1 3 5 8 sorted.
+NOTE|SORTING|Insertion sort: take each element and insert it at the correct position in the already sorted left part by shifting larger elements right. Best O(n) (sorted), average/worst O(n2), stable, in-place, good for small or nearly sorted data and online sorting.
+NOTE|SORTING|void insertion(int a[], int n){ for(int i = 1; i < n; i++){ int key = a[i], j = i - 1; while(j >= 0 && a[j] > key){ a[j+1] = a[j]; j--; } a[j+1] = key; } }
+NOTE|SORTING|Divide and conquer: choose a pivot, partition so elements smaller than pivot go left and larger go right (pivot lands in its final place), then sort both parts recursively. Average O(n log n); worst O(n2) when pivot is always smallest/largest (e.g. already sorted input with first/last pivot); space O(log n) stack; not stable, in-place. Random or median-of-three pivot avoids the worst case.
+NOTE|SORTING|int partition(int a[], int lo, int hi){ int pivot = a[hi], i = lo - 1; for(int j = lo; j < hi; j++) if(a[j] <= pivot){ i++; int t = a[i]; a[i] = a[j]; a[j] = t; } int t = a[i+1]; a[i+1] = a[hi]; a[hi] = t; return i + 1; } void quick(int a[], int lo, int hi){ if(lo < hi){ int p = partition(a, lo, hi); quick(a, lo, p-1); quick(a, p+1, hi); } } Example: Quick sort 10 80 30 90 40 50 70 (pivot = last = 70) After partition: 10 30 40 50 70 90 80 -> pivot 70 in place at index 4; sort left (10 30 40 50) and right (90 80) recursively.
+NOTE|SORTING|Divide and conquer: split array into two halves, sort each recursively, merge two sorted halves into one using a temporary array. Always O(n log n) (best, average, worst), needs O(n) extra space, stable. Two-way merge uses two sorted lists; good for linked lists and external sorting.
+NOTE|SORTING|void merge(int a[], int l, int m, int r){ int t[100], i = l, j = m + 1, k = 0; while(i <= m && j <= r) t[k++] = (a[i] <= a[j]) ? a[i++] : a[j++]; while(i <= m) t[k++] = a[i++]; while(j <= r) t[k++] = a[j++]; for(i = 0; i < k; i++) a[l + i] = t[i]; } void msort(int a[], int l, int r){ if(l < r){ int m = (l + r) / 2; msort(a, l, m); msort(a, m+1, r); merge(a, l, m, r); } } Recurrence: T(n) = 2T(n/2) + O(n) which gives O(n log n).
+NOTE|SORTING|Build a max-heap from the array (O(n)); then repeatedly swap the root (largest) with the last element of the heap, reduce heap size by one and heapify the root (O(log n)). Total O(n log n) in all cases, in-place O(1) space, not stable.
+NOTE|SORTING|void heapsort(int a[], int n){ for(int i = n/2 - 1; i >= 0; i--) heapify(a, n, i); // build max-heap for(int i = n - 1; i > 0; i--){ int t = a[0]; a[0] = a[i]; a[i] = t; heapify(a, i, 0); } }
+NOTE|SORTING|Algorithm Best Average Worst Space Stable Technique Bubble O(n) O(n2) O(n2) O(1) Yes exchange Insertion O(n) O(n2) O(n2) O(1) Yes insertion Quick O(n log n) O(n log n) O(n2) O(log n) No divide and conquer Merge O(n log n) O(n log n) O(n log n) O(n) Yes divide and conquer Heap O(n log n) O(n log n) O(n log n) O(1) No selection with heap
+LINK|SORTING|YouTube search: sorting algorithms comparison table|https://www.youtube.com/results?search_query=sorting+algorithms+comparison+table
+TOPIC|STACK
+NOTE|STACK|A stack is a linear structure in which insertion and deletion happen only at one end, the top. It follows LIFO (Last In First Out), like a pile of plates.
+NOTE|STACK|Operations: push (insert at top), pop (remove top), peek/top (read top), isEmpty, isFull. Overflow: push on full stack. Underflow: pop on empty stack. All operations O(1).
+NOTE|STACK|#define MAX 100 int s[MAX], top = -1; void push(int x){ if(top == MAX - 1) printf("Overflow\n"); else s[++top] = x; } int pop(){ if(top == -1){ printf("Underflow\n"); return -1; } return s[top--]; } int peek(){ return top == -1 ? -1 : s[top]; }
+NOTE|STACK|Applications: expression conversion and evaluation, function call management (call stack), recursion, parenthesis matching, undo/redo, backtracking, DFS, reversing a string.
+NOTE|STACK|Notation Operator position Example for a + b Infix between operands a + b Prefix (Polish) before operands + a b Postfix (reverse Polish) after operands a b +
+NOTE|STACK|Prefix and postfix need no brackets and no precedence rules, so they are easy for a computer to evaluate.
+NOTE|STACK|Precedence: ^ (highest, right to left) > * / % > + - (left to right).
+NOTE|STACK|Algorithm: infix to postfix 1. Scan the infix expression left to right.
+NOTE|STACK|4. Operator: while stack top is an operator with higher or equal precedence (for ^ only higher), pop it to output; then push the scanned operator.
+NOTE|STACK|6. At the end pop all remaining operators to output.
+NOTE|STACK|Example: A + B * C - D Scan A: out=A. + push. B: out=AB. * (higher than +) push. C: out=ABC. - : pop * (higher), pop + (equal) -> out=ABC*+, push -. D: out=ABC*+D. End: pop - -> ABC*+D-.
+NOTE|STACK|Example: (A + B) * (C - D) / E ( push; A out; + push; B out; ) pops + -> AB+. * push. ( push; C; - push; D; ) pops - -> AB+CD-. / (same precedence as *) pops * -> AB+CD-*, push /. E out. End pop / -> AB+CD-*E/.
+NOTE|STACK|Example: A ^ B ^ C (right associative) ^ does not pop an equal ^, so result is ABC^^.
+NOTE|STACK|Infix to prefix Reverse the infix expression, swap ( with ), convert to postfix with one change: pop an operator from the stack only if it has strictly higher precedence than the scanned one (for ^ pop on higher or equal), then reverse the result. Example A+B*C: reverse C*B+A, postfix CB*A+, reverse +A*BC.
+NOTE|STACK|3. Operator: pop two operands (first popped is the right operand b, second is left a), compute a op b, push result.
+NOTE|STACK|Example: 6 2 3 + - 3 8 2 / + * 2 ^ 3 + Push 6,2,3; + gives 5 -> stack 6,5; - gives 1; push 3,8,2; / gives 4 -> 1,3,4; + gives 7 -> 1,7; * gives 7; push 2; ^ gives 49; push 3; + gives 52.
+NOTE|STACK|int evalPostfix(char *e){ // single digit operands for(int i = 0; e[i]; i++){ if(isdigit(e[i])) push(e[i] - '0'); else { int b = pop(), a = pop(); switch(e[i]){ case '+': push(a+b); break; case '-': push(a-b); break; case '*': push(a*b); break; case '/': push(a/b); break; } } } return pop(); }
+NOTE|STACK|A function that calls itself to solve smaller instances. Needs a base case (stops recursion) and a recursive case. The system uses a stack of activation records for calls.
+NOTE|STACK|Types: direct (f calls f), indirect (f calls g, g calls f), tail (recursive call is last statement, can be optimised to loop), linear (one recursive call, e.g. factorial), binary/tree (two calls, e.g. Fibonacci), nested (argument is a recursive call, e.g. Ackermann).
+NOTE|STACK|Recursion vs iteration: recursion is shorter and natural for trees/divide and conquer but uses more memory (stack) and may be slower; iteration is faster and uses constant stack.
+NOTE|STACK|int fact(int n){ return n == 0 ? 1 : n * fact(n - 1); } // O(n) time, O(n) stack int fib(int n){ return n < 2 ? n : fib(n-1) + fib(n-2); } // O(2^n) void hanoi(int n, char a, char b, char c){ // move n disks a->c using b if(n == 0) return; hanoi(n-1, a, c, b); printf("Move disk %d from %c to %c\n", n, a, c); hanoi(n-1, b, a, c); } Tower of Hanoi needs 2n - 1 moves for n disks (3 disks: 7 moves).
+NOTE|STACK|Exam tip: Unit 1 exam favourites: Big-O/Omega/Theta; address calculation numericals; sparse matrix triplet; stack operations code; infix to postfix/prefix with table trace; postfix evaluation; recursion types, factorial/Fibonacci/Hanoi.
+NOTE|STACK|A. No parentheses or precedence rules are needed; a single left-to-right scan with a stack evaluates it.
+NOTE|STACK|A. Pushing onto a full stack (array stack) or exhausting call stack memory due to infinite or very deep recursion.
+LINK|STACK|YouTube search: infix to postfix using stack|https://www.youtube.com/results?search_query=infix+to+postfix+using+stack
+TOPIC|TREE_BST
+NOTE|TREE_BST|Binary tree: each node has at most two children (left, right). Strict (full): each node has 0 or 2 children.
+NOTE|TREE_BST|Complete: all levels filled except possibly the last, which is filled left to right. Perfect: all leaves at same level, all internal nodes have 2 children. Skewed: all nodes only left or only right.
+NOTE|TREE_BST|Properties (root at level 1): max nodes at level i = 2i-1. Max nodes in tree of height h = 2h - 1. Minimum height with n nodes = ceil(log2(n+1)). For any non-empty binary tree: n0 = n2 + 1 (leaves = nodes with two children + 1). Total nodes = n0 + n1 + n2; edges = n - 1.
+NOTE|TREE_BST|Array representation (index from 1): root at 1, left child of i at 2i, right child at 2i+1, parent at floor(i/2). Good for complete trees (no waste), poor for skewed. Linked representation: node {left, data, right}, 2n - (n-1) = n + 1 NULL pointers.
+NOTE|TREE_BST|struct tnode { int data; struct tnode *left, *right; }; struct tnode* newNode(int x){ struct tnode *t = malloc(sizeof(struct tnode)); t->data = x; t->left = t->right = NULL; return t; } int height(struct tnode *t){ if(!t) return 0; int l = height(t->left), r = height(t->right); return 1 + (l > r ? l : r); } int count(struct tnode *t){ return t ? 1 + count(t->left) + count(t->right) : 0; }
+NOTE|TREE_BST|Traversal Order Remember Preorder Root, Left, Right N L R Inorder Left, Root, Right L N R Postorder Left, Right, Root L R N Level order level by level using a queue BFS void preorder(struct tnode *t){ if(t){ printf("%d ", t->data); preorder(t->left); preorder(t->right); } } void inorder(struct tnode *t){ if(t){ inorder(t->left); printf("%d ", t->data); inorder(t->right); } } void postorder(struct tnode *t){ if(t){ postorder(t->left); postorder(t->right); printf("%d ", t->data); } } Example: Tree: A root; left B (children D, E); right C (right child...
+NOTE|TREE_BST|Construction: inorder + preorder (or inorder + postorder) gives a unique tree: the first preorder (last postorder) element is root; elements left of root in inorder form left subtree, right ones form right subtree; recurse. Preorder + postorder alone is not enough.
+NOTE|TREE_BST|Expression tree: leaves are operands, internal nodes operators. Inorder gives infix, preorder prefix, postorder postfix.
+NOTE|TREE_BST|Non-recursive inorder uses a stack: go left pushing nodes; pop, visit, go right.
+NOTE|TREE_BST|In a binary tree with n nodes, n + 1 pointers are NULL. A threaded binary tree uses these NULL pointers to store threads: a NULL right pointer points to the inorder successor, a NULL left pointer to the inorder predecessor.
+NOTE|TREE_BST|A flag bit tells whether a pointer is a child link or thread. Types: single-threaded (right only) and double-threaded.
+NOTE|TREE_BST|Advantage: inorder traversal without recursion or stack, faster, saves space.
+NOTE|TREE_BST|Replace every NULL pointer of a binary tree by a special external node. Every internal node then has exactly 2 children. If I = internal path length, E = external path length, n = internal nodes: E = I + 2n. Useful for Huffman coding and analysing search trees.
+NOTE|TREE_BST|For every node: all keys in left subtree < node < all keys in right subtree. Inorder traversal gives sorted order. Search, insert, delete take O(h): O(log n) for balanced tree, O(n) for skewed tree.
+NOTE|TREE_BST|Search: compare with root; go left if smaller, right if larger. Insert: search for the key's place and attach as a new leaf (inserting 50, 30, 70, 20, 40 builds root 50 with children 30 and 70; 20, 40 under 30).
+NOTE|TREE_BST|Delete cases: (1) leaf: remove it. (2) one child: replace node with its child. (3) two children: replace with inorder successor (minimum of right subtree) or inorder predecessor, then delete that node.
+NOTE|TREE_BST|Path length: internal path length is the sum of levels of all nodes; average search cost is path length / n. A smaller path length means a better (more balanced) tree.
+NOTE|TREE_BST|struct tnode* insert(struct tnode *t, int x){ if(!t) return newNode(x); if(x < t->data) t->left = insert(t->left, x); else if(x > t->data) t->right = insert(t->right, x); return t; } struct tnode* minNode(struct tnode *t){ while(t->left) t = t->left; return t; } struct tnode* del(struct tnode *t, int x){ if(!t) return NULL; if(x < t->data) t->left = del(t->left, x); else if(x > t->data) t->right = del(t->right, x); else { if(!t->left){ struct tnode *r = t->right; free(t); return r; } if(!t->right){ struct tnode *l = t->left; free(t); return l; }...
+LINK|TREE_BST|YouTube search: binary search tree insertion deletion|https://www.youtube.com/results?search_query=binary+search+tree+insertion+deletion
+PLAYLIST|DSA playlist given by the student (reference)|https://youtube.com/playlist?list=PLNqfpBj18rUbxhl2vGXnk_kjosgVLBdMq
+PLAYLIST|Abdul Bari algorithms playlist (search on YouTube)|https://www.youtube.com/results?search_query=Abdul+Bari+algorithms+playlist
+TIP|For every algorithm question the examiner wants the trace, not just the answer: draw the table or tree after each step, then state the complexity.
+QA|Define ADT.|A mathematical model of a data type defined by its data and operations, independent of implementation.
+QA|What is Big-O notation?|An upper bound on the growth of running time: f(n) = O(g(n)) if f(n) <= c g(n) for all n >= n0.
+QA|State the postfix form of A+B*C.|ABC*+.
+QA|What is overflow and underflow?|Overflow: inserting into a full structure. Underflow: deleting from an empty one.
+QA|Differentiate stack and queue.|Stack is LIFO with one end (top); queue is FIFO with insertion at rear and deletion at front.
+QA|What is a header node?|A special first node of a linked list that stores information such as the number of nodes, not actual data.
+QA|What is a complete binary tree?|A binary tree with all levels full except possibly the last, which is filled from left to right.
+QA|What is the balance factor in an AVL tree?|Height of left subtree minus height of right subtree; allowed values are -1, 0, +1.
+QA|What is a collision in hashing?|Two different keys mapping to the same table index.
+QA|What is a spanning tree?|A connected acyclic subgraph that includes all vertices of a graph, with V - 1 edges.
+QA|What is path compression?|Flattening a Union-Find tree by pointing all nodes on the find path directly to the root. Five and ten-mark questions (practise these)
+QBANK|Explain asymptotic notations. Find the time complexity of given loops.
+QBANK|Calculate address of an element in a 2-D array in row-major and column-major order with example.
+QBANK|Explain stack operations with C code. Convert (A+B)*(C-D)/E to postfix and prefix using a stack, showing each step.
+QBANK|Evaluate a given postfix expression using a stack.
+QBANK|Explain recursion and its types. Write recursive programs for factorial, Fibonacci and Tower of Hanoi.
+QBANK|Explain circular queue, deque and priority queue with algorithms.
+QBANK|Write C functions to insert, delete, display and reverse a singly linked list.
+QBANK|Explain doubly and circular linked lists. Compare with arrays.
+QBANK|Write an algorithm to add two polynomials using linked lists with an example.
+QBANK|Explain tree traversals with algorithms. Construct a tree from given inorder and preorder.
+QBANK|Explain BST insertion and deletion (all three cases) with example.
+QBANK|Construct an AVL tree by inserting a given sequence, showing all rotations.
+QBANK|Explain heap insertion, deletion and heap sort with an example.
+QBANK|Explain the Huffman algorithm and build the Huffman tree for given frequencies.
+QBANK|Explain quick sort and merge sort with algorithm, example and complexity. Compare all sorting methods.
+QBANK|Explain hashing, hash functions and collision resolution techniques with examples.
+QBANK|Explain B-tree and B+ tree. Insert given keys into a B-tree of given order.
+QBANK|Explain BFS and DFS with algorithms and a trace on a graph.
+QBANK|Explain Kruskal's and Prim's algorithms and find the MST for a given graph.
+QBANK|Explain Dijkstra, Bellman-Ford and Floyd-Warshall algorithms with examples.
+QBANK|Explain the Union-Find data structure with path compression and union by rank.

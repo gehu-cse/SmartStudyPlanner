@@ -1,0 +1,47 @@
+# Exact PYQ question text extracted from supplied examination-paper PDF
+# Format: QUESTION|year|topicId|questionId|question text
+QUESTION|2023|CR_INTRO|a|What do you mean by network security model? Explain the key components with suitable block diagram.
+QUESTION|2023|CR_INTRO|b|Write about the security services and mechanisms used in implementing security in any organization. State the relationship between them.
+QUESTION|2023|CR_INTRO|c|What do you mean by authentication and authorization? Write and explain how authentication and authorization is important in network and web security.
+QUESTION|2023|CR_DES|a|With the help of a diagram briefly discuss the functions performed in a single round in SDES. Also draw the block diagram of double and triple DES.
+QUESTION|2023|CR_KEY|b|State how a stream cipher differs from a block cipher. Explain the importance of pseudorandom generator.
+QUESTION|2023|CR_DES|c|State how modern block ciphers convert a plain text into cipher text. State how cryptographic strength is increased in a modern block cipher.
+QUESTION|2023|CR_INTRO|a|Calculate the values of the following (show the steps): (i) (2^{51} /mod 17) (ii) (2^{245} /mod 11)
+QUESTION|2023|CR_KEY|b|Explain with suitable diagram the various key distribution techniques available in symmetric key distribution.
+QUESTION|2023|CR_RSA|c|State the various ways public key is distributed in an asymmetric encryption.
+QUESTION|2023|CR_MAC|a|Explain with the help of suitable block diagram how confidentiality, authentication and integrity is achieved in message authentication using Message Authentication Code (MAC).
+QUESTION|2023|CR_MAC|b|Explain about digital signature with the help of a block diagram. Also state how message authentication and public key cryptography is used in a digital signature.
+QUESTION|2023|CR_RSA|c|Calculate the value of private and public key pair using RSA algorithm, given that: [ p=1,/quad q=13 ] Also show the encryption and decryption steps using the plain text value of: [ M=5 ] Write all the steps involved.
+QUESTION|2023|CR_NETWORK|a|What do you mean by firewall? Write about the different types of firewalls available. State how a firewall is different from Intrusion Detection System (IDS).
+QUESTION|2023|CR_NETWORK|b|Explain the following terms: (i) Intrusion Detection System (ii) Packet Filter Firewall (iii) Distributed Denial of Service Attack (DDoS) (iv) Intellectual Property
+QUESTION|2024|CR_NETWORK|c|What do you mean by malware? Write about five types of malware attacks along with their solutions and precautions. END TERM (ODD) SEMESTER EXAMINATION — DECEMBER 2024
+QUESTION|2024|CR_INTRO|a|What is the OSI security architecture? List and briefly define categories of passive and active security attacks.
+QUESTION|2024|CR_INTRO|b|State the differences between diffusion and confusion with examples. State its role in increasing the cryptographic strength of an algorithm.
+QUESTION|2024|CR_MAC|c|Explain with the help of suitable block diagram how Confidentiality, Authentication and Integrity is achieved in Message Authentication using Message Encryption.
+QUESTION|2024|CR_DES|a|Show the result of 3-bit circular left shift and circular right shift on the word: [ (10011011)_2 ] Explain, with the help of neat and clean diagram, the working of a single round of DES with key generation.
+QUESTION|2024|CR_DES|b|Calculate the round keys (sub keys) (K_1,K_2) from the key: [ K=101010101 ] using S-DES algorithm. Given: [ P10={3,5,2,7,4,10,1,9,8,6} ] and [ P8={6,3,7,4,8,5,10,9} ]
+QUESTION|2024|CR_STREAM|c|Explain the steps of Key scheduling, stream generation, Encryption and Decryption of RC4.
+QUESTION|2024|CR_INTRO|a|In Symmetric Key Cryptography, how a KDC can create a session key (K_{AB}) between Alice and Bob (Simple protocol). Find the Euler's totient function (/phi(n)) of: [ /phi(21) ] and [ /phi(35) ]
+QUESTION|2024|CR_MATH|b|State the facts of Euclidean algorithm. Find the greatest common divisor of: [ (3486,10292) ] and [ (2740,1760) ] using Euclidean algorithm.
+QUESTION|2024|CR_MATH|c|Find the multiplicative inverse of: [ (3 /mod 5) ] and [ (11 /mod 26) ] using extended Euclidean algorithm.
+QUESTION|2024|CR_RSA|a|Explain the Key generation, Encryption and Decryption steps of RSA. In RSA, given: [ p=19,/quad q=23,/quad e=3 ] find: [ n,/quad /phi(n),/quad d ]
+QUESTION|2024|CR_MAC|b|What is message authentication? Explain the four possible ways in which a hash code is used to provide message authentication.
+QUESTION|2024|CR_INTRO|c|Explain, with the help of diagram, the working of MD5 with compression function.
+QUESTION|2024|CR_NETWORK|a|What is the difference between statistical anomaly detection and rule-based intrusion detection? What is a honeypot?
+QUESTION|2024|CR_NETWORK|b|What is a DDoS? List four techniques used by firewalls to control access and enforce a security policy.
+QUESTION|2025|CR_LAW|c|Define three types of intellectual property. Describe a classification of computer crime based on the role that the computer plays in the criminal activity. END TERM (ODD) SEMESTER EXAMINATION — DECEMBER 2025
+QUESTION|2025|CR_INTRO|a|With the help of a neat and clearly labelled diagram, illustrate the OSI Security Architecture and explain the role of each component in detail.
+QUESTION|2025|CR_CLASSIC|b|Critically examine the strengths and weaknesses of Classical Ciphers against modern cryptanalysis techniques.
+QUESTION|2025|CR_INTRO|c|Explain the principles of symmetric encryption with suitable block diagram.
+QUESTION|2025|CR_INTRO|a|Perform frequency analysis on the ciphertext: "7OI SSP" and attempt its decryption using a monoalphabetic substitution technique. Show all intermediate steps.
+QUESTION|2025|CR_DES|b|Encrypt the plaintext: "1101 0110" using a single round of Simplified DES (S-DES). Show all steps.
+QUESTION|2025|CR_KEY|c|Discuss the necessity of Random Numbers and Pseudorandom Numbers in cryptographic systems. Provide suitable real-world applications for each.
+QUESTION|2025|CR_MATH|a|Explain the importance of mathematical background in cryptography. Discuss with reference to prime numbers and modular arithmetic.
+QUESTION|2025|CR_KEY|b|A company aims to reduce the frequency of rekeying operations for secure communication channels. Recommend an appropriate key distribution mechanism and justify your selection.
+QUESTION|2025|CR_MAC|c|Critically examine the role of Message Authentication Codes (MACs) in ensuring integrity.
+QUESTION|2025|CR_RSA|a|Given (p=11), choose a public exponent (e=7). (i) Compute the public key ((n,e)) and the private exponent (d). (ii) Encrypt the message (M=8). (iii) Decrypt the resulting ciphertext to recover (M).
+QUESTION|2025|CR_INTRO|b|Compare Symmetric Encryption, Asymmetric Encryption, and Hybrid Encryption. Recommend an optimal strategy for secure mobile banking communication and justify your choice.
+QUESTION|2025|CR_KEY|c|Discuss the challenges associated with Key Distribution in large-scale networks and suggest practical solutions to overcome these issues.
+QUESTION|2025|CR_LAW|a|Discuss in detail the ethical and legal aspects of cybercrime, focusing on Intellectual Property Rights and Privacy.
+QUESTION|2025|CR_NETWORK|b|A company's network is under frequent intrusion attempts. Design a basic intrusion detection strategy for them.
+QUESTION|2025|CR_NETWORK|c|Propose a complete Network Plan for an organization facing frequent malware infections. Discuss measures at: 1. OS level 2. Network level 3. Application level 4. User training level

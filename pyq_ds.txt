@@ -1,0 +1,45 @@
+# ============================================================
+# PREVIOUS YEAR QUESTION WEIGHTS  --  Data Structures with C
+# Source: end-term question papers supplied by the student.
+# Format:  PAPER|paperId|label|year
+#          HIT|paperId|topicId|marksAsked
+# ============================================================
+PAPER|D1|End Term November 2025|2025
+PAPER|D2|End Semester Examination 2024|2024
+PAPER|D3|End Semester Examination 2024 - Additional Paper|2024
+HIT|D1|STACK|10
+HIT|D1|GRAPH_TRAV|10
+HIT|D1|LL|40
+HIT|D1|HASH|10
+HIT|D1|TREE_BST|5
+HIT|D1|AVL|5
+HIT|D1|BTREE|10
+HIT|D1|HUFFMAN|10
+HIT|D1|SHORTEST_PATH|10
+HIT|D1|HEAP|10
+HIT|D1|GRAPH_REPR|10
+HIT|D1|MST|10
+HIT|D1|SORTING|10
+HIT|D2|LL|20
+HIT|D2|AVL|10
+HIT|D2|TREE_BST|30
+HIT|D2|BTREE|10
+HIT|D2|HUFFMAN|10
+HIT|D2|HASH|10
+HIT|D2|SHORTEST_PATH|10
+HIT|D2|SORTING|10
+HIT|D2|GRAPH_TRAV|10
+HIT|D2|STACK|10
+HIT|D2|FILE_ORG|10
+HIT|D2|MST|10
+HIT|D3|LL|40
+HIT|D3|TREE_BST|20
+HIT|D3|AVL|10
+HIT|D3|SORTING|10
+HIT|D3|GRAPH_TRAV|10
+HIT|D3|HUFFMAN|10
+HIT|D3|HASH|10
+HIT|D3|FILE_ORG|10
+HIT|D3|MST|10
+HIT|D3|BTREE|10
+HIT|D3|GRAPH_REPR|10

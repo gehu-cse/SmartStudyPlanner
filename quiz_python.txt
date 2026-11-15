@@ -1,0 +1,16 @@
+Q|PY_BASIC|Which of the following is covered by this topic?|Python basics, data types and operators;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_BASIC|Which subject includes Python basics, data types and operators?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.
+Q|PY_FUNC|Which of the following is covered by this topic?|Functions, parameters, lambda and modules;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_FUNC|Which subject includes Functions, parameters, lambda and modules?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.
+Q|PY_COLLECTION|Which of the following is covered by this topic?|Lists, tuples, dictionaries and strings;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_COLLECTION|Which subject includes Lists, tuples, dictionaries and strings?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.
+Q|PY_FILE|Which of the following is covered by this topic?|Files, regular expressions and exceptions;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_FILE|Which subject includes Files, regular expressions and exceptions?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.
+Q|PY_OOP|Which of the following is covered by this topic?|Python classes, inheritance and polymorphism;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_OOP|Which subject includes Python classes, inheritance and polymorphism?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.
+Q|PY_NUMPY|Which of the following is covered by this topic?|NumPy and numerical computing;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_NUMPY|Which subject includes NumPy and numerical computing?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.
+Q|PY_PANDAS|Which of the following is covered by this topic?|Pandas and DataFrames;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_PANDAS|Which subject includes Pandas and DataFrames?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.
+Q|PY_EDA|Which of the following is covered by this topic?|Data cleaning, statistics and visualization;Organic synthesis;Fluid mechanics;Thermodynamics|1|This topic is listed in the supplied semester III notes.
+Q|PY_EDA|Which subject includes Data cleaning, statistics and visualization?|Python Programming;Engineering drawing;Mechanics;Environmental studies|1|The syllabus places it under Python Programming.

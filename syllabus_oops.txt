@@ -1,0 +1,32 @@
+# ============================================================
+# SYLLABUS FILE -- Object Oriented Programming with C++
+# Course: TCS307
+# Format: TOPIC|id|unit|name|estMinutes|difficulty(1-5)
+#         PREREQ|prerequisiteId|dependentTopicId
+# ============================================================
+SUBJECT|OOPS|Object Oriented Programming with C++|TCS307|3
+TOPIC|OOP_BASICS|Unit 1|OOP Paradigms, Features of OOP, Procedural vs Object Oriented|50|2
+TOPIC|NAMESPACE|Unit 1|Namespaces, Header Files and Program Structure|35|2
+TOPIC|ARR_STR|Unit 1|Arrays, Strings, Pointers and User Defined Functions|55|2
+TOPIC|CLASS_OBJ|Unit 2|Classes, Objects, Constructors, Destructors and Data Hiding|75|3
+TOPIC|STATIC|Unit 2|Static Data Members and Static Member Functions|30|2
+TOPIC|FRIEND|Unit 2|Friend Functions and Friendship Rules|35|3
+TOPIC|COPY_THIS|Unit 2|Copy Constructor, Deep vs Shallow Copy and this Pointer|45|4
+TOPIC|OPOVL|Unit 2|Operator Overloading: unary, binary, << and >>|80|4
+TOPIC|INHERIT|Unit 3|Inheritance Types, Access Modes, Virtual Base Class and Diamond Problem|90|4
+TOPIC|VIRTUAL|Unit 4|Polymorphism, Virtual Functions, Abstract Classes and Virtual Destructors|85|5
+TOPIC|FILE_IO|Unit 5|C++ Stream Classes and File Handling|60|3
+TOPIC|EXCEPT|Unit 5|Exception Handling, Re-throwing and Custom Exceptions|55|3
+TOPIC|TEMPLATE_STL|Unit 5|Function Templates and Standard Template Library|60|3
+PREREQ|OOP_BASICS|CLASS_OBJ
+PREREQ|OOP_BASICS|NAMESPACE
+PREREQ|OOP_BASICS|ARR_STR
+PREREQ|CLASS_OBJ|STATIC
+PREREQ|CLASS_OBJ|FRIEND
+PREREQ|CLASS_OBJ|COPY_THIS
+PREREQ|CLASS_OBJ|OPOVL
+PREREQ|CLASS_OBJ|INHERIT
+PREREQ|INHERIT|VIRTUAL
+PREREQ|CLASS_OBJ|FILE_IO
+PREREQ|CLASS_OBJ|EXCEPT
+PREREQ|CLASS_OBJ|TEMPLATE_STL

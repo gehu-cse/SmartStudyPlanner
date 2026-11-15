@@ -1,0 +1,332 @@
+# Notes excerpted from supplied exam-ready PDF for Introduction to Cryptography
+NOTE|CR_CLASSIC|Syllabus map: Unit 1 Introduction / Unit 2 Modern Cryptography / Unit 3 Symmetric Key Distribution and
+NOTE|CR_INTRO|Mathematics / Unit 4 Public Key Cryptography and Message Authentication / Unit 5 System Security, Legal and
+NOTE|CR_CLASSIC|information system resources. Confidentiality: only authorised parties read data. Integrity: data and systems
+NOTE|CR_INTRO|are not altered without authorisation. Availability: systems and data are accessible when needed. Often
+NOTE|CR_CLASSIC|added: authenticity (genuine, verifiable source) and accountability (actions traced to an entity).
+NOTE|CR_INTRO|countermeasure, asset (hardware, software, data, communication lines).
+NOTE|CR_CLASSIC|ITU-T Recommendation X.800 defines a systematic way to assess security with three aspects:
+NOTE|CR_INTRO|learn or use information, no change to data or
+NOTE|CR_CLASSIC|modify data stream, create false stream or disrupt
+NOTE|CR_INTRO|traffic analysis (patterns, frequency, length of
+NOTE|CR_CLASSIC|masquerade (one entity pretends to be another),
+NOTE|CR_INTRO|replay (capture and retransmit), modification of
+NOTE|CR_CLASSIC|assures the communicating entity is who it claims (peer entity authentication) and that the data
+NOTE|CR_INTRO|origin is as claimed (data origin authentication)
+NOTE|CR_CLASSIC|prevents unauthorised use of a resource (who can access, under what conditions)
+NOTE|CR_INTRO|protects data from unauthorised disclosure (connection, connectionless, selective field, traffic flow
+NOTE|CR_CLASSIC|assures data received is exactly as sent (no modification, insertion, deletion, replay); with or without
+NOTE|CR_INTRO|prevents sender or receiver from denying a transmitted message (digital signatures)
+NOTE|CR_CLASSIC|resource is accessible and usable on demand by authorised entity
+NOTE|CR_INTRO|exchange, traffic padding, routing control, notarization. Pervasive - trusted functionality, security label, event
+NOTE|CR_CLASSIC|detection, security audit trail, security recovery.
+NOTE|CR_INTRO|Message from source to destination over an insecure channel (internet). A security-related transformation
+NOTE|CR_CLASSIC|(encryption, adding a code such as a signature) is applied to the message, using secret information (key)
+NOTE|CR_INTRO|shared by sender and receiver, possibly with the help of a trusted third party (to distribute secrets or arbitrate
+NOTE|CR_CLASSIC|disputes). Four tasks: (1) design the algorithm that is secure, (2) generate secret information (keys), (3) develop
+NOTE|CR_INTRO|methods to distribute and share secrets, (4) specify the protocol using the algorithm and secrets. The opponent
+NOTE|CR_CLASSIC|(hacker) may attack through the channel. For network access security (viruses, intruders) a gatekeeper
+NOTE|CR_INTRO|function (password login, firewall) and internal controls (monitors) are used.
+NOTE|CR_CLASSIC|1.4 Cryptography fundamentals and terminology
+NOTE|CR_INTRO|plaintext -> ciphertext; Decryption: ciphertext -> plaintext
+NOTE|CR_CLASSIC|secret value used by the algorithm; keyspace = number of possible keys
+NOTE|CR_INTRO|science of designing ciphers; Cryptanalysis: breaking ciphers without knowing key;
+NOTE|CR_CLASSIC|processes blocks of bits / one bit or byte at a time
+NOTE|CR_INTRO|key of n bits has 2n keys (56-bit DES: 7.2 x 1016 keys; 128-bit: 3.4 x 1038).
+NOTE|CR_CLASSIC|Computational security: cost of breaking exceeds the value of the data or time exceeds useful lifetime.
+NOTE|CR_INTRO|1.5 Substitution and transposition techniques
+NOTE|CR_CLASSIC|Substitution replaces plaintext letters with other letters/symbols (changes identity, keeps position).
+NOTE|CR_INTRO|Transposition rearranges positions of letters (keeps identity). Modern ciphers combine both (product cipher).
+NOTE|CR_CLASSIC|26. With k = 3: A->D, B->E, ... Z->C. Only 25 useful keys, so brute force is trivial. Plaintext HELLO with k = 3
+NOTE|CR_INTRO|out += chr((ord(ch) - 65 + k) % 26 + 65) if ch.isalpha() else ch
+NOTE|CR_CLASSIC|caesar("HELLO", 3) # KHOOR caesar("KHOOR", -3) # HELLO
+NOTE|CR_INTRO|Any permutation of the alphabet (26! about 4 x 1026 keys) maps plaintext to cipher letters. Brute force is
+NOTE|CR_CLASSIC|impossible, but the letter frequency of the language survives (E, T, A, O most common in English), so
+NOTE|CR_INTRO|frequency analysis breaks it. Defence: hide frequency (polyalphabetic, digraph ciphers).
+NOTE|CR_CLASSIC|1. Build a 5x5 key matrix: write the keyword (without repeated letters), then the rest of alphabet; I and J share
+NOTE|CR_INTRO|2. Split plaintext into digraphs (pairs); if a pair has same letters insert X between (e.g. BALLOON -> BA LX LO
+NOTE|CR_CLASSIC|3. For each pair: same row -> replace each letter by the one to its right (wrap around). Same column -> letter
+NOTE|CR_INTRO|below. Rectangle -> each letter replaced by the one in its own row, other letter's column.
+NOTE|CR_CLASSIC|Matrix: M O N A R / C H Y B D / E F G I/J K / L P Q S T / U V W X Z. Plaintext 'ar' -> same row -> 'RM'. 'mu' ->
+NOTE|CR_INTRO|same column -> 'CM'. 'hs' -> rectangle -> 'BP'. 'ea' -> rectangle -> 'IM' (or JM).
+NOTE|CR_CLASSIC|(A=0...Z=25); key is an invertible m x m matrix K. C = K.P mod 26, P = K-1 C mod 26. Key matrix must have
+NOTE|CR_INTRO|determinant coprime with 26. Hides single-letter frequencies, but is weak against known-plaintext attack
+NOTE|CR_CLASSIC|K = [[3, 3],[2, 5]], plaintext 'HI' = (7, 8). C = (3x7 + 3x8, 2x7 + 5x8) mod 26 = (45, 54) mod 26 = (19, 2) = TC. det K
+NOTE|CR_INTRO|= 15 - 6 = 9, gcd(9, 26) = 1 so K is invertible mod 26.
+NOTE|CR_CLASSIC|maps to different ciphertext letters, flattening frequencies. Broken by Kasiski examination (find key length)
+NOTE|CR_INTRO|then frequency analysis. Autokey variant uses plaintext itself as key stream. One-time pad (Vernam): random
+NOTE|CR_CLASSIC|key as long as message, used once; unbreakable but key distribution is impractical.
+NOTE|CR_INTRO|Plaintext ATTACK, key LEMON (repeated L E M O N L): A+L = L, T+E = X, T+M = F, A+O = O, C+N = P, K+L =
+NOTE|CR_CLASSIC|row 1 M E M A T R, row 2 E T E F E -> MEMATRETEFE.
+NOTE|CR_INTRO|Can be repeated (double transposition) for more strength. Keeps the letter frequency of the language, so
+NOTE|CR_CLASSIC|character marking, pin punctures, typewriter correction ribbon; digital: LSB (least significant bit)
+NOTE|CR_INTRO|substitution in images/audio, hiding in unused space, text with extra spaces. Drawbacks: large overhead to
+NOTE|CR_CLASSIC|hide few bits; useless once discovered unless also encrypted. Advantage: no obvious ciphertext to attract
+NOTE|CR_INTRO|Exam tip: Unit 1 exam favourites: CIA and OSI architecture; active vs passive attacks; security services and
+NOTE|CR_CLASSIC|mechanisms; network security model; Caesar, Playfair, Hill, Vigenere numericals; rail fence; monoalphabetic and
+NOTE|CR_INTRO|frequency analysis; steganography vs cryptography.
+NOTE|CR_CLASSIC|A. It has only 25 possible keys, so an attacker can try them all (brute force) and it preserves letter frequencies.
+NOTE|CR_INTRO|Q. Difference between a threat and an attack?
+NOTE|CR_CLASSIC|A. A threat is a potential danger; an attack is the actual attempt to exploit a vulnerability.
+NOTE|CR_DES|ingredients: plaintext, encryption algorithm, secret key, ciphertext, decryption algorithm. Requirements:
+NOTE|CR_STREAM|strong algorithm (opponent knowing algorithm and some ciphertext-plaintext pairs cannot find key or plaintext),
+NOTE|CR_DES|and sender/receiver must obtain the key securely and keep it secret.
+NOTE|CR_STREAM|operation (ECB, CBC, CFB, OFB, CTR) for longer messages. Stream cipher: encrypts bit/byte at a time by
+NOTE|CR_DES|substitution) and diffusion (spread plaintext statistics over ciphertext - permutation). Avalanche effect: small
+NOTE|CR_STREAM|change in input/key changes about half of output bits.
+NOTE|CR_DES|A framework (Horst Feistel, IBM) used by DES and many ciphers. It alternates substitution and permutation
+NOTE|CR_STREAM|over multiple rounds and allows the same algorithm for encryption and decryption (only the subkey order
+NOTE|CR_DES|reverses), even if the round function F is not invertible.
+NOTE|CR_STREAM|1. Split the plaintext block into left half L0 and right half R0.
+NOTE|CR_DES|2. For each round i = 1..n: Li = Ri-1; Ri = Li-1 xor F(Ri-1, Ki), where Ki is the subkey of round i derived from the
+NOTE|CR_STREAM|3. After the last round swap halves and join them to form the ciphertext.
+NOTE|CR_DES|4. Decryption: use the same structure with subkeys applied in reverse order Kn, ..., K1.
+NOTE|CR_STREAM|larger = more secure but slower (64 -> 128 bits)
+NOTE|CR_DES|more rounds = more security, slower (16 in DES)
+NOTE|CR_STREAM|greater complexity makes cryptanalysis harder
+NOTE|CR_DES|parity bits), 16 rounds, Feistel network, 48-bit subkeys per round.
+NOTE|CR_STREAM|in F, R is expanded from 32 to 48 bits (E table), XORed with 48-bit subkey, passed through 8 S-boxes (each
+NOTE|CR_DES|maps 6 bits to 4 bits, giving 32 bits - the only non-linear step), then P-permutation; result XORed with L;
+NOTE|CR_STREAM|halves swap. (4) After round 16 swap L and R. (5) Final permutation (IP-1).
+NOTE|CR_DES|round left-circular shift (1 or 2 positions) -> PC-2 selects 48 bits.
+NOTE|CR_STREAM|cracker 1998 in days; today in hours). Replaced by Triple DES and AES (128-bit block; 128, 192, 256-bit
+NOTE|CR_DES|S-boxes S0 and S1 (each 4x4, 4 bits -> 2 bits), P4 permutation, XOR with left half) -> SW (swap halves) -> fK2
+NOTE|CR_STREAM|and store; compute X = D(K2, C) for all 256 K2 and look for matches. Total work about 257 instead of 2112, so
+NOTE|CR_DES|double DES is only slightly stronger than single DES. Requires large memory (256 entries).
+NOTE|CR_STREAM|K3, effective ~80 bits). Backward compatible with DES if K1 = K2 = K3. Slow, so replaced by AES.
+NOTE|CR_DES|generator seeded by the key. Decryption is the same XOR. Keystream must never repeat or be reused with
+NOTE|CR_STREAM|the same key (key reuse reveals P1 xor P2). Fast, no padding, suited to real-time data; weak error propagation
+NOTE|CR_DES|256-byte state array S (a permutation of 0..255). Used in WEP, SSL/TLS (now banned, weak biases).
+NOTE|CR_STREAM|for i in 0..255: S[i] = i; K_expanded[i] = key[i mod keylen]
+NOTE|CR_DES|for i in 0..255: j = (j + S[i] + K_expanded[i]) mod 256; swap(S[i], S[j])
+NOTE|CR_STREAM|loop: i = (i + 1) mod 256; j = (j + S[i]) mod 256; swap(S[i], S[j])
+NOTE|CR_DES|t = (S[i] + S[j]) mod 256; k = S[t] # keystream byte k, ciphertext =
+NOTE|CR_STREAM|properties: uniform distribution and independence (unpredictability: forward and backward).
+NOTE|CR_DES|timing); non-deterministic, not reproducible, slow. PRNG (pseudorandom number generator): deterministic
+NOTE|CR_STREAM|algorithm from a seed (reproducible, fast, e.g. linear congruential generator Xn+1 = (a Xn + c) mod m); fine
+NOTE|CR_DES|for simulation, not secure for crypto. Cryptographically secure PRNG (CSPRNG) (e.g. based on block
+NOTE|CR_STREAM|cipher, hash, Blum Blum Shub) resists prediction.
+NOTE|CR_DES|Exam tip: Unit 2 exam favourites: symmetric encryption model; Feistel structure with equations; DES steps (block
+NOTE|CR_STREAM|64, key 56, 16 rounds, S-box 6 to 4); S-DES key generation; double DES meet-in-the-middle; RC4 KSA/PRGA;
+NOTE|CR_DES|A. Decryption uses the same circuit as encryption with reversed subkeys, and F need not be invertible.
+NOTE|CR_STREAM|A. Its 56-bit key can be exhausted by brute force with modern hardware.
+NOTE|CR_DES|A. A small change in plaintext or key causes a large change (about half the bits) in the ciphertext.
+NOTE|CR_KEY|UNIT 3: SYMMETRIC KEY DISTRIBUTION AND MATHEMATICS
+NOTE|CR_MATH|3.1 Symmetric key distribution using symmetric encryption
+NOTE|CR_KEY|Two parties need a shared secret key known only to them, changed frequently (to limit data exposed if a key is
+NOTE|CR_MATH|compromised). Key distribution is the weakest link. Options for A and B: (1) A selects key and physically
+NOTE|CR_KEY|delivers it to B. (2) A third party selects and delivers. (3) If they had a previous key, one sends a new key
+NOTE|CR_MATH|encrypted with the old key. (4) A trusted third party (KDC) delivers keys over encrypted links to A and B.
+NOTE|CR_KEY|(permanent key shared between each user/end system and the Key Distribution Center (KDC), used to
+NOTE|CR_MATH|includes identities of A and B and a nonce N1. (2) KDC responds with a message encrypted with master key
+NOTE|CR_KEY|Ka containing: the one-time session key Ks, the original request and N1 (to match), and a part encrypted
+NOTE|CR_MATH|with Kb (Ks and A's identity IDA) for B. (3) A stores Ks and forwards the Kb-encrypted part to B; only B can read
+NOTE|CR_KEY|it. (4) B decrypts, now knows Ks and that it came from KDC. Handshake: B sends nonce N2 encrypted with Ks;
+NOTE|CR_MATH|A replies with f(N2) encrypted with Ks to prevent replay and confirm.
+NOTE|CR_KEY|of distribution. Connection-oriented protocols: new session key for each connection; for very long
+NOTE|CR_MATH|connections change periodically. Connectionless protocols (transaction oriented): no connection to close, so
+NOTE|CR_KEY|change key either for each exchange or after a fixed period / number of transactions.
+NOTE|CR_MATH|each end system that performs end-to-end encryption and obtains session keys on behalf of hosts,
+NOTE|CR_KEY|transparent to users. Steps: host sends packet requesting connection; SSM asks the Key Distribution
+NOTE|CR_MATH|Center for a session key (authenticated with master keys); KDC distributes to both SSMs; SSMs then
+NOTE|CR_KEY|encrypt/decrypt the data in packets. Advantages: users unaware, key management centralised.
+NOTE|CR_MATH|needs n(n-1)/2 master keys for n end systems. A requests a session key from B: A sends request with nonce
+NOTE|CR_KEY|N1; B selects Ks and replies encrypted with the shared master key MKab including Ks, ID, f(N1) and a nonce
+NOTE|CR_MATH|N2; A confirms with f(N2). Avoids dependence on (and compromise of) a single KDC but is practical only for
+NOTE|CR_KEY|encryption). Limiting use reduces damage if exposed. Method: control vector associated with each key (as in
+NOTE|CR_MATH|IBM CCA): a bit field specifying uses and restrictions; the key is encrypted with a value derived from the
+NOTE|CR_KEY|control vector (Km xor CV) so it decrypts correctly only with the matching control vector - stops misuse such
+NOTE|CR_MATH|as using a key-encrypting key as a data key. Tags/key usage flags in the key header offer a simpler
+NOTE|CR_KEY|factorisation (fundamental theorem of arithmetic). Coprime (relatively prime): gcd(a, b) = 1. Modular
+NOTE|CR_MATH|arithmetic: a mod n = remainder; a = b (mod n) if n divides (a - b). Properties: (a + b) mod n = ((a mod n) + (b
+NOTE|CR_KEY|Based on gcd(a, b) = gcd(b, a mod b), with gcd(a, 0) = a. Repeat division until remainder 0; the last non-zero
+NOTE|CR_MATH|1970 = 1x1066 + 904; 1066 = 1x904 + 162; 904 = 5x162 + 94; 162 = 1x94 + 68; 94 = 1x68 + 26; 68 = 2x26 + 16;
+NOTE|CR_KEY|26 = 1x16 + 10; 16 = 1x10 + 6; 10 = 1x6 + 4; 6 = 1x4 + 2; 4 = 2x2 + 0. gcd = 2.
+NOTE|CR_MATH|Extended Euclidean algorithm and multiplicative inverse
+NOTE|CR_KEY|the multiplicative inverse of a mod n (a-1). The inverse exists only if gcd(a, n) = 1. Used to compute the
+NOTE|CR_MATH|26 = 2x11 + 4; 11 = 2x4 + 3; 4 = 1x3 + 1. Back-substitute: 1 = 4 - 3 = 4 - (11 - 2x4) = 3x4 - 11 = 3(26 - 2x11) - 11 =
+NOTE|CR_KEY|3x26 - 7x11. So 11-1 = -7 = 19 (mod 26). Check 11 x 19 = 209 = 8x26 + 1.
+NOTE|CR_MATH|int gcd(int a, int b){ return b == 0 ? a : gcd(b, a % b); }
+NOTE|CR_KEY|int egcd(int a, int b, int *x, int *y){ // returns g with a*x + b*y = g
+NOTE|CR_MATH|int modinv(int a, int n){ int x, y; int g = egcd(a, n, &x, &y); return g == 1 ? (x % n + n) % n
+NOTE|CR_KEY|long modpow(long b, long e, long m){ long r = 1; b %= m; // fast exponentiation
+NOTE|CR_MATH|while(e > 0){ if(e & 1) r = r * b % m; b = b * b % m; e >>= 1; } return r; }
+NOTE|CR_KEY|p - 1; for prime power: phi(pk) = pk - pk-1; if gcd(m, n) = 1: phi(mn) = phi(m) phi(n), so for primes p, q: phi(pq) =
+NOTE|CR_MATH|(p - 1)(q - 1). Example phi(21) = phi(3) phi(7) = 2 x 6 = 12; phi(36) = 36 (1 - 1/2)(1 - 1/3) = 12.
+NOTE|CR_KEY|then aphi(n) = 1 (mod n). These prove RSA correctness and allow reducing exponents: ak mod n = ak mod phi(n)
+NOTE|CR_MATH|p = 13, phi = 12. 100 mod 12 = 4. So 7100 = 74 mod 13. 72 = 49 = 10, 74 = 100 = 9 (mod 13). Answer 9.
+NOTE|CR_KEY|Exam tip: Unit 3 exam favourites: key distribution scenario with KDC and steps; session key lifetime; transparent
+NOTE|CR_MATH|and decentralized key control; control vector; Euclid and extended Euclid numericals (inverse mod n); totient
+NOTE|CR_KEY|Q. Why use a session key instead of the master key for data?
+NOTE|CR_MATH|A. Using the master key for data would expose it to cryptanalysis; session keys are short-lived so little data is
+NOTE|CR_KEY|Q. When does the multiplicative inverse of a mod n exist?
+NOTE|CR_RSA|UNIT 4: PUBLIC KEY CRYPTOGRAPHY AND MESSAGE AUTHENTICATION
+NOTE|CR_MAC|everyone) and a private key (kept secret by the owner). What one key encrypts, only the other can decrypt. It
+NOTE|CR_RSA|solves the key distribution problem (no shared secret needed) and enables digital signatures.
+NOTE|CR_MAC|cryptanalytic work), and it does not make symmetric encryption obsolete (it is far slower, so used for key
+NOTE|CR_RSA|exchange and signatures while symmetric ciphers encrypt bulk data - hybrid approach).
+NOTE|CR_MAC|Confidentiality, authentication, signatures, key exchange
+NOTE|CR_RSA|sender encrypts message with the receiver's public key; only receiver's private key decrypts
+NOTE|CR_MAC|sender signs (encrypts hash of message) with own private key; anyone verifies with the
+NOTE|CR_RSA|sender's public key (authentication, integrity, nonrepudiation)
+NOTE|CR_MAC|two sides cooperate to establish a session key (Diffie-Hellman, or encrypting session key with
+NOTE|CR_RSA|1. Computationally easy for B to generate a key pair (public PUb, private PRb).
+NOTE|CR_MAC|2. Easy for sender A to encrypt: C = E(PUb, M).
+NOTE|CR_RSA|3. Easy for receiver B to decrypt: M = D(PRb, C).
+NOTE|CR_MAC|4. Infeasible for an opponent, knowing PUb, to determine PRb.
+NOTE|CR_RSA|5. Infeasible for an opponent, knowing PUb and C, to recover M.
+NOTE|CR_MAC|6. Either key can be used for encryption with the other for decryption: M = D(PRb, E(PUb, M)) = D(PUb, E(PRb,
+NOTE|CR_RSA|7. Based on a trapdoor one-way function: easy to compute in one direction, infeasible to invert without secret
+NOTE|CR_MAC|Developed by Rivest, Shamir and Adleman (1977). The most widely used public-key algorithm. Block cipher
+NOTE|CR_RSA|where plaintext and ciphertext are integers between 0 and n - 1. Security rests on the difficulty of factoring the
+NOTE|CR_MAC|product of two large primes (n typically 2048 bits or more).
+NOTE|CR_RSA|1. Select two large primes p and q (p != q), kept secret.
+NOTE|CR_MAC|4. Choose e with 1 < e < phi(n) and gcd(e, phi(n)) = 1 (e.g. 3, 17, 65537).
+NOTE|CR_RSA|5. Compute d = e-1 mod phi(n) (so e d = 1 mod phi(n)) using extended Euclid.
+NOTE|CR_MAC|6. Public key PU = {e, n}, private key PR = {d, n} (p, q, phi(n) are discarded or kept secret).
+NOTE|CR_RSA|Encryption: C = Me mod n (requires M < n). Decryption: M = Cd mod n. Why it works: Cd = Med = M1 + k phi(n) =
+NOTE|CR_MAC|n = 187, phi = 160. d = 23 since 7 x 23 = 161 = 1 mod 160. C = 887 mod 187: 882 = 7744 mod 187 = 77; 884 = 772
+NOTE|CR_RSA|= 5929 mod 187 = 132; 887 = 884 x 882 x 88 = 132 x 77 x 88 mod 187 = 11. Decrypt: 1123 mod 187 = 88 (M < n
+NOTE|CR_MAC|n = 33, phi = 20, d = 3 (7 x 3 = 21 = 1 mod 20). C = 57 mod 33: 52 = 25; 54 = 625 mod 33 = 31 (625 - 18 x 33 =
+NOTE|CR_RSA|31); 57 = 54 x 52 x 5 = 31 x 25 x 5 mod 33: 31 x 25 = 775 mod 33 = 16; 16 x 5 = 80 mod 33 = 14. Decrypt: 143 =
+NOTE|CR_MAC|Signer computes S = H(M)d mod n using the private key; verifier computes Se mod n and compares with H(M).
+NOTE|CR_RSA|chosen-ciphertext attacks (use OAEP padding). Plain (textbook) RSA is deterministic, so padding is required in
+NOTE|CR_MAC|practice. RSA is about 1000 times slower than AES, used for key exchange and signatures.
+NOTE|CR_RSA|Message authentication verifies that a received message is authentic: it comes from the claimed source, has
+NOTE|CR_MAC|not been modified (content, sequence, timing). Encryption alone protects confidentiality, not necessarily
+NOTE|CR_RSA|Only sender and receiver share the key; a message that decrypts to meaningful data
+NOTE|CR_MAC|must come from sender. To detect modification, add a structure, error-detecting
+NOTE|CR_RSA|code (FCS/checksum) before encryption (internal) or after (external); without
+NOTE|CR_MAC|redundancy any random ciphertext may decrypt to plausible-looking text.
+NOTE|CR_RSA|Message stays in clear; an authentication tag is appended. Used when
+NOTE|CR_MAC|confidentiality is not needed, for broadcast, heavy loads, or to authenticate program
+NOTE|CR_RSA|Tag = MAC = C(K, M): fixed-size block computed from message and secret key K
+NOTE|CR_MAC|shared by sender and receiver; receiver recomputes and compares. Provides
+NOTE|CR_RSA|authentication and integrity (not nonrepudiation). Example: HMAC, CBC-MAC.
+NOTE|CR_MAC|H(M): fixed-length message digest, no key. Digest must be protected (encrypt with
+NOTE|CR_RSA|symmetric key, or with sender's private key = digital signature, or use a shared
+NOTE|CR_MAC|resistant): given h, infeasible to find x with H(x) = h; second-preimage (weak collision) resistant: given x,
+NOTE|CR_RSA|infeasible to find y != x with H(y) = H(x); collision resistant (strong): infeasible to find any x != y with H(x) =
+NOTE|CR_MAC|H(y). Birthday paradox: collisions found in about 2m/2 tries for an m-bit hash.
+NOTE|CR_RSA|MD5 (Ron Rivest, 1992) takes a message of arbitrary length and produces a 128-bit message digest,
+NOTE|CR_MAC|processing the input in 512-bit blocks. Structure (Merkle-Damgard):
+NOTE|CR_RSA|1. Append padding bits: add a single 1 bit then 0 bits so that the length becomes 448 mod 512 (padding is
+NOTE|CR_MAC|2. Append length: add the 64-bit representation of the original length, making total length an exact multiple of
+NOTE|CR_RSA|3. Initialise MD buffer: four 32-bit registers A, B, C, D (128 bits) with fixed constants (A = 01234567, B =
+NOTE|CR_MAC|89ABCDEF, C = FEDCBA98, D = 76543210 in hex, little-endian).
+NOTE|CR_RSA|4. Process each 512-bit block (16 words of 32 bits) through the compression function with 4 rounds, each of
+NOTE|CR_MAC|16 steps (64 steps total). Each round uses a different nonlinear function: F, G, H, I (e.g. F(X,Y,Z) = (X and Y)
+NOTE|CR_RSA|or (not X and Z); H = X xor Y xor Z). Each step uses one message word, a constant T[i] from a sine-derived
+NOTE|CR_MAC|table, and a circular left shift. The output of the block is added (mod 232) to the input chaining value.
+NOTE|CR_RSA|5. Output: after the last block, the contents of A // B // C // D (128 bits) form the digest.
+NOTE|CR_MAC|collisions have been found (2004), so MD5 is no longer secure for signatures; still used for checksums. Use
+NOTE|CR_RSA|SHA-256 (256-bit) or SHA-3. SHA-1 has 160-bit output and 80 steps.
+NOTE|CR_MAC|Exam tip: Unit 4 exam favourites: public-key structure, applications and requirements; RSA key generation and
+NOTE|CR_RSA|numerical with small primes; RSA signature; symmetric vs asymmetric; message authentication approaches
+NOTE|CR_MAC|(encryption, MAC, hash); hash requirements; MD5 steps and parameters (128-bit digest, 512-bit blocks, 64
+NOTE|CR_RSA|Q. Which key does the sender use to create a digital signature?
+NOTE|CR_MAC|A. The sender's private key; the receiver verifies with the sender's public key.
+NOTE|CR_RSA|Q. Why is a message authentication code not a digital signature?
+NOTE|CR_MAC|A. A MAC uses a shared secret key, so either party could have produced it; it gives no nonrepudiation.
+NOTE|CR_RSA|Q. What is the length of MD5 digest and block?
+NOTE|CR_MAC|A. Digest 128 bits; block 512 bits; padded length is 448 mod 512 followed by a 64-bit length field.
+NOTE|CR_NETWORK|UNIT 5: SYSTEM SECURITY, LEGAL AND ETHICAL ASPECTS
+NOTE|CR_LAW|An intruder (hacker, cracker) gains unauthorised access to a system or exceeds privileges. Classes:
+NOTE|CR_NETWORK|masquerader (outsider who penetrates access controls to use a legitimate user's account), misfeasor
+NOTE|CR_LAW|(legitimate user who accesses data, programs or resources beyond authorisation, or misuses privileges - usually
+NOTE|CR_NETWORK|an insider), clandestine user (seizes supervisory control and evades auditing and access controls, or
+NOTE|CR_LAW|suppresses audit collection; insider or outsider).
+NOTE|CR_NETWORK|Trojan horses, shoulder surfing, sniffing, phishing), exploit software vulnerabilities (buffer overflow), brute
+NOTE|CR_LAW|precomputed (rainbow table) attacks and makes identical passwords hash differently; shadow password file.
+NOTE|CR_NETWORK|Selection strategies: user education, computer-generated passwords, reactive checking (cracking own
+NOTE|CR_LAW|passwords), proactive checking (reject weak passwords by rules/dictionary/Bloom filter), length and
+NOTE|CR_NETWORK|complexity rules, multi-factor authentication.
+NOTE|CR_LAW|intruder behaviour differs measurably from legitimate user behaviour. Aims: detect quickly, act as deterrent,
+NOTE|CR_NETWORK|collect information to improve prevention. Types: host-based (HIDS) and network-based (NIDS);
+NOTE|CR_LAW|if current behaviour is legitimate. Threshold detection (count of events over time) and profile-based (profile
+NOTE|CR_NETWORK|of user activity, e.g. login frequency, session time, resource use).
+NOTE|CR_LAW|identification (expert-system approach with rules to identify suspicious behaviour/known attack signatures).
+NOTE|CR_NETWORK|records (collects only the information the IDS needs; format includes subject, action, object, exception
+NOTE|CR_LAW|condition, resource usage, timestamp). Honeypots lure attackers to decoy systems.
+NOTE|CR_NETWORK|code that attaches to a host program or file, replicates when the host is executed, spreads by
+NOTE|CR_LAW|standalone, self-replicating program that spreads across a network by exploiting vulnerabilities,
+NOTE|CR_NETWORK|without user action (Morris worm 1988, Code Red, Slammer, WannaCry)
+NOTE|CR_LAW|useful-looking program with hidden malicious function; does not replicate
+NOTE|CR_NETWORK|code embedded in legitimate program that triggers on a condition (date, event) to damage
+NOTE|CR_LAW|secret entry point bypassing normal authentication
+NOTE|CR_NETWORK|collects user information / shows unwanted ads
+NOTE|CR_LAW|encrypts files and demands payment for decryption
+NOTE|CR_NETWORK|hides malware presence with admin-level access
+NOTE|CR_LAW|compromised computer controlled remotely; used for DDoS and spam
+NOTE|CR_NETWORK|itself into other programs/areas), triggering (activated by a system event to perform its function), execution
+NOTE|CR_LAW|(performs the payload - harmless message or destructive data loss).
+NOTE|CR_NETWORK|stealth (hides from antivirus), polymorphic (mutates its signature/encryption each infection), metamorphic
+NOTE|CR_LAW|(rewrites itself completely), macro virus (embedded in documents using Word/Excel macros - platform
+NOTE|CR_NETWORK|caution with attachments), detection (determine that infection occurred and locate), identification (identify the
+NOTE|CR_LAW|specific virus), removal (remove from infected programs and restore the system; if not possible, delete and
+NOTE|CR_NETWORK|checks, checksums), third activity traps (memory-resident, identify actions), fourth full-featured protection
+NOTE|CR_LAW|(combined scanning, activity traps, access control).
+NOTE|CR_NETWORK|login. Phases like a virus: dormant, propagation (search for targets, connect, copy), triggering, execution.
+NOTE|CR_LAW|Defence: patching, firewalls, network monitoring.
+NOTE|CR_NETWORK|network (internet) that filters traffic according to a security policy. Design goals: all traffic in and out must
+NOTE|CR_LAW|pass through it; only authorised traffic (defined by policy) is allowed; the firewall itself must be immune to
+NOTE|CR_NETWORK|employee), infected devices/files brought inside (laptops, USB), or attacks through allowed services.
+NOTE|CR_LAW|examines each IP packet header (source/destination
+NOTE|CR_NETWORK|IP, ports, protocol) against rules (ACL); permit or drop;
+NOTE|CR_LAW|keeps a connection (state) table (TCP session);
+NOTE|CR_NETWORK|allows packets belonging to established connections
+NOTE|CR_LAW|acts as a relay for specific applications (HTTP, FTP,
+NOTE|CR_NETWORK|SMTP); inspects application data; user authenticates
+NOTE|CR_LAW|relays TCP connections without inspecting content;
+NOTE|CR_NETWORK|subnet with a DMZ (demilitarised zone) containing public servers (web, mail) between external and internal
+NOTE|CR_LAW|and unauthorised access, data theft, identity theft, financial fraud, malware distribution, denial-of-service,
+NOTE|CR_NETWORK|cyberstalking, child exploitation material, software piracy, cyber terrorism. Classified by computer as target
+NOTE|CR_LAW|(unauthorised access, DoS), computer as storage (illegal files), computer as communication tool (fraud,
+NOTE|CR_NETWORK|harassment). Law in India: Information Technology Act, 2000 (amended 2008); international: Budapest
+NOTE|CR_LAW|Convention on Cybercrime. Challenges: jurisdiction, anonymity, rapid technology change, evidence collection
+NOTE|CR_NETWORK|works - software, text, music, 60 years in India), trademarks (brand names, logos), trade secrets, industrial
+NOTE|CR_LAW|designs. Issues: software piracy, digital rights management (DRM), plagiarism, open-source licences
+NOTE|CR_NETWORK|websites (cookies), data breaches, profiling, social media. Protection: GDPR (EU), Digital Personal Data
+NOTE|CR_LAW|Protection Act, 2023 (India), data minimisation, consent, anonymisation, encryption.
+NOTE|CR_NETWORK|confidentiality, responsible disclosure of vulnerabilities, ethical hacking (with permission) vs malicious
+NOTE|CR_LAW|hacking, misuse of privileged access, balancing security vs privacy vs freedom, social responsibility, equity
+NOTE|CR_NETWORK|of access. Ethical principle examples: do no harm, respect privacy, honour confidentiality, avoid conflicts of
+NOTE|CR_LAW|Exam tip: Unit 5 exam favourites: intruder classes; IDS types (statistical anomaly, rule-based); password
+NOTE|CR_NETWORK|management and salt; malware types; virus phases, types and countermeasures; worm vs virus; firewall types
+NOTE|CR_LAW|with pros and cons, DMZ; cybercrime, IP, privacy and ethics.
+NOTE|CR_NETWORK|A. A virus needs a host file and user action to spread; a worm is standalone and spreads itself over networks.
+NOTE|CR_LAW|A. A random value added to the password before hashing, so identical passwords produce different hashes and
+NOTE|CR_NETWORK|A. A separate network segment between external and internal firewalls hosting public-facing servers so the
+NOTE|CR_LAW|A. Passive attacks only observe data (eavesdropping, traffic analysis); active attacks alter or create data
+NOTE|CR_NETWORK|A. Preventing sender or receiver from denying that a message was sent or received; achieved by digital
+NOTE|CR_LAW|Q. Differentiate substitution and transposition.
+NOTE|CR_NETWORK|A. Substitution replaces letters with other letters; transposition rearranges the positions of letters.
+NOTE|CR_LAW|A. C = (P + k) mod 26 and P = (C - k) mod 26.
+NOTE|CR_NETWORK|Q. What is the key size and block size of DES?
+NOTE|CR_LAW|A. Key 56 bits (64 with parity), block 64 bits.
+NOTE|CR_NETWORK|A. An attack on double encryption that matches the encryption of the plaintext with the decryption of the
+NOTE|CR_LAW|A. phi(n) is the number of positive integers less than n that are coprime to n; phi(p) = p - 1, phi(pq) = (p-1)(q-1).
+NOTE|CR_NETWORK|Q. What are the public and private keys in RSA?
+NOTE|CR_LAW|A. Public key (e, n); private key (d, n), with e d = 1 mod phi(n).
+NOTE|CR_NETWORK|Q. What is a hash function? Give two properties.
+NOTE|CR_LAW|A. A function giving fixed-size digest of arbitrary input; one-way and collision resistant.
+NOTE|CR_NETWORK|A. Dormant, propagation, triggering, execution.
+NOTE|CR_LAW|A. A device or software that filters traffic between a trusted and an untrusted network according to security rules.
+NOTE|CR_NETWORK|1. Explain the OSI security architecture: attacks, services and mechanisms. Differentiate active and passive
+NOTE|CR_LAW|2. Explain the network security model with a diagram.
+NOTE|CR_NETWORK|3. Explain Caesar, monoalphabetic, Playfair, Hill and Vigenere ciphers with examples; solve encryption
+NOTE|CR_LAW|4. Explain rail fence and columnar transposition ciphers. What is steganography?
+NOTE|CR_NETWORK|5. Explain symmetric encryption principles and Feistel cipher structure.
+NOTE|CR_LAW|6. Explain DES in detail (initial permutation, rounds, S-boxes, key schedule). What is S-DES?
+NOTE|CR_NETWORK|7. What is double DES? Explain the meet-in-the-middle attack and why triple DES is used.
+NOTE|CR_LAW|8. Explain RC4 key scheduling and keystream generation. Compare TRNG and PRNG.
+NOTE|CR_NETWORK|9. Explain a key distribution scenario with a KDC, session key lifetime, transparent and decentralized key
+NOTE|CR_LAW|10. Find gcd with the Euclidean algorithm and multiplicative inverse with the extended Euclidean algorithm;
+NOTE|CR_NETWORK|11. Explain public-key cryptosystem structure, applications and requirements.
+NOTE|CR_LAW|12. Explain the RSA algorithm; encrypt and decrypt for given small primes. How is RSA used for signatures?
+NOTE|CR_NETWORK|13. Explain approaches to message authentication (encryption, MAC, hash functions).
+NOTE|CR_LAW|14. Explain the MD5 algorithm with steps and a diagram of one block processing.
+NOTE|CR_NETWORK|15. Describe intruders, intrusion detection techniques and password management.
+NOTE|CR_LAW|16. Describe types of malicious software; explain virus phases, types and countermeasures; compare virus and
+NOTE|CR_NETWORK|17. Explain firewall design principles and types of firewalls with limitations.
+NOTE|CR_LAW|18. Discuss cybercrime, intellectual property, privacy and ethical issues in computer security.

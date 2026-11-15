@@ -1,0 +1,9 @@
+=== PLAN  2026-11-14 16:43  |  Object Oriented Programming with C++  |  Total 480 min, Buffer 72 min, Method: Greedy Priority Queue (Marks per Minute)
+    1. OOP_BASICS  50 min  10.0 marks
+    2. CLASS_OBJ  75 min  18.5 marks
+    3. INHERIT  90 min  25.7 marks
+    4. VIRTUAL  85 min  21.5 marks
+    5. STATIC  30 min  5.7 marks
+    6. ARR_STR  55 min  10.0 marks
+    Planned marks: 91.5 of 150.0
+

@@ -1,0 +1,8 @@
+# Binaries
+*.exe
+*.o
+*.obj
+
+# Temp files
+*.tmp
+.vscode/

@@ -1,0 +1,21 @@
+# Introduction to Cryptography: syllabus based on supplied semester III notes
+SUBJECT|CRYPTO|Introduction to Cryptography|TCS392|3
+TOPIC|CR_INTRO|Unit 1|Security attacks, services and OSI architecture|50|2
+TOPIC|CR_CLASSIC|Unit 1|Classical ciphers and cryptanalysis|60|3
+TOPIC|CR_DES|Unit 2|DES, S-DES and block ciphers|70|4
+TOPIC|CR_STREAM|Unit 2|Stream ciphers and RC4|80|2
+TOPIC|CR_MATH|Unit 3|Modular arithmetic and Euclidean algorithm|50|3
+TOPIC|CR_KEY|Unit 3|Key distribution and random numbers|60|4
+TOPIC|CR_RSA|Unit 4|RSA and public key cryptography|70|2
+TOPIC|CR_MAC|Unit 4|Message authentication, MAC and signatures|80|3
+TOPIC|CR_NETWORK|Unit 5|Firewalls, IDS, malware and DDoS|50|4
+TOPIC|CR_LAW|Unit 5|Cybercrime and intellectual property|60|2
+PREREQ|CR_INTRO|CR_CLASSIC
+PREREQ|CR_CLASSIC|CR_DES
+PREREQ|CR_DES|CR_STREAM
+PREREQ|CR_STREAM|CR_MATH
+PREREQ|CR_MATH|CR_KEY
+PREREQ|CR_KEY|CR_RSA
+PREREQ|CR_RSA|CR_MAC
+PREREQ|CR_MAC|CR_NETWORK
+PREREQ|CR_NETWORK|CR_LAW

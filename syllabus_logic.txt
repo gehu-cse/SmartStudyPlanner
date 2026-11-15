@@ -1,0 +1,19 @@
+# Logic Design and Computer Organization: syllabus based on supplied semester III notes
+SUBJECT|LDCO|Logic Design and Computer Organization|TCS308|3
+TOPIC|LD_BOOL|Unit 1|Boolean algebra, K-maps and Quine McCluskey|50|2
+TOPIC|LD_COMB|Unit 1|Adders, subtractors, multiplexers and decoders|60|3
+TOPIC|LD_FF|Unit 2|Flip-flops and sequential circuits|70|4
+TOPIC|LD_REG|Unit 2|Registers and shift registers|80|2
+TOPIC|LD_COUNTER|Unit 3|Counters and state machines|50|3
+TOPIC|LD_ARCH|Unit 4|Computer architecture, RISC and CISC|60|4
+TOPIC|LD_ARITH|Unit 4|Booth algorithm and floating point arithmetic|70|2
+TOPIC|LD_MEMORY|Unit 5|Memory hierarchy and cache mapping|80|3
+TOPIC|LD_IO|Unit 5|I/O, interrupts and DMA|50|4
+PREREQ|LD_BOOL|LD_COMB
+PREREQ|LD_COMB|LD_FF
+PREREQ|LD_FF|LD_REG
+PREREQ|LD_REG|LD_COUNTER
+PREREQ|LD_COUNTER|LD_ARCH
+PREREQ|LD_ARCH|LD_ARITH
+PREREQ|LD_ARITH|LD_MEMORY
+PREREQ|LD_MEMORY|LD_IO

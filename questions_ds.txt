@@ -1,0 +1,48 @@
+# Exact PYQ question text extracted from supplied examination-paper PDF
+# Format: QUESTION|year|topicId|questionId|question text
+QUESTION|2025|STACK|a|Evaluate the following postfix expression using stack (show all the steps): 4,3,*,6,4,-,*,5,4,3,2,^,+ (Here comma is used as separator only).
+QUESTION|2025|LL|b|Give name and apply the graph traversal technique on the given graph, to find a path from A to J with minimum number of nodes in between. (Show all steps).
+QUESTION|2025|LL|c|Assume that you have a single linked list with pointer P pointing to the first node of the linked list. Write a C function to rearrange the list so that all even-positioned nodes are arranged first and then all odd-position nodes. (Maintain relative order). Example: 1→2→3→4→5 Output: 1→3→5→2→4
+QUESTION|2025|LL|a|Consider a single linked list with a pointer pointing to its head. Write a C function to insert two nodes, one before the first node and one before the last node of the linked list.
+QUESTION|2025|HASH|b|Explain hash collision with an example. Consider a hash table of size (m) 12. Using linear probing technique with remainder division method h(key) = key mod table size, insert following keys: 24, 17, 19, 12, 81, 29, 92, 15, 41 into the hash table.
+QUESTION|2025|AVL|c|i. Consider following height balance tree. Insert 18 and redraw the tree.
+QUESTION|2025|TREE_BST|c|ii. Consider following binary search tree and delete 80 and redraw the tree.
+QUESTION|2025|LL|a|Assume that you have two sorted singly linked lists. Pointers P and Q are pointing to the first nodes of these linked lists respectively. Write a C function to merge the given linked lists by creating third linked list.
+QUESTION|2025|BTREE|b|Construct a balanced multi-way search tree of order 3. Insert the following keys in the given order: 20, 10, 30, 5, 40, 50, 15, 18, 2, 60, 70.
+QUESTION|2025|LL|c|Write a C function to split a circular linked list into two halves as per user's choice (User choice is data of a node). Ensure both resulting lists are circular.
+QUESTION|2025|HUFFMAN|a|Which algorithm would you use to compress following data: eacdefeafbcdbdd. Generate binary code for each character.
+QUESTION|2025|HEAP|b|Name and apply the algorithm on the following connected weighted graph to find the shortest path from source vertex A to all vertices in the graph. (Show all steps).
+QUESTION|2025|HEAP|c|Write a C function to create a min heap with one key at a time. Also give its worst-case complexity.
+QUESTION|2025|LL|a|Write a C program to create a weighted graph with the help of node pointers and linked list of edges.
+QUESTION|2025|FILE_ORG|b|You have a weighted graph for the following situation: A telecommunications company needs to lay fiber optic cables to connect multiple offices in a region. The cost of laying a cable between any two offices is assigned as weight of the edge. Name and apply an algorithm to find a network that connects all offices with the minimum total cable cost.
+QUESTION|2024|HEAP|c|The following list is to be sorted using Merge Sort: 5, 10, 15, 28, 32, 46, 17, 40, 44. Show the sorting process by indicating how the data would appear in intermediate steps (do not write code). End Semester Examination 2024 — Data Structures with C
+QUESTION|2024|LL|a|Assuming that you have single linked list with pointer ptr at first node. Write a C function to delete all the nodes having even information in the linked list.
+QUESTION|2024|AVL|b|Write advantages of an AVL tree. Draw an AVL tree with following keys: 16, 17, 20, 6, 7, 18, 19, 25, 23, 21.
+QUESTION|2024|TREE_BST|c|Draw an expression tree using following expression: (A-B*C)+(D%E)-(F+G)-H^M.
+QUESTION|2024|BTREE|a|Explain B and B+ Trees. Draw a B-tree of order 4, when the keys arrive in the following order: 4, 9, 8, 3, 1, 10, 2, 15, 20, 25, 30, 12, 35.
+QUESTION|2024|HUFFMAN|b|Apply Huffman's algorithm to find Huffman's tree and code for using following signal: abacdefabcfefcdea, also find the minimum weighted path length.
+QUESTION|2024|HASH|c|Explain hash collision with an example. Consider a hash table of size (m) 12. Using linear probing technique insert following keys 21, 12, 24, 30, 80, 25, 95, 55, 33, 88 and 39 into the hash table.
+QUESTION|2024|HEAP|a|Apply Dijkstra's algorithm to find the shortest path from source vertex A to all other vertices in the given weighted graph.
+QUESTION|2024|HEAP|b|Apply mergesort technique to sort the following sequence: 16, 45, 5, 88, 22, 56, 77, 13, 30, 55, 25, 89. Show the sorting process by indicating how the data would appear in intermediate steps (do not write code).
+QUESTION|2024|LL|c|Write an algorithm to delete a node from a binary search tree. Discuss algorithm with an example.
+QUESTION|2024|LL|a|Give name and apply the graph traversal technique on the given graph, to find a path from M to S with minimum number of nodes in between. (Show all steps).
+QUESTION|2024|LL|b|Assume that you have a single linked list with a pointer ptr at first node. Write a C function to print the Nth node from last in the linked list. Example Input: 10→20→30→40→50, and N = 2 Output: 40
+QUESTION|2024|STACK|c|Convert the following infix expression into the postfix expression using stack (show all the steps): (A^B-C)/(D%E*F)-G^H.
+QUESTION|2024|FILE_ORG|a|Explain sequential organization and index sequential file organization with examples.
+QUESTION|2024|HEAP|b|What do you mean by spanning tree? Find minimal spanning tree from the given graph using Kruskal's algorithm (show all steps).
+QUESTION|2024|LL|c|Write a C function to create a binary search tree and write another function to count the nodes having same parent in the BST. End Semester Examination 2024 — Additional Paper
+QUESTION|2024|LL|a|Write a C function to insert a node in a circular singly linked list. Consider all the cases.
+QUESTION|2024|FILE_ORG|b|Using the following traversals, construct the corresponding binary tree. Inorder: H K O B I L E A F C M J G Preorder: A B D H K E I L C F G J M
+QUESTION|2024|AVL|c|Write advantages of an AVL tree. Draw an AVL tree with following keys: 6, 7, 8, 9, 10, 1, 2, 3, 4, 5.
+QUESTION|2024|HEAP|a|The following list is to be sorted using quick sort: 10, 40, 5, 18, 22, 36, 7, 3, 16, 48, 30, 27. Show the sorting process by indicating how the data would appear in intermediate steps (do not write code).
+QUESTION|2024|TREE_BST|b|Draw an expression tree using following expression: (G^H-I^J)/(K*R^S)+T^U.
+QUESTION|2024|LL|c|Give name and apply the graph traversal technique on the given graph, to find a path from A to G with minimum number of nodes in between. (Show all steps).
+QUESTION|2024|HUFFMAN|a|Apply Huffman's algorithm to find Huffman's tree and code for a=3, b=2, c=4, d=2, e=4, f=3, g=1. Also find the minimum weighted path length.
+QUESTION|2024|HASH|b|Explain hash collision with an example. Consider a hash table of size (m) 11. Using linear probing technique insert following keys 11, 17, 19, 22, 81, 21, 92, 15 and 29 into the hash table.
+QUESTION|2024|LL|c|Assume that you have a sorted single linked list, with a pointer P pointing the first node of the linked list. Write a C function to delete all nodes that have odd information in that linked list.
+QUESTION|2024|FILE_ORG|a|Explain sequential organization and index sequential file organization with examples.
+QUESTION|2024|HEAP|b|What do you mean by spanning tree? Find minimal spanning tree from the given graph using Kruskal's algorithm (show all steps).
+QUESTION|2024|LL|c|Consider a single linked list with a pointer pointing to its head. Write a C function to insert a node after the last node, in between the list.
+QUESTION|2024|BTREE|a|Explain B and B+ Tree. Create a B-tree of order 4, when the keys arrive in the following order: a, f, b, k, d, m, j, e, s, i, x, r, y.
+QUESTION|2024|FILE_ORG|b|What do you mean by a connected graph? Give linked representation and memory representation of the following graph.
+QUESTION|2024|LL|c|Write a function to merge two single linked lists. The input lists have their elements in sorted order from lowest to highest. The output list should also be sorted from lowest to highest.

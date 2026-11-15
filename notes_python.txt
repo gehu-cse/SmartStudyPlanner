@@ -1,0 +1,255 @@
+# Notes excerpted from supplied exam-ready PDF for Python Programming
+NOTE|PY_FUNC|Syllabus map: Unit 1 Basics and Functions / Unit 2 Data Structures, Regex, File Handling / Unit 3 OOP in Python
+NOTE|PY_BASIC|/ Unit 4 NumPy, Pandas, Matplotlib, Seaborn / Unit 5 Data Cleaning and EDA
+NOTE|PY_FUNC|created by Guido van Rossum (1991). Code is executed line by line by the interpreter (CPython compiles to
+NOTE|PY_BASIC|bytecode, then the Python Virtual Machine runs it).
+NOTE|PY_FUNC|supports procedural, OOP and functional styles, automatic memory management (garbage collection), huge
+NOTE|PY_BASIC|ecosystem (NumPy, Pandas, Django, TensorFlow).
+NOTE|PY_FUNC|bound to an object. x = 5 then x = 'hi' is legal. Check with type(x).
+NOTE|PY_BASIC|line, triple quotes for docstring or multi-line text. Identifiers: letters, digits, underscore; cannot start with digit;
+NOTE|PY_FUNC|case-sensitive; no keywords (if, for, class, def...).
+NOTE|PY_BASIC|assignment: a, b = 1, 2; swap a, b = b, a; x = y = 0.
+NOTE|PY_FUNC|len(s); s[0]; s[-1]; s[0:5]; s[::-1]; s[::2] # 13 H n Hello nohtyP ,olH...
+NOTE|PY_BASIC|s.upper(); s.lower(); s.title(); s.strip(); s.replace("Python", "World")
+NOTE|PY_FUNC|s.split(", ") # ['Hello', 'Python'] ",".join(['a', 'b']) -> 'a,b'
+NOTE|PY_BASIC|s.find("Py"); s.count("l"); s.startswith("He"); s.isdigit(); s.isalpha()
+NOTE|PY_FUNC|f"Name: {name:>10} Score: {score:.2f}" # f-string formatting
+NOTE|PY_BASIC|* repetition, in membership. Escape sequences: \n, \t, \\, raw string r'\d'.
+NOTE|PY_FUNC|+ - * / (true division, always float) // (floor division) % ** (power)
+NOTE|PY_BASIC|Precedence (high to low): **, unary + - ~, * / // %, + -, shifts, &, ^, /, comparisons, not, and, or.
+NOTE|PY_FUNC|Example: 2 + 3 * 4 ** 2 = 50; 7 // 2 = 3, -7 // 2 = -4, 7 % 3 = 1.
+NOTE|PY_BASIC|name = input("Enter name: ") # input() always returns a string
+NOTE|PY_FUNC|x, y = map(int, input().split()) # read two integers in one line
+NOTE|PY_BASIC|print("Hi", name, sep="-", end="!\n") # sep and end parameters
+NOTE|PY_FUNC|print(f"{3.14159:.2f}") print("%d %s" % (5, "a")) print("{} {}".format(1, 2))
+NOTE|PY_BASIC|for i in range(1, 10, 2): print(i) # 1 3 5 7 9 range(start, stop, step)
+NOTE|PY_FUNC|else: print("runs only if loop not broken") # loop-else
+NOTE|PY_BASIC|x = "even" if n % 2 == 0 else "odd" # conditional expression
+NOTE|PY_FUNC|loop runs when no break occurred. Nested loops for patterns and tables.
+NOTE|PY_BASIC|n = 29; is_prime = n > 1 and all(n % i for i in range(2, int(n**0.5) + 1)); print(is_prime) gives True.
+NOTE|PY_FUNC|area(5); area(5, 4); area(b=2, l=3) # positional, keyword
+NOTE|PY_BASIC|def total(*nums): return sum(nums) # *args -> tuple of extra positional args
+NOTE|PY_FUNC|def info(**kw): return kw # **kwargs -> dict of extra keyword args
+NOTE|PY_BASIC|total(1, 2, 3); info(a=1, b=2) # 6 {'a': 1, 'b': 2}
+NOTE|PY_FUNC|def minmax(a): return min(a), max(a) # returns a tuple (multiple values)
+NOTE|PY_BASIC|sq = lambda x: x * x # lambda: anonymous one-line function
+NOTE|PY_FUNC|list(map(lambda x: x*2, [1,2,3])); list(filter(lambda x: x % 2, [1,2,3,4]))
+NOTE|PY_BASIC|like def f(a=[]). Arguments are passed by object reference: mutating a list inside a function changes the
+NOTE|PY_FUNC|unless declared global x (or nonlocal x for enclosing function).
+NOTE|PY_BASIC|def fact(n): return 1 if n <= 1 else n * fact(n - 1)
+NOTE|PY_FUNC|def fib(n): return n if n < 2 else fib(n-1) + fib(n-2)
+NOTE|PY_BASIC|def gcd(a, b): return a if b == 0 else gcd(b, a % b)
+NOTE|PY_FUNC|import math, import math as m, from math import sqrt, pi, from math import * (avoid).
+NOTE|PY_BASIC|datetime, os, sys, time, statistics, re, json, collections.
+NOTE|PY_FUNC|module must be in the same folder or on sys.path. if __name__ == '__main__': guards code that
+NOTE|PY_BASIC|should run only when the file is executed directly, not when imported. Install third-party packages with pip
+NOTE|PY_FUNC|except ZeroDivisionError: print("Cannot divide by zero")
+NOTE|PY_BASIC|except (ValueError, TypeError) as e: print("Bad input:", e)
+NOTE|PY_FUNC|class NegativeError(Exception): pass # user-defined exception
+NOTE|PY_BASIC|if n < 0: raise NegativeError("negative not allowed") # raise manually
+NOTE|PY_FUNC|NameError, FileNotFoundError, ImportError, AttributeError. assert cond, msg for debugging
+NOTE|PY_BASIC|checks. Syntax errors are caught before running; exceptions occur at run time.
+NOTE|PY_FUNC|Exam tip: Unit 1 exam favourites: features of Python; dynamic typing; operators (// % ); string slicing and
+NOTE|PY_BASIC|methods; control flow programs (prime, factorial, Fibonacci, patterns); *args and kwargs; LEGB scope;
+NOTE|PY_FUNC|creating and importing modules; try/except/else/finally.
+NOTE|PY_BASIC|A. == compares values; is checks whether both names refer to the same object in memory.
+NOTE|PY_FUNC|A. A small anonymous function defined with the lambda keyword, limited to one expression.
+NOTE|PY_COLLECTION|UNIT 2: DATA STRUCTURES, REGULAR EXPRESSIONS AND FILE HANDLING
+NOTE|PY_FILE|a.append(50); a.insert(1, 15); a.extend([60, 70]) # add
+NOTE|PY_COLLECTION|a.remove(20); a.pop(); a.pop(0); del a[1] # remove
+NOTE|PY_FILE|a.sort(); a.sort(reverse=True); a.reverse(); sorted(a) # sort in place / new list
+NOTE|PY_COLLECTION|a.index(30); a.count(10); len(a); min(a); max(a); sum(a)
+NOTE|PY_FILE|a[1:3]; a[::-1]; a[-1] # slicing, negative index
+NOTE|PY_COLLECTION|b = a.copy(); c = a[:]; d = list(a) # shallow copies
+NOTE|PY_FILE|[x**2 for x in range(10) if x % 2 == 0] # list comprehension
+NOTE|PY_COLLECTION|matrix = [[1, 2], [3, 4]]; matrix[1][0] # nested list
+NOTE|PY_FILE|copy() for a copy. append adds one item, extend adds each element of an iterable. sort() returns None.
+NOTE|PY_COLLECTION|2). Faster and safer than list; usable as dictionary keys; used for fixed records and multiple return values.
+NOTE|PY_FILE|Methods: count, index. Can contain mutable items (a list inside).
+NOTE|PY_COLLECTION|d["city"] = "Dehradun"; d["age"] = 21 # add / update
+NOTE|PY_FILE|d.get("x", "none"); d.keys(); d.values(); d.items()
+NOTE|PY_COLLECTION|d.pop("age"); d.update({"a": 1}); del d["a"]; "name" in d # membership checks keys
+NOTE|PY_FILE|{x: x**2 for x in range(4)} # dict comprehension -> {0:0, 1:1, 2:4,
+NOTE|PY_COLLECTION|Insertion-ordered (3.7+). Lookup average O(1) (hash table). d[key] raises KeyError if missing; get() does
+NOTE|PY_FILE|a / b; a & b; a - b; a ^ b # union, intersection, difference, symmetric difference
+NOTE|PY_COLLECTION|a.add(9); a.remove(1); a.discard(100); a.issubset(b); set([1, 1, 2]) # {1, 2}
+NOTE|PY_FILE|fast membership testing. frozenset is immutable. Empty set is set() (not {} which is a dict).
+NOTE|PY_COLLECTION|A regular expression (regex) is a pattern describing a set of strings, used for searching, validating and
+NOTE|PY_FILE|digit, non-digit, word char, non-word, whitespace, non-space
+NOTE|PY_COLLECTION|re.findall(r"\d+", "a12 b345") # ['12', '345']
+NOTE|PY_FILE|m = re.search(r"(\w+)@(\w+)\.com", "mail ved@gmail.com now")
+NOTE|PY_COLLECTION|m.group(0), m.group(1), m.group(2) # 'ved@gmail.com', 'ved', 'gmail'
+NOTE|PY_FILE|bool(re.match(r"^[6-9]\d{9}$", "9876543210")) # Indian mobile number check -> True
+NOTE|PY_COLLECTION|bool(re.match(r"^[\w.+-]+@[\w-]+\.[\w.]+$", "a.b@x.co")) # simple email check
+NOTE|PY_FILE|with open("notes.txt", "w") as f: # 'with' closes the file automatically
+NOTE|PY_COLLECTION|f.write("line1\n"); f.writelines(["a\n", "b\n"])
+NOTE|PY_FILE|print(f.read()) # whole file as one string f.read(5) reads 5 characters
+NOTE|PY_COLLECTION|for line in f: print(line.strip()) # memory friendly, line by line
+NOTE|PY_FILE|f.seek(0); f.readline(); f.readlines() # readlines() -> list of lines
+NOTE|PY_COLLECTION|with open("pic.jpg", "rb") as src, open("copy.jpg", "wb") as dst: dst.write(src.read()) #
+NOTE|PY_FILE|import os; os.path.exists("a.txt"); os.remove("a.txt"); os.listdir(".")
+NOTE|PY_COLLECTION|FileNotFoundError. Pickle (import pickle; pickle.dump(obj, f)) and json store objects.
+NOTE|PY_FILE|with open('a.txt') as f: words = f.read().split(); print(len(words)); from collections import Counter;
+NOTE|PY_COLLECTION|Exam tip: Unit 2 exam favourites: list/tuple/set/dict comparison; list methods and slicing; dict operations; set
+NOTE|PY_FILE|operations; regex functions and metacharacters with email/phone validation; file modes and read/write programs;
+NOTE|PY_COLLECTION|A. It guarantees the file is closed automatically even if an exception occurs.
+NOTE|PY_FILE|Q. What does re.match do differently from re.search?
+NOTE|PY_COLLECTION|A. match checks only at the start of the string; search scans the whole string for the first match.
+NOTE|PY_OOP|UNIT 3: OBJECT-ORIENTED PROGRAMMING USING PYTHON
+NOTE|PY_OOP|college = "GEHU" # class attribute (shared by all objects)
+NOTE|PY_OOP|def __init__(self, name, roll): # constructor, runs when object is created
+NOTE|PY_OOP|self.name = name # instance attributes (per object)
+NOTE|PY_OOP|def show(self): # instance method, first parameter is self
+NOTE|PY_OOP|def total(cls): return cls.count # class method gets the class (cls)
+NOTE|PY_OOP|def __str__(self): return f"{self.name}({self.roll})" # print(obj)
+NOTE|PY_OOP|s1 = Student("Ved", 1); s1.show(); print(s1); Student.total(); Student.hello()
+NOTE|PY_OOP|Instance attributes belong to one object; class attributes are shared.
+NOTE|PY_OOP|def speak(self): return f"{self.name} speaks"
+NOTE|PY_OOP|super().__init__(name); self.roll = roll # call parent constructor
+NOTE|PY_OOP|def speak(self): return super().speak() + " as student" # method overriding
+NOTE|PY_OOP|class TA(Student, Employee): pass # multiple inheritance
+NOTE|PY_OOP|print(TA.__mro__) # method resolution order (C3 linearisation)
+NOTE|PY_OOP|isinstance(s1, Person); issubclass(Student, Person)
+NOTE|PY_OOP|called in multiple inheritance (left to right, depth first with C3 rules). super() calls the next class in MRO.
+NOTE|PY_OOP|walks like a duck' - any object with the needed method works, regardless of class. Operator overloading with
+NOTE|PY_OOP|dunder methods. Built-in polymorphism: len() works on str, list, dict; + adds numbers and concatenates
+NOTE|PY_OOP|for a in (Dog(), Cat()): print(a.sound()) # same call, different results
+NOTE|PY_OOP|def __init__(self, x, y): self.x, self.y = x, y
+NOTE|PY_OOP|def __add__(self, o): return Vec(self.x + o.x, self.y + o.y)
+NOTE|PY_OOP|def __str__(self): return f"({self.x}, {self.y})"
+NOTE|PY_OOP|_name protected (convention only), __name private via name mangling to _Class__name. Provide access
+NOTE|PY_OOP|with getters/setters or the @property decorator.
+NOTE|PY_OOP|@abstractmethods and cannot be instantiated; subclasses must implement them.
+NOTE|PY_OOP|def __init__(self, r): self.__r = r # private
+NOTE|PY_OOP|def area(self): return 3.14159 * self.__r ** 2
+NOTE|PY_OOP|c = Circle(2); c.radius = 3; print(c.area()); # Shape() -> TypeError (abstract)
+NOTE|PY_OOP|Exam tip: Unit 3 exam favourites: class and object with __init__; instance vs class attributes; inheritance types
+NOTE|PY_OOP|with super() and MRO; polymorphism (overriding, duck typing, operator overloading); encapsulation (private
+NOTE|PY_OOP|A. It refers to the current instance so methods can access and modify that object's attributes.
+NOTE|PY_OOP|A. Not directly; defining the same name again replaces the earlier one. Use default arguments or *args instead.
+NOTE|PY_PANDAS|UNIT 4: PYTHON LIBRARIES FOR NUMERICAL COMPUTING AND VISUALIZATION
+NOTE|PY_NUMPY|NumPy (Numerical Python) provides the ndarray: a fast, fixed-type, n-dimensional array stored in contiguous
+NOTE|PY_PANDAS|memory. It is much faster than lists because of C implementation and vectorised operations (no explicit Python
+NOTE|PY_NUMPY|a = np.array([1, 2, 3]); m = np.array([[1, 2, 3], [4, 5, 6]])
+NOTE|PY_PANDAS|m.shape, m.ndim, m.size, m.dtype # (2, 3) 2 6 int64
+NOTE|PY_NUMPY|np.zeros((2, 3)); np.ones((2, 2)); np.eye(3); np.full((2, 2), 7)
+NOTE|PY_PANDAS|np.arange(0, 10, 2); np.linspace(0, 1, 5); np.random.rand(2, 3); np.random.randint(1, 10, 5)
+NOTE|PY_NUMPY|m.reshape(3, 2); m.flatten(); m.T # reshape, 1-D copy, transpose
+NOTE|PY_PANDAS|m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+NOTE|PY_NUMPY|a = np.array([1, 2, 3, 4]); b = np.array([10, 20, 30, 40])
+NOTE|PY_PANDAS|a + b; a * b; a ** 2; a + 5; np.sqrt(a); np.exp(a) # element-wise, no loops
+NOTE|PY_NUMPY|a.sum(); a.mean(); np.median(a); a.std(); a.var(); a.min(); a.max(); a.argmax(); np.cumsum(a)
+NOTE|PY_PANDAS|m.sum(axis=0) # column sums m.sum(axis=1) # row sums (axis 0 = down rows, 1 = across
+NOTE|PY_NUMPY|np.percentile(a, 90); np.corrcoef(a, b); np.sort(a); np.unique([1, 1, 2])
+NOTE|PY_PANDAS|vector to each row of a matrix, or a scalar to the whole array). Rule: compare shapes from the right; dimensions
+NOTE|PY_NUMPY|A = np.array([[2, 1], [1, 3]]); B = np.array([[1, 0], [4, 1]])
+NOTE|PY_PANDAS|A @ B; np.dot(A, B) # matrix multiplication (not A * B which is element-wise)
+NOTE|PY_NUMPY|A.T; np.linalg.det(A); np.linalg.inv(A); np.trace(A); np.linalg.matrix_rank(A)
+NOTE|PY_PANDAS|vals, vecs = np.linalg.eig(A) # eigenvalues and eigenvectors
+NOTE|PY_NUMPY|x = np.linalg.solve(A, np.array([5, 7])) # solve A x = b -> [1.6, 1.8]
+NOTE|PY_PANDAS|np.vstack([a, b]); np.hstack([a, b]); np.concatenate([a, b])
+NOTE|PY_NUMPY|x = np.array([10, 20, 30]); z = (x - x.mean()) / x.std() gives array([-1.22, 0, 1.22]); no loop needed.
+NOTE|PY_PANDAS|Pandas provides labelled data structures for tabular data: Series (1-D labelled array) and DataFrame (2-D table
+NOTE|PY_NUMPY|of rows and columns, each column a Series of its own type).
+NOTE|PY_PANDAS|s = pd.Series([10, 20, 30], index=["a", "b", "c"])
+NOTE|PY_NUMPY|df = pd.DataFrame({"name": ["A", "B", "C", "D"], "dept": ["CS", "CS", "EE", "EE"], "sal": [50,
+NOTE|PY_PANDAS|df = pd.read_csv("data.csv"); df.to_csv("out.csv", index=False) # also read_excel,
+NOTE|PY_NUMPY|df.head(); df.tail(3); df.shape; df.columns; df.dtypes; df.info(); df.describe()
+NOTE|PY_PANDAS|df.loc[0, "name"]; df.loc[1:2, ["name", "sal"]] # label based (end INCLUSIVE)
+NOTE|PY_NUMPY|df.iloc[0, 0]; df.iloc[0:2, 0:2] # position based (end exclusive)
+NOTE|PY_PANDAS|df[df["sal"] > 55]; df[(df.dept == "CS") & (df.sal > 50)] # boolean filtering (use & / ~)
+NOTE|PY_NUMPY|df["bonus"] = df["sal"] * 0.1; df.drop("bonus", axis=1); df.sort_values("sal",
+NOTE|PY_PANDAS|a = pd.DataFrame({"id": [1, 2, 3], "name": ["A", "B", "C"]})
+NOTE|PY_NUMPY|b = pd.DataFrame({"id": [1, 2, 4], "mark": [80, 90, 70]})
+NOTE|PY_PANDAS|pd.merge(a, b, on="id", how="inner") # ids 1,2 how = inner / left / right / outer
+NOTE|PY_NUMPY|pd.concat([a, a], axis=0) # stack rows (axis=1 side by side)
+NOTE|PY_PANDAS|df.groupby("dept")["sal"].mean() # CS 55.0 EE 60.0
+NOTE|PY_NUMPY|df.groupby("dept").agg({"sal": ["mean", "max"]})
+NOTE|PY_PANDAS|df["dept"].value_counts(); pd.pivot_table(df, values="sal", index="dept", aggfunc="sum")
+NOTE|PY_NUMPY|split-apply-combine: split data into groups, apply a function (mean, sum, count) and combine results.
+NOTE|PY_PANDAS|Matplotlib is the basic plotting library. A Figure is the whole canvas; Axes is one plot inside it (with x-axis, y-axis,
+NOTE|PY_NUMPY|title, labels). pyplot (plt) offers a MATLAB-like interface.
+NOTE|PY_PANDAS|plt.plot(x, y, color="red", marker="o", linestyle="--", label="growth") # line plot
+NOTE|PY_NUMPY|plt.title("Growth"); plt.xlabel("x"); plt.ylabel("y"); plt.legend(); plt.grid(True); plt.show()
+NOTE|PY_PANDAS|plt.bar(["A", "B"], [30, 50]); plt.barh(...); plt.scatter(x, y); plt.pie([40, 60],
+NOTE|PY_NUMPY|fig, axes = plt.subplots(1, 2, figsize=(8, 3)) # several axes in one figure
+NOTE|PY_PANDAS|axes[0].plot(x, y); axes[1].bar(["A", "B"], [3, 5]); fig.savefig("plot.png")
+NOTE|PY_NUMPY|Seaborn is built on Matplotlib and gives attractive statistical plots with less code; it works directly with
+NOTE|PY_PANDAS|DataFrames and applies themes (sns.set_theme()).
+NOTE|PY_NUMPY|sns.histplot(df["sal"], kde=True) # distribution with density curve
+NOTE|PY_PANDAS|sns.boxplot(x="dept", y="sal", data=df) # spread and outliers per category
+NOTE|PY_NUMPY|sns.scatterplot(x="age", y="sal", hue="dept", data=df)
+NOTE|PY_PANDAS|sns.barplot(x="dept", y="sal", data=df) # mean with confidence interval
+NOTE|PY_NUMPY|sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm") # correlation matrix
+NOTE|PY_PANDAS|sns.pairplot(df); sns.countplot(x="dept", data=df); sns.violinplot(...)
+NOTE|PY_NUMPY|Exam tip: Unit 4 exam favourites: NumPy array creation, indexing, slicing, broadcasting, statistical and linear
+NOTE|PY_PANDAS|algebra functions; Pandas Series vs DataFrame, loc vs iloc, merge types, groupby; Matplotlib figure/axes and
+NOTE|PY_NUMPY|basic plots; Seaborn plots and when to use each.
+NOTE|PY_PANDAS|A. It stores same-type data contiguously, implements operations in C and uses vectorisation, avoiding Python
+NOTE|PY_NUMPY|A. merge joins on keys like SQL; concat stacks objects along an axis without matching on keys.
+NOTE|PY_EDA|UNIT 5: DATA CLEANING AND EXPLORATORY DATA ANALYSIS
+NOTE|PY_EDA|Real data is messy. Data cleaning (preprocessing) detects and fixes errors so analysis is reliable (garbage in,
+NOTE|PY_EDA|garbage out). Typical problems: missing values, duplicates, wrong data types, inconsistent text, outliers, wrong
+NOTE|PY_EDA|df.dropna(); df.dropna(subset=["age"]); df.dropna(axis=1) # remove rows / columns
+NOTE|PY_EDA|df["age"].fillna(df["age"].mean(), inplace=False) # fill with mean (or
+NOTE|PY_EDA|df["city"].fillna("Unknown"); df.fillna(method="ffill") # constant / forward fill
+NOTE|PY_EDA|df.duplicated().sum(); df.drop_duplicates() # duplicates
+NOTE|PY_EDA|df["age"] = df["age"].astype(int); pd.to_datetime(df["date"]); pd.to_numeric(df["x"],
+NOTE|PY_EDA|df["name"] = df["name"].str.strip().str.title(); df["city"].str.lower().replace({"nyc": "new
+NOTE|PY_EDA|df.rename(columns={"sal": "salary"}); df[df["age"].between(0, 100)] # drop impossible values
+NOTE|PY_EDA|median (skewed data), mode (categorical), forward/backward fill (time series), or model-based imputation.
+NOTE|PY_EDA|Choice depends on how much is missing and why (random or not).
+NOTE|PY_EDA|(pd.get_dummies), scale numeric features (min-max, standardisation), validate ranges.
+NOTE|PY_EDA|q1, q3 = df["x"].quantile([0.25, 0.75]); iqr = q3 - q1
+NOTE|PY_EDA|outliers = df[(df["x"] < lo) / (df["x"] > hi)]
+NOTE|PY_EDA|clean = df[df["x"].between(lo, hi)]; df["x"] = df["x"].clip(lo, hi) # cap values
+NOTE|PY_EDA|z = (df["x"] - df["x"].mean()) / df["x"].std(); df[abs(z) > 3]
+NOTE|PY_EDA|Data: 2, 4, 5, 6, 7, 8, 40. Q1 = 4, Q3 = 8, IQR = 4. Limits: 4 - 6 = -2 and 8 + 6 = 14. The value 40 > 14, so 40 is an
+NOTE|PY_EDA|EDA (introduced by John Tukey) is the process of summarising and visualising a dataset to understand its
+NOTE|PY_EDA|structure, patterns, anomalies and relationships before modelling. It helps choose cleaning steps, features
+NOTE|PY_EDA|1. Understand the data: head(), shape, info(), dtypes, describe().
+NOTE|PY_EDA|2. Check quality: missing values, duplicates, wrong types, outliers.
+NOTE|PY_EDA|3. Univariate analysis: one variable at a time - summary statistics, histogram, box plot, value_counts() for
+NOTE|PY_EDA|4. Bivariate analysis: pairs of variables - scatter plot, correlation, grouped box plots, cross-tabs
+NOTE|PY_EDA|5. Multivariate analysis: heatmap of correlations, pair plots, groupby.
+NOTE|PY_EDA|6. Summarise insights and decide features and next steps.
+NOTE|PY_EDA|for all). If mean > median the data is usually right (positively) skewed.
+NOTE|PY_EDA|none, -1 perfect negative. df.corr() (Pearson default; also Spearman, Kendall). /r/ above 0.7 is strong, 0.3
+NOTE|PY_EDA|Multicollinearity: strongly correlated input features.
+NOTE|PY_EDA|median, quartiles, whiskers (1.5 IQR) and outliers shown as dots; compare groups. Heatmap: correlation
+NOTE|PY_EDA|matrix. Bar/count plot: categorical frequencies. Pair plot: all pairwise scatter plots.
+NOTE|PY_EDA|df.describe(); df.corr(numeric_only=True); df["dept"].value_counts(normalize=True)
+NOTE|PY_EDA|sns.histplot(df["sal"], bins=10); sns.boxplot(y=df["sal"]); sns.scatterplot(x="exp", y="sal",
+NOTE|PY_EDA|sns.heatmap(df.corr(numeric_only=True), annot=True); pd.crosstab(df["dept"], df["gender"])
+NOTE|PY_EDA|Exam tip: Unit 5 exam favourites: data cleaning steps and Pandas code (isna, fillna, dropna, drop_duplicates,
+NOTE|PY_EDA|astype); outlier detection by IQR and Z-score with numerical; EDA steps; summary statistics; correlation meaning
+NOTE|PY_EDA|and heatmap; choosing histogram, box plot, scatter plot.
+NOTE|PY_EDA|Q. When to use median instead of mean to fill missing values?
+NOTE|PY_EDA|A. When data is skewed or has outliers, because the median is robust to extreme values.
+NOTE|PY_EDA|A. Median, first and third quartiles, whiskers up to 1.5 IQR and outliers beyond them.
+NOTE|PY_EDA|A. Interpreted, dynamically typed, object-oriented, simple syntax, extensive libraries, portable, automatic memory
+NOTE|PY_EDA|A. List is mutable with []; tuple is immutable with (), faster and usable as dictionary key.
+NOTE|PY_EDA|A. A collection of unique hashable keys mapped to values, written {key: value}.
+NOTE|PY_EDA|A. *args collects extra positional arguments in a tuple; **kwargs collects extra keyword arguments in a dict.
+NOTE|PY_EDA|A. A module is a .py file of definitions; a package is a folder of modules with __init__.py.
+NOTE|PY_EDA|A. A pattern that describes a set of strings, used with the re module for searching and validation.
+NOTE|PY_EDA|A. A class acquiring attributes and methods of another class using class Child(Parent).
+NOTE|PY_EDA|A. A fast, fixed-type, n-dimensional array supporting vectorised operations.
+NOTE|PY_EDA|A. Series is 1-D labelled data; DataFrame is a 2-D table of columns, each a Series.
+NOTE|PY_EDA|A. Exploring and visualising data to understand its structure, patterns and problems before modelling.
+NOTE|PY_EDA|1. Explain the features of Python and dynamic typing. Write programs for prime numbers, Fibonacci, factorial
+NOTE|PY_EDA|2. Explain string methods and slicing with examples.
+NOTE|PY_EDA|3. Explain function arguments: positional, keyword, default, *args, **kwargs. Explain LEGB scope.
+NOTE|PY_EDA|4. How do you create and use your own module? Explain built-in modules like math and random.
+NOTE|PY_EDA|5. Explain exception handling with try, except, else, finally and raise. Create a user-defined exception.
+NOTE|PY_EDA|6. Compare list, tuple, set and dictionary. Write the important methods of each.
+NOTE|PY_EDA|7. Explain regular expressions with metacharacters and re functions. Validate an email and a phone number.
+NOTE|PY_EDA|8. Explain file handling modes and write programs to read, write, append and copy files.
+NOTE|PY_EDA|9. Explain classes, objects, constructors and class vs instance attributes with an example.
+NOTE|PY_EDA|10. Explain types of inheritance and MRO with programs.
+NOTE|PY_EDA|11. Explain polymorphism, encapsulation and abstraction in Python with examples.
+NOTE|PY_EDA|12. Explain NumPy: array creation, indexing, slicing, reshaping, statistics, linear algebra operations.
+NOTE|PY_EDA|13. Explain Pandas DataFrame operations: indexing with loc/iloc, filtering, merging, groupby.
+NOTE|PY_EDA|14. Explain Matplotlib figures and axes and the common plots. How is Seaborn different?
+NOTE|PY_EDA|15. Describe the data cleaning steps and how to handle missing values and outliers.
+NOTE|PY_EDA|16. Explain EDA with its steps, summary statistics, correlation and visualisation techniques.

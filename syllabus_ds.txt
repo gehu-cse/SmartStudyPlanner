@@ -1,0 +1,38 @@
+# ============================================================
+# SYLLABUS FILE  --  Data Structures with C
+# Course: TCS302  (B.Tech CSE, Semester III)
+# Format:  TOPIC|id|unit|name|estMinutes|difficulty(1-5)
+#         PREREQ|prerequisiteId|dependentTopicId
+# ============================================================
+SUBJECT|DS|Data Structures with C|TCS302|3
+TOPIC|ARRAYS|Unit 1|Arrays, Address Calculation, Sparse Matrices and ADT|45|2
+TOPIC|STACK|Unit 1|Stacks, Infix/Prefix/Postfix Conversion and Recursion|65|3
+TOPIC|QUEUE|Unit 2|Queues, Circular Queue, Deque and Priority Queue|50|3
+TOPIC|LL|Unit 2|Linked Lists: singly, doubly, circular, polynomial representation|95|4
+TOPIC|TREE_BST|Unit 3|Binary Trees, Traversals, Expression Trees and Binary Search Tree|90|4
+TOPIC|AVL|Unit 3|AVL Trees, Rotations and Balancing|70|5
+TOPIC|HEAP|Unit 3|Binary Heaps and Heap Operations|45|3
+TOPIC|HUFFMAN|Unit 3|Huffman Coding and Weighted Path Length|50|3
+TOPIC|BTREE|Unit 3|B-Tree, B+ Tree and Multi-way Search Trees|60|4
+TOPIC|HASH|Unit 4|Hashing, Hash Functions and Collision Resolution|55|3
+TOPIC|SORTING|Unit 4|Sorting Algorithms and their Analysis|75|3
+TOPIC|GRAPH_REPR|Unit 5|Graph Terminology and Representations|45|3
+TOPIC|GRAPH_TRAV|Unit 5|BFS, DFS and Disjoint Sets (Union-Find)|60|3
+TOPIC|MST|Unit 5|Minimum Spanning Trees: Kruskal and Prim|55|4
+TOPIC|SHORTEST_PATH|Unit 5|Shortest Paths: Dijkstra, Bellman-Ford, Floyd-Warshall|60|4
+TOPIC|FILE_ORG|Unit 5|File Organization, Indexing and B/B+ Index Files|45|3
+PREREQ|ARRAYS|STACK
+PREREQ|ARRAYS|QUEUE
+PREREQ|ARRAYS|LL
+PREREQ|ARRAYS|HASH
+PREREQ|ARRAYS|SORTING
+PREREQ|LL|TREE_BST
+PREREQ|TREE_BST|AVL
+PREREQ|TREE_BST|HEAP
+PREREQ|HEAP|HUFFMAN
+PREREQ|TREE_BST|BTREE
+PREREQ|LL|GRAPH_REPR
+PREREQ|GRAPH_REPR|GRAPH_TRAV
+PREREQ|GRAPH_TRAV|MST
+PREREQ|GRAPH_TRAV|SHORTEST_PATH
+PREREQ|BTREE|FILE_ORG

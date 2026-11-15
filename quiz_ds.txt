@@ -1,0 +1,85 @@
+# ============================================================
+# EVALUATION TEST BANK  --  Data Structures with C (TCS302)
+# 5 questions per topic.  Format:
+# Q|topicId|question|opt1;opt2;opt3;opt4|correctOption(1-4)|explanation
+# ============================================================
+Q|ARRAYS|For a one dimensional array with base address B and element size w, the address of a[i] is|B plus i times w;B plus w;B plus i;B times i plus w|1|Address arithmetic is linear in the index.
+Q|ARRAYS|A sparse matrix is one in which|Most elements are non zero;Most elements are zero;All elements are equal;Elements are sorted|2|Storing only non zero elements saves space.
+Q|ARRAYS|The time to access the i th element of an array randomly is|O of 1;O of n;O of log n;O of n log n|1|Array access is direct, constant time.
+Q|ARRAYS|In row major order, the address of A of i and j for m rows and n columns is|base plus i plus j times w;base plus i times m plus j times w;base plus i times n plus j times w;base plus j times m plus i times w|3|Whole rows of n elements precede row i.
+Q|ARRAYS|An abstract data type specifies|The exact memory layout;Only the operations and their behaviour;The machine instructions;The compiler flags|2|Implementation is deliberately hidden.
+Q|STACK|A stack follows the discipline|FIFO;LIFO;Random;Priority|2|Last in first out.
+Q|STACK|The postfix form of A plus B times C is|A B C times plus;A B plus C times;plus A B C times;A B C plus times|1|Multiplication binds tighter, so B C times is done first.
+Q|STACK|Which of these is an application of stack?|Function call and recursion handling;Breadth first search;Printer spooling;Round robin scheduling|1|Every call frame is pushed on the runtime stack.
+Q|STACK|In an array based stack of capacity MAX, overflow occurs when|top equals minus 1;top equals 0;top equals MAX minus 1;top equals MAX|3|No free slot remains after top reaches MAX minus 1.
+Q|STACK|The value of the postfix expression 5 3 plus 2 times is|16;13;10;8|1|5 plus 3 is 8, 8 times 2 is 16.
+Q|QUEUE|A queue follows the discipline|LIFO;FIFO;Priority order;Random order|2|First in first out.
+Q|QUEUE|In a circular queue of size n, the full condition with one slot kept free is|rear equals n;rear plus 1 modulo n equals front;front equals 0;rear equals front|2|One slot is sacrificed to distinguish full from empty.
+Q|QUEUE|A deque allows|Insertion at one end only;Deletion at one end only;Insertion and deletion at both ends;Only priority based deletion|3|Deque means double ended queue.
+Q|QUEUE|A priority queue always deletes|The element with the highest priority;The oldest element;The newest element;A random element|1|Ordering is by priority, not arrival.
+Q|QUEUE|Which of these is NOT an application of a queue?|CPU process scheduling;Printer spooling;Breadth first search;Returning from a function call|4|Returning from a call uses the stack.
+Q|LL|In a singly linked list, the next field of the last node contains|The address of the first node;NULL;Its own address;Garbage always|2|The list ends with a null pointer.
+Q|LL|Insertion at the beginning of a singly linked list takes|O of 1;O of n;O of log n;O of n squared|1|Only two pointers change.
+Q|LL|Compared with a singly linked list, a doubly linked list needs|Less memory per node;One extra pointer per node;No head pointer;No traversal|2|The prev pointer doubles the link space.
+Q|LL|The Nth node from the end of a list can be found in one traversal using|Two pointers kept N apart;A stack only;Recursion only;Binary search|1|Advance one pointer N steps first.
+Q|LL|In a circular linked list, the last node points to|NULL;Itself only;The first node;The middle node|3|The ring closes back to the head.
+Q|TREE_BST|The inorder traversal of a binary search tree gives|Sorted ascending order;Reverse sorted order;Level order;Random order|1|Left, node, right visits keys in order.
+Q|TREE_BST|The maximum number of nodes in a binary tree with h levels is|2 to the power h;2 to the power h minus 1;2 to the power h plus 1;h squared|2|Each level doubles, the sum is 2 to the power h minus 1.
+Q|TREE_BST|The postorder traversal of an expression tree directly yields|Infix;Postfix;Prefix;Level order|2|Children are evaluated before the operator.
+Q|TREE_BST|Deleting a node with two children from a BST is done by|Simply removing it;Replacing it with its inorder successor or predecessor;Making it a leaf first;Rebuilding the whole tree|2|The successor keeps the ordering valid.
+Q|TREE_BST|A tree with n nodes has exactly|n edges;n minus 1 edges;n plus 1 edges;2n edges|2|One edge per node except the root.
+Q|AVL|An AVL tree is|A complete binary tree;A height balanced binary search tree;A heap ordered tree;A multi way tree|2|Every node keeps balance factor within one.
+Q|AVL|The permitted balance factors of an AVL node are|Minus 2 to plus 2;Minus 1, 0 and plus 1;Only 0;Any integer|2|Balance is height left minus height right.
+Q|AVL|The left left case is corrected by|One right rotation;One left rotation;A right then left rotation;Rebalancing the whole tree|1|A single right rotation restores balance.
+Q|AVL|The height of an AVL tree with n nodes is|O of n;O of log n;O of n log n;O of 1|2|Balancing keeps the height logarithmic.
+Q|AVL|The right left case needs|A left rotation on the child then a right rotation on the node;A right rotation on the right child then a left rotation on the node;Two right rotations;No rotation|2|The inner subtree is first turned into a right right case.
+Q|HEAP|In a min heap the root always holds|The largest key;The smallest key;The median key;Any key|2|The heap property puts the minimum at the root.
+Q|HEAP|In a zero indexed array heap, the children of index i are at|i plus 1 and i plus 2;2i and 2i plus 1;2i plus 1 and 2i plus 2;2i minus 1 and 2i|3|Level order storage gives these indices.
+Q|HEAP|Building a heap from n unordered elements takes|O of n log n;O of log n;O of n;O of n squared|3|Bottom up heapify is linear in the number of nodes.
+Q|HEAP|Inserting one key into a heap of n keys takes|O of 1;O of log n;O of n;O of n log n|2|The new key sifts up along one root path.
+Q|HEAP|A heap is always|A complete binary tree;A full binary tree;A binary search tree;An AVL tree|1|Completeness is what makes array storage possible.
+Q|HUFFMAN|Huffman coding produces codes that|Have minimum weighted external path length;Use fixed length codes;Are always eight bits;Are unique per message|1|The greedy merge minimises total cost.
+Q|HUFFMAN|The Huffman tree is built by repeatedly|Merging the two least frequent nodes;Splitting the most frequent node;Sorting the alphabet;Deleting the rarest symbol|1|Each merge creates a new internal node.
+Q|HUFFMAN|In a Huffman code the most frequent character gets|The longest code;The shortest code;A code of length eight;No code|2|Shorter codes for frequent symbols reduce the average length.
+Q|HUFFMAN|A prefix free code means|No codeword is a prefix of another codeword;Every codeword has equal length;Every codeword starts with zero;Codes may not repeat|1|Decoding is unambiguous without separators.
+Q|HUFFMAN|Which data structure builds the Huffman tree efficiently?|A stack;A min priority queue;A hash table;A queue|2|Repeated extraction of the two minima is logarithmic each time.
+Q|BTREE|A B tree of order m has at most|m minus 1 children;m children;m plus 1 children;2m children|2|Order is the maximum number of children.
+Q|BTREE|In a B plus tree, the actual records are stored|In the internal nodes;Only in the leaf nodes;In the root only;In both leaves and internal nodes|2|Internal nodes hold only separator keys.
+Q|BTREE|The leaves of a B plus tree are linked together to|Support fast range and sequential access;Save memory;Allow recursion;Avoid rotations|1|A linked leaf chain gives an ordered scan.
+Q|BTREE|In a B tree, all leaf nodes appear|At different levels;At the same level;Only at the root;Only in the left subtree|2|The tree is perfectly height balanced.
+Q|BTREE|B and B plus trees are mainly used for|Database and file indexing;Expression evaluation;Sorting integers in memory;Graph traversal|1|They minimise disk block accesses.
+Q|HASH|A hash function maps a key to|A table index;Another key;A pointer to the record;A priority value|1|The result is a bucket address.
+Q|HASH|A collision occurs when|Two keys hash to the same index;A key is deleted;The table is empty;The load factor is zero|1|Distinct keys can share a bucket.
+Q|HASH|Linear probing resolves a collision by|Checking the next slot cyclically;Chaining a list;Rehashing with a new table;Doubling the key|1|It searches forward for a free slot.
+Q|HASH|For h of k equal to k modulo 12, the key 24 is stored at index|0;1;12;2|1|24 divided by 12 leaves remainder 0.
+Q|HASH|In separate chaining, each table slot holds|A single record only;A linked list of records;A binary tree;A stack of keys|2|Overflow records hang off the bucket.
+Q|SORTING|Which sorting algorithm is stable?|Quick sort;Merge sort;Heap sort;Selection sort|2|Merge sort preserves the order of equal keys.
+Q|SORTING|The worst case time of quick sort is|O of n;O of n log n;O of n squared;O of log n|3|Already sorted input with a bad pivot degenerates.
+Q|SORTING|Merge sort needs extra space of|O of 1;O of log n;O of n;O of n squared|3|Merging requires a temporary array.
+Q|SORTING|Heap sort is|In place with O of n log n time;In place with O of n time;Not in place;Stable|1|It sorts inside the array using heap operations.
+Q|SORTING|The number of comparisons in the worst case of bubble sort is|n;n minus 1;n times n minus 1 divided by 2;n log n|3|Every pair is compared in the worst case.
+Q|GRAPH_REPR|An adjacency matrix of a graph with V vertices needs space|O of V;O of V squared;O of E;O of V plus E|2|A V by V table is stored.
+Q|GRAPH_REPR|An adjacency list is preferred over a matrix when the graph is|Complete;Sparse;Undirected only;Weighted only|2|Only existing edges are stored.
+Q|GRAPH_REPR|The degree of a vertex is|The number of edges incident on it;The number of vertices;Its label;Its weight|1|Each incident edge adds one to the degree.
+Q|GRAPH_REPR|The adjacency matrix of an undirected graph is always|Diagonal;Symmetric;Sparse;Upper triangular|2|Edge from u to v implies v to u.
+Q|GRAPH_REPR|The sum of the degrees of all vertices equals|Number of edges;Twice the number of edges;Number of vertices;Twice the number of vertices|2|Every edge contributes two to the total degree.
+Q|GRAPH_TRAV|Breadth first search uses which data structure?|Stack;Queue;Heap;Tree|2|Vertices are visited level by level.
+Q|GRAPH_TRAV|Depth first search is naturally implemented with|A queue;A stack or recursion;A hash table;A heap|2|The deepest vertex is explored first.
+Q|GRAPH_TRAV|To find a path between two vertices with the minimum number of edges you use|DFS;BFS;Kruskal;Dijkstra|2|BFS explores in order of edge count.
+Q|GRAPH_TRAV|Union find with path compression and union by rank gives an amortised cost of|O of n;O of log n;Nearly constant, the inverse Ackermann factor;O of n squared|3|The two heuristics together are almost linear.
+Q|GRAPH_TRAV|BFS on an adjacency list takes|O of V squared;O of V plus E;O of E log V;O of V log E|2|Each vertex and edge is processed once.
+Q|MST|A minimum spanning tree of a graph with V vertices has|V edges;V minus 1 edges;V plus 1 edges;E minus 1 edges|2|It is a tree on all vertices.
+Q|MST|Kruskal algorithm relies on|Sorting the edges and a union find structure;A priority queue of vertices;BFS from each vertex;Dynamic programming|1|Cheapest edge that does not form a cycle is added.
+Q|MST|Prim algorithm grows the tree|From a start vertex using a minimum priority queue of cut edges;By sorting all edges first;By removing the heaviest edge repeatedly;Using a stack|1|It always extends the current tree.
+Q|MST|The running time of Kruskal is dominated by|Edge sorting, O of E log E;Union find, O of V;Building the matrix, O of V squared;The final traversal|1|Sorting is the costliest step.
+Q|MST|A minimum spanning tree is defined for|Any directed graph;A connected weighted undirected graph;A disconnected graph;A tree only|2|Connectivity is required to span all vertices.
+Q|SHORTEST_PATH|Dijkstra algorithm fails when the graph has|Too many vertices;Negative edge weights;Cycles;Parallel edges|2|Greedy finalisation is invalid with negative weights.
+Q|SHORTEST_PATH|Bellman Ford runs in|O of V;O of V times E;O of E log V;O of V cubed|2|V minus 1 relaxation rounds over all edges.
+Q|SHORTEST_PATH|Floyd Warshall computes|Single source shortest paths;All pairs shortest paths;The minimum spanning tree;Topological order|2|It builds a distance matrix over all pairs.
+Q|SHORTEST_PATH|Dijkstra with a binary heap runs in|O of V squared;O of V plus E log V;O of V times E;O of E squared|2|Each edge relaxation may push into the heap.
+Q|SHORTEST_PATH|A graph with negative edges but no negative cycle is best handled by|Dijkstra;Bellman Ford;Prim;Kruskal|2|It also detects negative cycles.
+Q|FILE_ORG|In sequential file organization, records are stored|In the order of the key field;In hash order;In a binary tree;In random blocks|1|The file is kept sorted on the key.
+Q|FILE_ORG|An indexed sequential file consists of|A data file ordered by key plus an index file;Only a hash table;Only a linked list;A set of unsorted blocks|1|The index points into the ordered data file.
+Q|FILE_ORG|A B plus tree is preferred for indexing because it|Supports range queries and sequential scans efficiently;Uses less memory than an array;Needs no rebalancing;Stores data in the root|1|Linked leaves allow ordered traversal.
+Q|FILE_ORG|The blocking factor of a file is|The number of records stored in one block;The number of blocks on a disk;The size of a record;The number of files|1|It determines how many records one read fetches.
+Q|FILE_ORG|Direct or hash file organization gives|Fast random access to a record;Sorted sequential access;No access method;Slower access than sequential|1|The hash of the key locates the block directly.

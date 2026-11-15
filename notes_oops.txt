@@ -1,0 +1,209 @@
+# ==================================================================
+# STUDY NOTES AND VIDEO LINKS -- Object Oriented Programming with C++ (TCS307)
+# Built from the detailed Semester III exam-ready notes, unit by unit.
+# Format: NOTE|topicId|text   LINK|topicId|label|url
+#         PLAYLIST|label|url  TIP|text  QA|question|answer  QBANK|question
+# ==================================================================
+SUBJECT|OOPS|Object Oriented Programming with C++ (TCS307)
+TOPIC|ARR_STR
+NOTE|ARR_STR|Variable: named memory location. Must be declared before use (int a = 5;). C++ allows declaration anywhere in a block. Constant: const int MAX = 100;. Reference variable: alias of another variable, int &r = a;, must be initialised, cannot be re-seated.
+NOTE|ARR_STR|Operators: arithmetic + - * / %, relational < > <= >= == !=, logical && // !, bitwise & / ^ ~ << >>, assignment = += -= *= /=, increment/decrement ++ --, conditional ?:, sizeof, scope ::, new, delete, member access . and ->.
+NOTE|ARR_STR|Precedence (high to low): () [] -> ., then unary ! ++ -- sizeof, then * / %, then + -, then relational, then equality, then &&, then //, then ?:, then assignment, then comma.
+NOTE|ARR_STR|Type conversion: implicit (int to float automatically) and explicit casting: (float)a or static_cast<float>(a).
+NOTE|ARR_STR|Expressions are combinations of operands and operators that yield a value. Statements end with ; and include declaration, expression, selection (if, switch), iteration (for, while, do-while) and jump (break, continue, goto, return).
+NOTE|ARR_STR|int a[5] = {1, 2, 3, 4, 5}; // 1-D array, index 0..4 int m[2][3] = {{1,2,3},{4,5,6}}; // 2-D array char s1[] = "Hello"; // C-string, ends with '\0', size 6 string s2 = "World"; // string class s2 += "!"; cout << s2.length() << s2.substr(0,3); // 6 Wor
+NOTE|ARR_STR|Array name is the address of the first element. Out-of-range access is not checked by C++ (undefined behaviour).
+NOTE|ARR_STR|C-string functions (<cstring>): strlen, strcpy, strcat, strcmp. string class: +, ==, length(), size(), substr(), find(), append(), compare().
+NOTE|ARR_STR|A pointer stores the address of a variable: int a = 5; int *p = &a; Here &a is address-of, *p is dereference (value at address), p holds address.
+NOTE|ARR_STR|Pointer arithmetic: p+1 moves by sizeof(int) bytes. Array and pointer: a[i] is same as *(a+i).
+NOTE|ARR_STR|Null pointer: int *p = nullptr; (or NULL). void pointer can hold any address but must be cast before dereference. Pointer to pointer: int **pp = &p;
+NOTE|ARR_STR|const with pointers: const int *p (value cannot change), int *const p (address cannot change), const int *const p (neither).
+NOTE|ARR_STR|Dynamic memory: new allocates on heap, delete frees. int *p = new int(5); delete p; int *arr = new int[10]; delete[] arr; Forgetting delete causes memory leak.
+NOTE|ARR_STR|int a = 10, b = 20; int *p = &a; *p = 15; // a becomes 15 int arr[3] = {1, 2, 3}, *q = arr; cout << *(q + 2); // 3
+NOTE|ARR_STR|Function prototype (declaration) tells compiler name, return type and parameters: int add(int, int);.
+NOTE|ARR_STR|Argument passing: call by value (copy, original unchanged), call by address (pointer, original changed), call by reference (alias, original changed, no pointer syntax).
+NOTE|ARR_STR|Default arguments supplied from right to left: float area(float r, float pi = 3.14); Call area(2) uses default pi.
+NOTE|ARR_STR|Function overloading: same name, different parameter list (number, type or order). Return type alone is not enough. Resolved at compile time.
+NOTE|ARR_STR|Inline function: inline int sq(int x){return x*x;} The compiler replaces the call by the body, removing call overhead. Better than macros because it does type checking and avoids side effects like SQ(a++). Not suitable for large functions or loops. Declared before use. Compiler may refuse.
+NOTE|ARR_STR|Recursion: function calling itself. Must have base case. Each call uses stack memory. Examples: factorial, Fibonacci, power, GCD, Tower of Hanoi. Recursion vs iteration: recursion is shorter but slower and uses more memory.
+NOTE|ARR_STR|// call by value / address / reference void v(int x){ x = 5; } void ad(int *x){ *x = 5; } void rf(int &x){ x = 5; } int a = 1; v(a); /*a=1*/ ad(&a); /*a=5*/ rf(a); /*a=5*/ int fact(int n){ return n <= 1 ? 1 : n * fact(n - 1); } // recursion int gcd(int a, int b){ return b == 0 ? a : gcd(b, a % b); } void fib(int n){ int a = 0, b = 1; for(int i = 0; i < n; i++){ cout << a << " "; int c = a + b; a = b; b = c; } } Example: Overloading int area(int s){return s*s;} int area(int l,int b){return l*b;} double area(double r){return 3.14*r*r;} - area(4) calls...
+NOTE|ARR_STR|Exam tip: Unit 1 exam favourites: POP vs OOP table, features of OOP, structure of C++ program, call by value/reference with swap program, inline function vs macro, function overloading program, recursion (factorial/Fibonacci), pointer basics and new/delete.
+LINK|ARR_STR|YouTube search: arrays strings pointers C++ functions|https://www.youtube.com/results?search_query=arrays+strings+pointers+C%2B%2B+functions
+TOPIC|CLASS_OBJ
+NOTE|CLASS_OBJ|class Student { private: // data members: hidden int roll; char name[20]; public: // member functions: interface void getdata(); // declared inside void putdata() { cout << roll << " " << name << endl; } // defined inside (inline by default) }; void Student::getdata() { // defined outside using :: cout << "Enter roll and name: "; cin >> roll >> name; } int main() { Student s1, s2; s1.getdata(); s1.putdata(); Student *p = &s1; p->putdata(); }
+NOTE|CLASS_OBJ|Access specifiers: private (default in class; accessible only inside the class and by friends), protected (class, friends, derived classes), public (everywhere). In a struct the default is public.
+NOTE|CLASS_OBJ|Member functions can be defined inside the class (implicitly inline) or outside using the scope resolution operator ::. :: is also used for the global variable when a local variable has same name (::x).
+NOTE|CLASS_OBJ|Object members are accessed with . (object) or -> (pointer to object). Each object has its own copy of data members but all share the member functions. sizeof(object) includes data members only.
+NOTE|CLASS_OBJ|Data hiding in action: s1.roll = 5; from main is an error since roll is private.
+NOTE|CLASS_OBJ|A constructor is a special member function with the same name as the class, no return type (not even void), called automatically when an object is created, used to initialise data members. It can be overloaded, is normally public, and cannot be virtual or static.
+NOTE|CLASS_OBJ|class Box { int l, b; public: Box() { l = b = 0; } // default constructor Box(int x) { l = b = x; } // parameterized (one arg) Box(int x, int y) : l(x), b(y) {} // parameterized with initializer list Box(const Box &o) { l = o.l; b = o.b; } // copy constructor void show() { cout << l << "x" << b << endl; } }; Box b1; Box b2(5); Box b3(2, 3); Box b4 = b3; Box b5(b3); // b4,b5 use copy ctor
+NOTE|CLASS_OBJ|Default constructor: no arguments. If you define no constructor, the compiler supplies one (it does nothing for built-in types). Parameterized: takes arguments to initialise with given values. Copy constructor: ClassName(const ClassName &obj), creates a new object from an existing one; the argument must be passed by reference (by value would recurse infinitely).
+NOTE|CLASS_OBJ|Copy constructor is called when: (1) an object is initialised from another (Box b4 = b3;), (2) an object is passed by value to a function, (3) an object is returned by value.
+NOTE|CLASS_OBJ|Shallow copy vs deep copy: the compiler's default copy constructor copies pointer values only (shallow), so two objects point to the same memory and both destructors free it (double free). A user-defined copy constructor that allocates new memory and copies content is a deep copy.
+NOTE|CLASS_OBJ|Constructor overloading: several constructors with different parameters. Initializer list : l(x), b(y) initialises members before body runs; required for const and reference members.
+NOTE|CLASS_OBJ|Dynamic initialisation: values supplied at run time (Box b(a, c); with variables).
+NOTE|CLASS_OBJ|class Str { char *p; public: Str(const char *s){ p = new char[strlen(s)+1]; strcpy(p, s); } Str(const Str &o){ p = new char[strlen(o.p)+1]; strcpy(p, o.p); } // deep copy ~Str(){ delete[] p; } };
+NOTE|CLASS_OBJ|Special member function ~ClassName(), no arguments, no return type, cannot be overloaded, one per class. Called automatically when the object goes out of scope or delete is used, to release resources (memory, files).
+NOTE|CLASS_OBJ|Objects are destroyed in the reverse order of creation. Global objects are destroyed after main ends.
+NOTE|CLASS_OBJ|class T { public: T(){ cout << "C "; } ~T(){ cout << "D "; } }; int main(){ T a; { T b; } cout << "/ "; } // output: C C D / D
+LINK|CLASS_OBJ|YouTube search: classes objects constructors C++|https://www.youtube.com/results?search_query=classes+objects+constructors+C%2B%2B
+TOPIC|COPY_THIS
+NOTE|COPY_THIS|this is an implicit pointer to the object that called the member function: type ClassName *const. Used to return the object itself (return *this; for chaining), to compare addresses, and when a parameter has the same name as a member (this->x = x;). Not available in static functions or friend functions.
+NOTE|COPY_THIS|Passing objects: by value (copy ctor runs), by reference (no copy, can modify), by pointer. Returning objects: by value (copy) or by reference. Array of objects: Student s[3]; needs default constructor, access s[i].show(). Pointers to objects: Student *p = &s1; or new Student. Dynamic objects: Student *p = new Student(10); delete p; (constructor runs at new, destructor at delete).
+NOTE|COPY_THIS|class Complex { public: float re, im; Complex add(Complex c){ Complex t; t.re = re + c.re; t.im = im + c.im; return t; } // object as arg and return Complex& setre(float r){ re = r; return *this; } }; // chaining: c.setre(1).setre(2)
+LINK|COPY_THIS|YouTube search: deep copy shallow copy this pointer C++|https://www.youtube.com/results?search_query=deep+copy+shallow+copy+this+pointer+C%2B%2B
+TOPIC|EXCEPT
+NOTE|EXCEPT|An exception is a run-time error (divide by zero, array out of bounds, file not found, memory not available). C++ separates normal code from error handling using three keywords: try (block that may cause exception), throw (raises exception, any type), catch (handler, selected by type).
+NOTE|EXCEPT|double divide(int a, int b){ if(b == 0) throw "Division by zero"; return (double)a / b; } int main(){ try { cout << divide(10, 0); } catch (const char *msg) { cout << "Error: " << msg; } catch (int e) { cout << "int exception"; } catch (...) { cout << "any other exception"; } // catch-all }
+NOTE|EXCEPT|Control jumps from throw to the first matching catch; code after throw in try is skipped; if no handler matches, terminate() ends the program. Several catch blocks can follow one try; catch(...) must be last.
+NOTE|EXCEPT|Re-throwing: inside a catch block, throw; passes the same exception to the outer handler. Nested try blocks are allowed. Functions may specify exceptions (old style throw(int)). Standard exceptions in <exception>: bad_alloc, out_of_range, invalid_argument, exception::what().
+NOTE|EXCEPT|try { try { throw 5; } catch(int x){ cout << "inner "; throw; } } // rethrow catch(int x){ cout << "outer " << x; } // inner outer 5
+LINK|EXCEPT|YouTube search: exception handling C++ custom exception|https://www.youtube.com/results?search_query=exception+handling+C%2B%2B+custom+exception
+TOPIC|FILE_IO
+NOTE|FILE_IO|ios / \ istream ostream ifstream : input from file (derived from istream) \ / ofstream : output to file (derived from ostream) iostream fstream : both (derived from iostream)
+NOTE|FILE_IO|cin is object of istream, cout of ostream, cerr unbuffered error stream, clog buffered log. Formatting functions: width(), precision(), fill(), setf().
+NOTE|FILE_IO|Manipulators (<iomanip>): endl, ends, flush, setw(n) (field width), setfill(c), setprecision(n), fixed, scientific, left, right, hex, dec, oct, boolalpha.
+NOTE|FILE_IO|cout << setw(8) << setfill('*') << 42 << endl; // ******42 cout << fixed << setprecision(2) << 3.14159 << endl; // 3.14
+NOTE|FILE_IO|Files provide permanent storage. Steps: (1) include <fstream>, (2) create stream object, (3) open file, (4) read/write, (5) close. Opening: ofstream fout("a.txt"); or fout.open("a.txt", mode); Mode Meaning ios::in open for reading (default for ifstream) ios::out open for writing, truncates existing file (default for ofstream) ios::app append, writes always at end ios::ate open and move to end, can write anywhere ios::trunc delete contents if file exists ios::binary binary mode #include <fstream> int main(){ ofstream fout("data.txt"); fout << "Ved...
+NOTE|FILE_IO|Checks: is_open(), fail(), eof(), good(). Reading chars: get(), put(), getline().
+NOTE|FILE_IO|File pointers: seekg(pos, dir) and tellg() for get (read) pointer; seekp() and tellp() for put (write) pointer. Directions: ios::beg, ios::cur, ios::end. Enables random access.
+NOTE|FILE_IO|Binary files: write((char*)&obj, sizeof(obj)); and read((char*)&obj, sizeof(obj)); store whole objects.
+NOTE|FILE_IO|class Stu { public: int roll; char name[20]; }; Stu s = {1, "Ved"}; ofstream o("s.dat", ios::binary); o.write((char*)&s, sizeof(s)); o.close(); ifstream i("s.dat", ios::binary); Stu t; i.read((char*)&t, sizeof(t)); cout << t.roll << t.name; i.seekg(0, ios::end); cout << i.tellg(); // file size in bytes
+LINK|FILE_IO|YouTube search: file handling in C++ ifstream ofstream|https://www.youtube.com/results?search_query=file+handling+in+C%2B%2B+ifstream+ofstream
+TOPIC|FRIEND
+NOTE|FRIEND|A friend function is a non-member function allowed to access the private and protected members of a class.
+NOTE|FRIEND|Declared inside the class using friend, defined outside without Class::.
+NOTE|FRIEND|Properties: not in class scope, not called with object (f(obj)), has no this, must access members through an object (obj.x), can be friend of more than one class (useful to operate on two classes), declaration can be placed in any section (public/private).
+NOTE|FRIEND|Friend class: friend class B; inside A lets all member functions of B access A's private members.
+NOTE|FRIEND|Friendship is not mutual, not inherited, not transitive.
+NOTE|FRIEND|class B; // forward declaration class A { int x; public: A(int v){x=v;} friend int sum(A, B); }; class B { int y; public: B(int v){y=v;} friend int sum(A, B); }; int sum(A a, B b){ return a.x + b.y; } // accesses private members of both
+LINK|FRIEND|YouTube search: friend function in C++|https://www.youtube.com/results?search_query=friend+function+in+C%2B%2B
+TOPIC|INHERIT
+NOTE|INHERIT|Inheritance lets a new class (derived / child / sub class) reuse and extend the members of an existing class (base / parent / super class). It models the 'is-a' relationship (a Car is a Vehicle). Advantages: code reuse, less development time, easy extension, supports polymorphism, hierarchical classification. Syntax: class Derived : access_specifier Base { ... };
+NOTE|INHERIT|Type Structure Example Single A -> B class B : public A Multiple A, B -> C class C : public A, public B Multilevel A -> B -> C class C : public B (B : public A) Hierarchical A -> B, A -> C class B : public A; class C : public A Hybrid combination (e.g. hierarchical + multiple) needs virtual base class to avoid ambiguity class Person { protected: string name; int age; public: void getP(){ cin >> name >> age; } }; class Employee : public Person { float sal; public: void getE(){ getP(); cin >> sal; } // single inheritance void show(){ cout << name <<...
+NOTE|INHERIT|Base class member public inheritance protected inheritance private inheritance public public protected private protected protected protected private private not inherited (inaccessible) not inherited not inherited
+NOTE|INHERIT|Private members of base are present in the derived object but not directly accessible; use public/protected base functions. protected exists to give derived classes access while hiding from outside. Default inheritance mode for class is private, for struct is public.
+NOTE|INHERIT|Public inheritance keeps the is-a relation (most common). Private/protected inheritance hide the base interface from users of the derived class.
+NOTE|INHERIT|Order of construction: base class constructor first, then derived class constructor. For multiple inheritance, base constructors run in the order of their declaration in the derived class header. Destruction is in the reverse order (derived destructor first, then base).
+NOTE|INHERIT|Passing parameters to base class constructor: use the initializer list of the derived constructor: Derived(int a, int b) : Base(a) { ... }. If the base has a default constructor it is called automatically; if the base has only parameterised constructors the derived must call one explicitly.
+NOTE|INHERIT|class A { public: A(int x){ cout << "A(" << x << ") "; } ~A(){ cout << "~A "; } }; class B { public: B(){ cout << "B "; } ~B(){ cout << "~B "; } }; class C : public A, public B { public: C(int x, int y) : A(x) { cout << "C(" << y << ") "; } ~C(){ cout << "~C "; } }; int main(){ C c(1, 2); } // output: A(1) B C(2) ~C ~B ~A
+NOTE|INHERIT|In multiple inheritance, if both bases have a member with the same name, the call obj.f() is ambiguous; resolve with obj.A::f();. In hybrid inheritance (diamond): B and C inherit from A, and D inherits from B and C. D then contains two copies of A's members, so d.x is ambiguous and memory is wasted. Declaring the common base as virtual makes only one shared copy of A.
+NOTE|INHERIT|class A { public: int x; A(){ x = 10; } }; class B : virtual public A { }; class C : virtual public A { }; class D : public B, public C { }; // A int main(){ D d; cout << d.x; } // / \ one copy of A, no ambiguity -> 10 // B C // \ / // D
+NOTE|INHERIT|With a virtual base class, the constructor of the virtual base is called first, and by the most derived class (D), not by B or C.
+NOTE|INHERIT|Other points: constructors/destructors/assignment operator/friends are not inherited. A derived class can override (redefine) a base function; the base version is hidden (use Base::f() to call it). Composition ('has-a') is an alternative to inheritance (an object as a member of another).
+NOTE|INHERIT|Exam tip: Unit 3 exam favourites: types of inheritance with diagrams and programs; access table; order of constructor/destructor calls with output; passing arguments to base ctor; diamond problem and virtual base class program.
+NOTE|INHERIT|A. It lets derived classes access base members while still hiding them from the rest of the program.
+NOTE|INHERIT|Q. Is private base data present in derived object?
+NOTE|INHERIT|A. Yes, it occupies memory but cannot be accessed directly by derived members.
+LINK|INHERIT|YouTube search: inheritance types and virtual base class C++|https://www.youtube.com/results?search_query=inheritance+types+and+virtual+base+class+C%2B%2B
+TOPIC|NAMESPACE
+NOTE|NAMESPACE|// 1. Documentation (comments) #include <iostream> // 2. Header files (preprocessor directive) using namespace std; // 3. Namespace declaration class Student { // 4. Class declaration / definitions int roll; public: void set(int r) { roll = r; } void show() { cout << "Roll = " << roll << endl; } }; int main() { // 5. main(): execution begins here Student s; // object creation s.set(10); s.show(); return 0; // 0 = successful termination }
+NOTE|NAMESPACE|#include <iostream> brings declarations of cout, cin, cerr. cout << x uses the insertion operator <<, cin >> x uses the extraction operator >>; endl inserts newline and flushes buffer.
+NOTE|NAMESPACE|Header files: <iostream> (I/O), <cmath> (math), <cstring> (C strings), <string> (string class), <fstream> (files), <iomanip> (manipulators), <vector>, <map>, <algorithm> (STL). Modern C++ uses <cmath> not <math.h>.
+NOTE|NAMESPACE|Namespace: a named scope that prevents name clashes. std holds the standard library. You can write std::cout or use using namespace std;. You can also create your own namespace.
+NOTE|NAMESPACE|namespace A { int x = 10; void f() { cout << "A::f"; } } namespace B { int x = 20; } int main() { cout << A::x << " " << B::x; A::f(); } // 10 20 A::f
+LINK|NAMESPACE|YouTube search: namespaces in C++ explained|https://www.youtube.com/results?search_query=namespaces+in+C%2B%2B+explained
+TOPIC|OOP_BASICS
+NOTE|OOP_BASICS|Early programs were written in the procedural style (C, Pascal, FORTRAN): a program is a list of instructions grouped into functions, and data is kept in global or shared variables. As programs grow, this style creates problems: any function can change global data, so a bug in one place breaks others; code is hard to reuse; and the program does not model real-world things naturally. OOP solves these by putting data and the functions that work on it into one unit (object) and by controlling who can touch the data.
+NOTE|OOP_BASICS|Security: data hiding stops accidental or unauthorised change.
+NOTE|OOP_BASICS|Reusability: inheritance and templates let existing code be reused instead of rewritten.
+NOTE|OOP_BASICS|Maintainability: change inside a class does not affect other parts if the interface is the same.
+NOTE|OOP_BASICS|Real-world modelling: objects such as Student, Account, Car map directly to program entities.
+NOTE|OOP_BASICS|Extensibility: new features are added by creating new classes, not editing old ones.
+NOTE|OOP_BASICS|Basis POP OOP Main idea Program = functions + data Program = objects that communicate Design approach Top-down Bottom-up Data Global data shared by all functions, little protection Data hidden inside object, accessed through member functions Importance Functions (what to do) Data (who does it) Reuse Copy and modify functions Inheritance, composition, templates Overloading Not supported Function and operator overloading Real-world modelling Difficult Easy Access control No access specifiers private, protected, public Examples C, Pascal, COBOL C++,...
+NOTE|OOP_BASICS|Object: a run-time entity with state (data members), behaviour (member functions) and identity. Example: a Student object with roll, name and function display().
+NOTE|OOP_BASICS|Class: a user-defined data type that is the blueprint of objects. It describes members but occupies no memory until an object is created.
+NOTE|OOP_BASICS|Encapsulation: wrapping data and functions into a single unit (the class). It is the mechanism that supports data hiding.
+NOTE|OOP_BASICS|Data hiding: keeping data members private so they can be accessed only through public member functions.
+NOTE|OOP_BASICS|Abstraction: showing only essential features and hiding implementation details. We use cout without knowing how it works inside. In C++ abstraction is achieved with classes and access specifiers (and abstract classes).
+NOTE|OOP_BASICS|Inheritance: process by which one class (derived) acquires properties of another (base). Supports reuse and hierarchical classification.
+NOTE|OOP_BASICS|Polymorphism: 'many forms': the same function name or operator behaves differently in different contexts (overloading, overriding, virtual functions).
+NOTE|OOP_BASICS|Dynamic binding: the code executed for a call is decided at run time (virtual functions).
+NOTE|OOP_BASICS|Message passing: objects communicate by calling each other's member functions, e.g. s1.display();.
+NOTE|OOP_BASICS|Developed by Bjarne Stroustrup at AT&T Bell Labs, started in 1979 as 'C with Classes', renamed C++ in 1983. Standardised by ISO (C++98, C++11, C++14, C++17, C++20).
+NOTE|OOP_BASICS|C++ is a superset of C (almost all C code works), supports procedural, object-oriented and generic programming, and gives low-level control with high-level features.
+NOTE|OOP_BASICS|Features: classes and objects, inheritance, polymorphism, templates, exceptions, namespaces, references, STL, operator overloading, inline functions, default arguments.
+LINK|OOP_BASICS|YouTube search: POP vs OOP in C++|https://www.youtube.com/results?search_query=POP+vs+OOP+in+C%2B%2B
+TOPIC|OPOVL
+NOTE|OPOVL|Operator overloading gives an existing operator an extra meaning for user-defined types using a special function operator@. It improves readability: c3 = c1 + c2; instead of c3 = c1.add(c2);.
+NOTE|OPOVL|Rules: only existing operators can be overloaded (cannot create new ones like **); at least one operand must be a user-defined type; precedence, associativity and number of operands cannot change; cannot overload: :: (scope), . (member access), .*, ?:, sizeof, typeid. =, [], (), -> must be member functions; << and >> must be friend (or non-member).
+NOTE|OPOVL|Member form: the left operand is the calling object. Unary operator takes 0 arguments, binary takes 1. Friend form: unary takes 1, binary takes 2 arguments.
+NOTE|OPOVL|Pre vs post increment: operator++() is prefix, operator++(int) is postfix (the int is a dummy).
+NOTE|OPOVL|Operator Member function Friend function Unary (-a, ++a) ret operator-() friend ret operator-(X) Operator Member function Friend function Binary (a+b) ret operator+(X b) [a is *this] friend ret operator+(X a, X b) Stream (cout<<a) not possible friend ostream& operator<<(ostream&, X) a = b X& operator=(const X&) must be member not allowed class Complex { float re, im; public: Complex(float r = 0, float i = 0) : re(r), im(i) {} Complex operator+(const Complex &c) { return Complex(re + c.re, im + c.im); } // binary + Complex operator-(const Complex &c)...
+NOTE|OPOVL|Overloading + for strings (concatenation) and == for comparison are common exam programs. Assignment operator should be overloaded when class has pointer members (deep copy), with self-assignment check if(this != &o).
+NOTE|OPOVL|Type conversion: constructor with one argument converts basic type to class (Distance d = 5;); conversion operator operator float() converts class to basic type.
+NOTE|OPOVL|Exam tip: Unit 2 exam favourites: constructor types with program, copy constructor (3 situations), destructor order, static member program, friend function accessing two classes, this pointer, operator overloading programs (unary -, ++, binary +, <<), rules of operator overloading, member vs friend.
+NOTE|OPOVL|Q. Why is the copy constructor argument a reference?
+NOTE|OPOVL|A. If passed by value, making the copy would call the copy constructor again, causing infinite recursion. A reference avoids the copy.
+NOTE|OPOVL|Q. Can a constructor be virtual or have a return type?
+NOTE|OPOVL|A. No. It has no return type and cannot be virtual because the object does not yet exist (no vptr).
+NOTE|OPOVL|Q. Difference between a member function and a friend function?
+NOTE|OPOVL|A. A member function belongs to the class, is called through an object and has this. A friend function is outside the class, called like a normal function with objects as arguments, but can access private members.
+NOTE|OPOVL|A. The left operand is cout (an ostream), not an object of our class, so it cannot be a member of our class.
+LINK|OPOVL|YouTube search: operator overloading C++ plus plus and stream operators|https://www.youtube.com/results?search_query=operator+overloading+C%2B%2B+plus+plus+and+stream+operators
+TOPIC|STATIC
+NOTE|STATIC|Static data member: only one copy shared by all objects. Declared with static inside class and defined outside with scope operator: int Counter::count = 0; Initialised to 0 by default. Exists even if no object is created. Used for counting objects.
+NOTE|STATIC|Static member function: can access only static members, has no this pointer, called using class name Counter::show();.
+NOTE|STATIC|class Counter { static int count; public: Counter(){ count++; } static void show(){ cout << count; } }; int Counter::count = 0; int main(){ Counter a, b, c; Counter::show(); } // prints 3
+LINK|STATIC|YouTube search: static data members and functions C++|https://www.youtube.com/results?search_query=static+data+members+and+functions+C%2B%2B
+TOPIC|TEMPLATE_STL
+NOTE|TEMPLATE_STL|Generic programming: write code once for any data type. Function template: one function definition works for many types, compiler generates the right version (instantiation). Class template: a class with type parameter.
+NOTE|TEMPLATE_STL|template <class T> T maxv(T a, T b){ return a > b ? a : b; } cout << maxv(3, 7) << maxv(2.5, 1.5) << maxv('a', 'z'); // int, double, char versions template <class T> class Stack { T a[50]; int top; public: Stack(){ top = -1; } void push(T x){ a[++top] = x; } T pop(){ return a[top--]; } }; Stack<int> s1; Stack<string> s2; // class template objects
+NOTE|TEMPLATE_STL|template <class T, class U> allows multiple type parameters. A function template can be overloaded and a specific type can have template specialisation. Templates are resolved at compile time and give compile-time polymorphism.
+NOTE|TEMPLATE_STL|STL is a collection of generic classes and functions with three main parts: containers (store data), iterators (generalised pointers to traverse), algorithms (operate on containers). Also function objects and adaptors.
+NOTE|TEMPLATE_STL|Category Containers Notes Sequence vector, list, deque, array vector: dynamic array, O(1) random access, push_back; list: doubly linked, O(1) insert/erase; deque: both ends Category Containers Notes Associative set, multiset, map, multimap sorted (balanced tree), search O(log n); set unique keys, map key-value pairs Unordered unordered_set, unordered_map hash based, average O(1) Adaptors stack, queue, priority_queue built on other containers, restricted interface #include <vector> #include <list> #include <map> #include <algorithm> vector<int> v =...
+NOTE|TEMPLATE_STL|Iterator types: input, output, forward, bidirectional, random access. begin() points to first element, end() one past last. Algorithms: sort, binary_search, find, count, reverse, copy, min_element, max_element, accumulate.
+NOTE|TEMPLATE_STL|Advantages: reusability, tested efficient code, type-safe through templates, consistent interface.
+NOTE|TEMPLATE_STL|Exam tip: Unit 5 exam favourites: file modes and read/write program; binary file with objects; function and class templates; try-throw-catch program with multiple catch; rethrow; STL components with vector/map program; iterator use.
+LINK|TEMPLATE_STL|YouTube search: STL containers and templates C++|https://www.youtube.com/results?search_query=STL+containers+and+templates+C%2B%2B
+TOPIC|VIRTUAL
+NOTE|VIRTUAL|Polymorphism means 'many forms': one interface, many implementations. C++ supports two kinds.
+NOTE|VIRTUAL|Compile-time (static) polymorphism Run-time (dynamic) polymorphism Function overloading, operator overloading, templates Function overriding with virtual functions Early binding: call linked at compile time Late binding: call decided at run time by object type Faster, less flexible Slight overhead (vtable lookup), very flexible Function overloading Function overriding Same name, different parameters Same name AND same signature Same class (or same scope) Base class and derived class Resolved at compile time Resolved at run time if base function is...
+NOTE|VIRTUAL|A virtual function is a base class member function declared with virtual, expected to be overridden. When called through a base class pointer or reference, the version of the object actually pointed to runs (late binding). Without virtual, the pointer type decides (early binding).
+NOTE|VIRTUAL|Rules: must be a member function; cannot be static; can be friend of another class; accessed through pointer/reference to get run-time effect; prototype must match in derived class; if not overridden, base version is used; constructors cannot be virtual but destructors can.
+NOTE|VIRTUAL|Implementation: every class with virtual functions has a vtable (table of function addresses). Each object stores a hidden vptr pointing to its class's vtable. A virtual call goes ptr -> vptr -> vtable -> function.
+NOTE|VIRTUAL|class Base { public: void show() { cout << "Base show\n"; } // non-virtual virtual void print(){ cout << "Base print\n"; } }; // virtual class Derived : public Base { public: void show() { cout << "Derived show\n"; } void print() { cout << "Derived print\n"; } }; int main(){ Base *p; Derived d; p = &d; p->show(); // Base show (early binding, pointer type) p->print(); // Derived print (late binding, object type) }
+NOTE|VIRTUAL|Pure virtual function: virtual void area() = 0; has no definition in base. A class having at least one pure virtual function is an abstract class: objects cannot be created, but pointers and references to it can.
+NOTE|VIRTUAL|Any derived class must override all pure virtual functions, otherwise it is also abstract.
+NOTE|VIRTUAL|Abstract classes define an interface/contract for derived classes (e.g. Shape with area(); Circle, Rectangle implement).
+NOTE|VIRTUAL|class Shape { public: virtual float area() = 0; virtual ~Shape() {} }; class Circle : public Shape { float r; public: Circle(float x):r(x){} float area(){ return 3.14f*r*r; } }; class Rect : public Shape { float l,b; public: Rect(float x,float y):l(x),b(y){} float area(){ return l*b; } }; int main(){ Shape *s[2] = { new Circle(2), new Rect(3,4) }; for(int i = 0; i < 2; i++){ cout << s[i]->area() << endl; delete s[i]; } } // 12.56 12
+NOTE|VIRTUAL|If a derived object is deleted through a base pointer and the base destructor is not virtual, only the base destructor runs and the derived part is not cleaned (memory leak, undefined behaviour). Make the base destructor virtual so destructors run derived first, then base.
+NOTE|VIRTUAL|class B { public: virtual ~B(){ cout << "~B "; } }; class D : public B { public: ~D(){ cout << "~D "; } }; int main(){ B *p = new D; delete p; } // with virtual: ~D ~B without: ~B only
+NOTE|VIRTUAL|Early (static) binding Late (dynamic) binding Function call resolved at compile time Resolved at run time Normal functions, overloaded functions Virtual functions through pointer/reference Faster Uses vtable, slightly slower Exam tip: Unit 4 exam favourites: overloading vs overriding; virtual function program showing base pointer to derived object; pure virtual and abstract class with Shape program; virtual destructor; early vs late binding; vtable concept.
+NOTE|VIRTUAL|Q. Can we create an object of an abstract class?
+NOTE|VIRTUAL|A. No, but we can create pointers and references to it, which is how run-time polymorphism is used.
+NOTE|VIRTUAL|A. No, because the vptr is set up by the constructor itself, so the object type is not available before construction.
+LINK|VIRTUAL|YouTube search: virtual functions pure virtual abstract class C++|https://www.youtube.com/results?search_query=virtual+functions+pure+virtual+abstract+class+C%2B%2B
+PLAYLIST|Neso Academy C++ full course (search on YouTube)|https://www.youtube.com/results?search_query=C%2B%2B+full+course+Neso+Academy
+TIP|Write the program first, then label every line of it: half the marks in a 10-mark program question are for the explanation around it.
+QA|Define class and object.|A class is a user-defined blueprint with data members and member functions; an object is an instance of a class that occupies memory.
+QA|What is encapsulation?|Binding of data and functions into one unit (class), with data hiding through access specifiers.
+QA|What is a constructor? Name its types.|Special function with the class name, called automatically at object creation to initialise it. Types: default, parameterized, copy.
+QA|What is the use of scope resolution operator?|To define member functions outside the class, to access a global variable hidden by local one, and to call base class members.
+QA|What is a friend function?|A non-member function declared with friend that can access private and protected members of the class.
+QA|What is the this pointer?|Implicit pointer to the calling object, available inside non-static member functions.
+QA|List operators that cannot be overloaded.|::, ., .*, ?:, sizeof.
+QA|What is a virtual function?|A base class member function declared with virtual, overridden in derived class, giving run-time polymorphism through base pointers.
+QA|What is an abstract class?|A class with at least one pure virtual function; it cannot be instantiated.
+QA|What is a template?|A mechanism to write generic functions or classes that work with any data type.
+QA|What is exception handling?|A mechanism using try, throw and catch to detect and handle run-time errors.
+QA|Name the three parts of STL.|Containers, iterators and algorithms. Five and ten-mark questions (practise these)
+QBANK|Compare procedure-oriented and object-oriented programming. Explain the basic concepts of OOP.
+QBANK|Explain the structure of a C++ program. What are namespaces?
+QBANK|Explain call by value, call by address and call by reference with a swap program.
+QBANK|What are inline functions? Compare with macros. When should they be avoided?
+QBANK|Explain constructors with their types. Write a program to show copy constructor. When is it invoked?
+QBANK|Explain static data members and static member functions with a program to count objects.
+QBANK|What is a friend function? Write a program to add private data of two classes using a friend function.
+QBANK|Write a program to overload the unary minus, binary plus and increment operators for a Complex/Distance class.
+QBANK|Explain the rules for operator overloading. Why must << and >> be friends?
+QBANK|Explain types of inheritance with diagrams and examples. Show the access table for public, protected and private inheritance.
+QBANK|Explain the order of constructor and destructor calls in multilevel and multiple inheritance with an example.
+QBANK|What is the diamond problem? How do virtual base classes solve it? Give a program.
+QBANK|Distinguish between overloading and overriding. Explain virtual functions with the vtable mechanism.
+QBANK|What is a pure virtual function and an abstract class? Write a Shape program showing run-time polymorphism.
+QBANK|Why do we need a virtual destructor? Show with an example.
+QBANK|Explain file stream classes and file opening modes. Write a program to write and read student records.
+QBANK|Explain function templates and class templates with examples.
+QBANK|Explain exception handling with multiple catch blocks and rethrowing, with a program.
+QBANK|Explain STL: containers, iterators, algorithms. Write a program using vector and map.

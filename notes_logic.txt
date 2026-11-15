@@ -1,0 +1,246 @@
+# Notes excerpted from supplied exam-ready PDF for Logic Design and Computer Organization
+NOTE|LD_COMB|Logic Design & Computer Organization (TCS308)
+NOTE|LD_BOOL|Syllabus map: Unit 1 Boolean simplification and combinational logic / Unit 2 Sequential logic / Unit 3 Counters
+NOTE|LD_COMB|and FSM / Unit 4 Computer organization and architecture / Unit 5 Memory, I/O and alternative architectures
+NOTE|LD_BOOL|UNIT 1: BOOLEAN SIMPLIFICATION AND COMBINATIONAL LOGIC
+NOTE|LD_COMB|(fraction). Group 3 bits for octal, 4 bits for hex.
+NOTE|LD_BOOL|2's complement of B (discard end carry). Range of n-bit 2's complement: -2n-1 to 2n-1 - 1.
+NOTE|LD_COMB|ASCII (7-bit characters), parity bit for error detection.
+NOTE|LD_BOOL|of minterms where F = 1, written Sigma m(...). Maxterm Mi = OR of all variables (complemented if bit is 1).
+NOTE|LD_COMB|POS = AND of maxterms where F = 0, written Pi M(...). Mi = mi'. Number of minterms for n variables = 2n.
+NOTE|LD_BOOL|By consensus theorem, BC is redundant: Y = AB + A'C.
+NOTE|LD_COMB|A + A'B = A + B; then A + B + AB' = A + B (A + AB' = A). Y = A + B.
+NOTE|LD_BOOL|A K-map is a graphical method to simplify Boolean functions up to 5 or 6 variables. Cells are arranged in Gray
+NOTE|LD_COMB|code order so adjacent cells differ in one variable (also wrap-around edges). A 2-variable map has 4 cells,
+NOTE|LD_BOOL|3-variable 8, 4-variable 16, 5-variable 32 (two 4-variable maps stacked).
+NOTE|LD_COMB|1. Fill the map: put 1 in the cell of each minterm (and X for don't cares).
+NOTE|LD_BOOL|2. Form groups of 1s in sizes of powers of two (1, 2, 4, 8, 16): rectangular, may wrap around edges and
+NOTE|LD_COMB|3. Make groups as large as possible and use the fewest groups that cover all 1s. Include don't-care cells (X)
+NOTE|LD_BOOL|4. Each group gives a product term: variables that stay constant in the group are kept (complemented if 0);
+NOTE|LD_COMB|changing variables vanish. A group of 2k cells eliminates k variables.
+NOTE|LD_BOOL|5. OR all product terms to get the minimal SOP. For POS group the 0s and write sum terms with complemented
+NOTE|LD_COMB|sense (variable kept as complemented if it is 1).
+NOTE|LD_BOOL|Example: 4-variable: F(A,B,C,D) = Sigma m(0, 1, 2, 5, 8, 9, 10)
+NOTE|LD_COMB|Groups: m0, m1, m8, m9 (B'C'), m0, m2, m8, m10 (B'D'), m1, m5 (A'C'D). Minimal F = B'C' + B'D' + A'C'D.
+NOTE|LD_BOOL|Example: With don't care: F = Sigma m(1, 3, 7, 11, 15) + d(0, 2, 5)
+NOTE|LD_COMB|Group m3, m7, m11, m15 = CD; group m1, m3, m5(X), m7 = A'D. F = CD + A'D.
+NOTE|LD_BOOL|covering a 1 that no other group covers; it must be in the answer.
+NOTE|LD_COMB|An algorithmic method that works for any number of variables and is suitable for computers. It finds all prime
+NOTE|LD_BOOL|1. List all minterms (and don't cares) in binary, grouped by the number of 1s.
+NOTE|LD_COMB|2. Compare each group with the next; if two terms differ in exactly one bit, combine them and replace that bit
+NOTE|LD_BOOL|3. Repeat on the combined list until no more combining is possible. Terms never ticked are prime implicants.
+NOTE|LD_COMB|4. Build a prime implicant chart (rows = prime implicants, columns = minterms; don't cares are not listed).
+NOTE|LD_BOOL|Select essential prime implicants (the only cover of some minterm).
+NOTE|LD_COMB|5. Cover remaining minterms with the fewest extra prime implicants (Petrick's method if needed). OR the
+NOTE|LD_BOOL|Group by ones: 0 (000); 1, 2 (001, 010); 5, 6 (101, 110); 7 (111). First pass: 0-1 (00-), 0-2 (0-0), 1-5 (-01), 2-6
+NOTE|LD_COMB|(-10), 5-7 (1-1), 6-7 (11-). No further combining, so all six are prime implicants. Every minterm is covered by two
+NOTE|LD_BOOL|PIs: a minimal cover is 00- + -10 + 1-1 = A'B' + BC' + AC (also 0-0 + -01 + 11-). Result: F = A'B' + BC' + AC.
+NOTE|LD_COMB|1.5 Universal gates and NAND/NOR implementation
+NOTE|LD_BOOL|= NAND followed by NAND-as-NOT. OR from NAND: (A'.B')' = A + B.
+NOTE|LD_COMB|POS with only NOR (NOR-NOR) similarly. Procedure: draw AND-OR, replace all gates by NAND (or NOR),
+NOTE|LD_BOOL|add inverters on single-input paths if needed.
+NOTE|LD_COMB|Y = ((AB)' . (CD)')' : two NAND gates for AB and CD, whose outputs feed a third NAND gate.
+NOTE|LD_BOOL|A combinational circuit has outputs that depend only on present inputs (no memory). Analysis: from circuit
+NOTE|LD_COMB|write the Boolean expressions and truth table. Design: from specification make truth table, simplify (K-map) and
+NOTE|LD_BOOL|S = A xor B xor Cin; Cout = AB + Cin(A xor B) (= AB + BCin +
+NOTE|LD_COMB|D = A xor B xor Bin; Bout = A'B + A'Bin + B.Bin
+NOTE|LD_BOOL|ripples from LSB to MSB; delay grows with n. Carry look-ahead computes carries in parallel using generate G
+NOTE|LD_COMB|= AB and propagate P = A xor B: Ci+1 = Gi + PiCi.
+NOTE|LD_BOOL|is produced, add 6 (0110) to correct. Correction logic: K = carry + S3.S2 + S3.S1.
+NOTE|LD_COMB|adders). Magnitude comparator: 1-bit: A>B = AB', A=B = A xnor B, A<B = A'B. 4-bit comparator compares
+NOTE|LD_BOOL|Converts n-bit code into one of 2n outputs; each output is a minterm; has Enable. 3-to-8: Yi = 1 for
+NOTE|LD_COMB|input = i. Any function can be built with a decoder + OR gate. Larger decoders from smaller ones
+NOTE|LD_BOOL|Inverse of decoder. 8-to-3 encoder: A2 = D4 + D5 + D6 + D7, A1 = D2 + D3 + D6 + D7, A0 = D1 +
+NOTE|LD_COMB|D3 + D5 + D7. Priority encoder gives the code of the highest-priority active input and a valid bit.
+NOTE|LD_BOOL|Selects one of 2n data inputs using n select lines (data selector). 4:1 MUX: Y = S1'S0' I0 + S1'S0
+NOTE|LD_COMB|Routes one input to one of 2n outputs chosen by select lines (1:4 has 2 select lines); DEMUX with
+NOTE|LD_BOOL|0/1 to data inputs) or with a 2n-1:1 MUX using the remaining variable (or its complement, 0, 1) on the data
+NOTE|LD_COMB|inputs. Higher MUX from smaller: 16:1 from five 4:1 MUXes.
+NOTE|LD_BOOL|BCD to Excess-3: add 3 (0011). Design with truth table and K-map for each output.
+NOTE|LD_COMB|Example: Implement F(A,B,C) = Sigma m(1, 2, 6, 7) with 4:1 MUX (select = A, B)
+NOTE|LD_BOOL|For AB = 00: F = C (m1) so I0 = C; AB = 01: F = C' (m2) so I1 = C'; AB = 10: F = 0 (m4, m5 not in function) so I2 =
+NOTE|LD_COMB|G3 = 1; G2 = 1 xor 0 = 1; G1 = 0 xor 1 = 1; G0 = 1 xor 1 = 0. Gray = 1110.
+NOTE|LD_BOOL|Styles: structural (gate instances), dataflow (assign), behavioural (always blocks).
+NOTE|LD_COMB|module half_adder(input a, b, output sum, carry); // dataflow style
+NOTE|LD_BOOL|module full_adder(input a, b, cin, output sum, cout); // structural: two half adders + OR
+NOTE|LD_COMB|half_adder h1(a, b, s1, c1); half_adder h2(s1, cin, sum, c2); or o1(cout, c1, c2);
+NOTE|LD_BOOL|module mux4(input [3:0] i, input [1:0] s, output reg y); // behavioural
+NOTE|LD_COMB|always @(*) case(s) 2'b00: y = i[0]; 2'b01: y = i[1]; 2'b10: y = i[2]; default: y = i[3];
+NOTE|LD_BOOL|Exam tip: Unit 1 exam favourites: K-map minimisation (4 variables with don't cares); Quine-McCluskey;
+NOTE|LD_COMB|NAND/NOR realisation; full adder/subtractor design; BCD adder; MUX/DEMUX/decoder/encoder and
+NOTE|LD_BOOL|implementing functions; Gray code conversion; HDL for adder.
+NOTE|LD_COMB|Q. Why are NAND and NOR called universal gates?
+NOTE|LD_BOOL|A. Any Boolean function can be built using only NAND gates or only NOR gates.
+NOTE|LD_COMB|A. An input combination that never occurs or whose output is irrelevant; it can be treated as 0 or 1 to get a simpler
+NOTE|LD_FF|memory elements fed back. Block: combinational logic + storage elements (flip-flops) + feedback.
+NOTE|LD_REG|change on input changes (faster, prone to hazards and races).
+NOTE|LD_FF|falling edge). Edge-triggered devices avoid the race-around problem.
+NOTE|LD_REG|= 0 holds, S = R = 1 forbidden/invalid (both outputs 0, unpredictable after release). With NAND gates it is
+NOTE|LD_FF|active-low (S' R'), invalid at 00. Gated (clocked) SR latch adds an enable. D latch: Q follows D when enable =
+NOTE|LD_REG|00 hold, 01 reset (0), 10 set (1), 11 invalid
+NOTE|LD_FF|The second table is the excitation table: the inputs needed for a desired present-to-next state transition. It is
+NOTE|LD_REG|used in the design of counters and state machines (the first is the characteristic table, used for analysis).
+NOTE|LD_FF|time clock is high (if clock pulse width > propagation delay). Solutions: master-slave JK flip-flop, edge
+NOTE|LD_REG|triggering, or making clock pulse shorter than delay.
+NOTE|LD_FF|falling edge. Preset (PR) and clear (CLR) asynchronous inputs set or reset the FF regardless of clock.
+NOTE|LD_REG|Method: write the excitation table of the required FF with the available FF's inputs as outputs, minimise with
+NOTE|LD_FF|(serial in parallel out, serial-to-parallel conversion), PISO (parallel in serial out), PIPO. Left or right shift. Delay
+NOTE|LD_REG|parallel load. Each stage has a 4:1 MUX before its D flip-flop, with serial inputs for left/right shift and parallel
+NOTE|LD_FF|Example: 4-bit SISO, data 1011 applied serially
+NOTE|LD_REG|After 4 clock pulses the register holds 1011 (first bit entered reaches the last stage). Output serial: the bits come
+NOTE|LD_FF|Exam tip: Unit 2 exam favourites: SR/JK/D/T characteristic and excitation tables; race-around and master-slave;
+NOTE|LD_REG|flip-flop conversions; shift register types; universal shift register operation.
+NOTE|LD_FF|Q. What is the difference between a latch and a flip-flop?
+NOTE|LD_REG|A. A latch is level-sensitive; a flip-flop is edge-triggered and changes only at the clock edge.
+NOTE|LD_FF|A. The output changes to its complement on each clock pulse (J = K = 1 in JK, T = 1 in T flip-flop).
+NOTE|LD_COUNTER|A counter is a sequential circuit that goes through a prescribed sequence of states when clock pulses are
+NOTE|LD_COUNTER|applied. Modulus (mod-N) = number of states. A mod-N counter needs n flip-flops where 2n >= N, i.e. n =
+NOTE|LD_COUNTER|only first FF gets clock; each FF clocks the next
+NOTE|LD_COUNTER|previous. Down counter: clock from Q'. Up/down with control. Frequency division: each stage divides by 2
+NOTE|LD_COUNTER|(e.g. mod-6: reset when count = 6 = 110; mod-10 decade counter resets at 1010).
+NOTE|LD_COUNTER|state diagram -> state table -> excitation table of chosen FF -> K-map for each FF input -> circuit. For
+NOTE|LD_COUNTER|synchronous binary up counter with JK/T: Ji = Ki = Qi-1 Qi-2 ... Q0 (AND of all lower bits).
+NOTE|LD_COUNTER|Example: Design synchronous mod-4 counter with T FFs
+NOTE|LD_COUNTER|States 00, 01, 10, 11, 00. T0 = 1 (toggles every clock); T1 = Q0 (toggles when Q0 = 1). Two T flip-flops with T0 =
+NOTE|LD_COUNTER|4-bit: 0000, 1000, 1100, 1110, 1111, 0111, 0011, 0001
+NOTE|LD_COUNTER|A finite state machine (FSM) is a sequential circuit with a finite number of states. Two models differ in how
+NOTE|LD_COUNTER|Output depends on present state and present input
+NOTE|LD_COUNTER|Output written inside the state circle (state/output)
+NOTE|LD_COUNTER|Output written on the transition arrow (input/output)
+NOTE|LD_COUNTER|Output changes only at clock edge; glitch-free
+NOTE|LD_COUNTER|Output can change as soon as input changes (async to clock)
+NOTE|LD_COUNTER|Design steps for a synchronous sequential circuit
+NOTE|LD_COUNTER|1. Understand the problem; draw the state diagram (states, transitions, outputs).
+NOTE|LD_COUNTER|2. Make the state table (present state, input, next state, output). Reduce states (state minimisation: merge
+NOTE|LD_COUNTER|3. State assignment: give binary codes to states (n FFs for up to 2n states).
+NOTE|LD_COUNTER|4. Choose flip-flop type; derive FF input equations using the excitation table.
+NOTE|LD_COUNTER|5. Simplify next-state, FF input and output equations with K-maps.
+NOTE|LD_COUNTER|7. Analysis is the reverse: from circuit get FF input equations, state table, state diagram.
+NOTE|LD_COUNTER|Example: Sequence detector for 101 (Mealy, overlapping)
+NOTE|LD_COUNTER|States: S0 (start), S1 (seen 1), S2 (seen 10). S0 -0/0-> S0, S0 -1/0-> S1, S1 -0/0-> S2, S1 -1/0-> S1, S2 -1/1->
+NOTE|LD_COUNTER|S1 (output 1, overlap keeps last 1), S2 -0/0-> S0. Three states need 2 flip-flops.
+NOTE|LD_COUNTER|Exam tip: Unit 3 exam favourites: ripple vs synchronous counter; mod-N counter design; ring and Johnson
+NOTE|LD_COUNTER|counters; Mealy vs Moore; state diagram/table for sequence detector with FF design; counter timing.
+NOTE|LD_COUNTER|Q. How many flip-flops are needed for a mod-12 counter?
+NOTE|LD_COUNTER|Q. What is the frequency of the output of the last stage of a 4-bit ripple counter with 16 kHz clock?
+NOTE|LD_ARITH|UNIT 4: COMPUTER ORGANIZATION AND ARCHITECTURE
+NOTE|LD_ARCH|types, addressing modes, number of registers, I/O mechanism. Computer organization: how the architecture
+NOTE|LD_ARITH|is realised in hardware: control signals, interfaces, memory technology, bus structure. Example: whether a
+NOTE|LD_ARCH|multiply instruction exists is architecture; whether it is done by a multiply unit or repeated addition is
+NOTE|LD_ARITH|MDR/MBR (memory data register), ACC (accumulator), flags/status register.
+NOTE|LD_ARCH|Single bus; instruction and data fetch cannot overlap (Von
+NOTE|LD_ARITH|Separate buses; can fetch instruction and data
+NOTE|LD_ARCH|DSPs, microcontrollers (8051, AVR); split L1 I-cache and
+NOTE|LD_ARITH|Stored-program concept (John von Neumann, 1945)
+NOTE|LD_ARCH|Mostly load/store architecture; operations on registers
+NOTE|LD_ARITH|Instructions can operate directly on memory operands
+NOTE|LD_ARCH|Few addressing modes; pipelining is easy; CPI about 1
+NOTE|LD_ARITH|Many addressing modes; pipelining harder; CPI > 1
+NOTE|LD_ARCH|A program has 2 x 10^9 instructions, CPI = 1.5, clock = 2 GHz. Time = 2e9 x 1.5 / 2e9 = 1.5 s. MIPS = 2000 / 1.5
+NOTE|LD_ARITH|The overall speedup from improving only a fraction f of the execution time by a factor S is limited by the part that
+NOTE|LD_ARCH|Speedupoverall = 1 / [ (1 - f) + f / S ]. Maximum possible speedup (S -> infinity) = 1 / (1 - f).
+NOTE|LD_ARITH|f = 0.8 sped up 4 times: Speedup = 1 / (0.2 + 0.8/4) = 1 / 0.4 = 2.5. Even with infinite speedup max = 1 / 0.2 = 5.
+NOTE|LD_ARCH|Little's law (queueing): L = lambda x W, the average number of items in a system equals the average arrival rate
+NOTE|LD_ARITH|times the average time an item spends in the system. Example: 10 requests/s with 0.5 s average time gives 5
+NOTE|LD_ARCH|complement (single zero, simplest hardware; range -2n-1 to +2n-1 - 1; sign extension by replicating the sign
+NOTE|LD_ARITH|the same sign gives a result of opposite sign (carry into MSB differs from carry out of MSB). Subtraction: A - B
+NOTE|LD_ARCH|multiplies signed 2's complement numbers by examining pairs of multiplier bits (Q0, Q-1): 00 or 11 -> shift only,
+NOTE|LD_ARITH|01 -> add multiplicand then shift, 10 -> subtract multiplicand then shift (arithmetic right shift). Reduces additions
+NOTE|LD_ARCH|division (no restore; add or subtract in next step depending on sign), n steps for n-bit quotient.
+NOTE|LD_ARITH|Multiplier 0111 (= 7) has a run of three 1s. Booth sees it as +8 - 1: subtract the multiplicand at the first 1 (pair 10)
+NOTE|LD_ARCH|and add 8 x multiplicand after the run (pair 01), so only 2 add/subtract operations are needed instead of 3.
+NOTE|LD_ARITH|zero; E = all 1s with M = 0 gives infinity; E = all 1s with M != 0 is NaN.
+NOTE|LD_ARCH|normalise result, (4) round, check overflow/underflow. Multiplication: add exponents (subtract bias), multiply
+NOTE|LD_ARITH|12.5 = 1100.1 = 1.1001 x 2^3. Sign 0. Exponent = 3 + 127 = 130 = 10000010. Mantissa =
+NOTE|LD_ARCH|Binary 1 10000010 01000000...: sign 1 (negative), exponent 130 - 127 = 3, mantissa 1.01 = 1.25. Value = -1.25 x
+NOTE|LD_ARITH|4.6 Processor operation and instruction cycle
+NOTE|LD_ARCH|interprets opcode) -> Execute (ALU operation, memory or I/O access) -> Store/write back. If interrupts are
+NOTE|LD_ARITH|enabled the CPU checks for an interrupt after each instruction (interrupt cycle).
+NOTE|LD_ARCH|register, register indirect, indexed, base-register, relative, stack.
+NOTE|LD_ARITH|Pipelining overlaps the execution of several instructions by dividing the instruction cycle into stages (e.g. IF, ID,
+NOTE|LD_ARCH|EX, MEM, WB), like an assembly line. Each stage works on a different instruction each clock.
+NOTE|LD_ARITH|= n k / (k + n - 1), tends to k for large n. Ideal CPI = 1.
+NOTE|LD_ARCH|processor pipeline (multiple processors working on a data stream in sequence).
+NOTE|LD_ARITH|Harvard memories), data (dependency: RAW read-after-write, WAR, WAW; fix by forwarding/bypassing,
+NOTE|LD_ARCH|stalls/bubbles, compiler scheduling), control (branches; fix by branch prediction, delayed branch, flushing).
+NOTE|LD_ARITH|5-stage pipeline, 100 instructions: pipelined = 5 + 100 - 1 = 104 cycles; non-pipelined = 500 cycles; speedup =
+NOTE|LD_ARCH|Control signals from fixed logic circuits (gates, decoders, state
+NOTE|LD_ARITH|Control signals stored as microinstructions in control
+NOTE|LD_ARCH|Slower, but flexible, easy to modify and extend; suits CISC
+NOTE|LD_ARITH|microinstructions (routine). Control address register, control memory, control data register and a
+NOTE|LD_ARCH|sequencer (next-address logic) form the microprogrammed control unit.
+NOTE|LD_ARITH|Exam tip: Unit 4 exam favourites: Von Neumann vs Harvard; RISC vs CISC; CPU time and MIPS numericals;
+NOTE|LD_ARCH|Amdahl's law numerical; 2's complement and Booth's algorithm; IEEE 754 conversion; instruction cycle; pipelining
+NOTE|LD_ARITH|speedup and hazards; hardwired vs microprogrammed.
+NOTE|LD_ARCH|A. Instructions and data share one memory and bus, so the CPU cannot fetch both at the same time, limiting
+NOTE|LD_ARITH|A. Situations that prevent the next instruction from executing in its clock cycle: structural, data and control
+NOTE|LD_MEMORY|UNIT 5: MEMORY, I/O AND ALTERNATIVE ARCHITECTURES
+NOTE|LD_IO|needs refresh, cheaper, used for main memory), ROM (non-volatile; PROM, EPROM, EEPROM, Flash).
+NOTE|LD_MEMORY|storage -> tertiary. Going down: capacity increases, cost per bit decreases, access time increases. The
+NOTE|LD_IO|hierarchy gives the illusion of a large fast memory.
+NOTE|LD_MEMORY|e.g. loop variables) and spatial locality (items near a recently used one are likely to be used soon, e.g. array
+NOTE|LD_IO|memory with a-bit address has 2a locations; capacity = 2a x word size (e.g. 16-bit address, 8-bit word = 64 KB).
+NOTE|LD_MEMORY|lowest address (x86). Example: 0x12345678 stored at address 100: big-endian 100=12, 101=34, 102=56,
+NOTE|LD_IO|103=78; little-endian 100=78, 101=56, 102=34, 103=12. Matters for network (big-endian) and file formats.
+NOTE|LD_MEMORY|Cache is a small, fast memory (SRAM) between CPU and main memory holding copies of frequently used blocks.
+NOTE|LD_IO|On each access the CPU checks the cache first: hit (found) or miss (not found, block fetched from main memory,
+NOTE|LD_MEMORY|model: EAT = Tc + (1 - H) x Tm, or H x Tc + (1 - H)(Tc + Tm) (same thing). Miss penalty = time to bring block
+NOTE|LD_IO|T_c = 10 ns, T_m = 100 ns, H = 0.9: EAT = 0.9 x 10 + 0.1 x 100 = 9 + 10 = 19 ns (simple model). With
+NOTE|LD_MEMORY|Block j maps to exactly one line: line = j mod N (N lines).
+NOTE|LD_IO|Block can go in any line; all tags compared in parallel
+NOTE|LD_MEMORY|Cache divided into S sets of k lines; block j goes to set j
+NOTE|LD_IO|mod S, any line in the set. Address: tag / set / offset
+NOTE|LD_MEMORY|Main memory 64 KB (16-bit address), cache 1 KB, block 16 bytes. Offset = 4 bits, lines = 1024/16 = 64, index = 6
+NOTE|LD_IO|practice), FIFO, LFU (least frequently used), random. Direct mapping needs none.
+NOTE|LD_MEMORY|only to cache, mark dirty bit, write memory when block is replaced; faster). Write allocate vs no-write allocate
+NOTE|LD_IO|I/D cache. Types of misses: compulsory (first access), capacity, conflict.
+NOTE|LD_MEMORY|timing, status, error detection. External devices: human-readable (keyboard, display), machine-readable
+NOTE|LD_IO|(disk), communication. Addressing I/O: memory-mapped I/O (devices share the memory address space, use
+NOTE|LD_MEMORY|normal load/store) vs isolated (I/O-mapped) I/O (separate address space, special IN/OUT instructions).
+NOTE|LD_IO|CPU issues command and polls (busy-waits) the status
+NOTE|LD_MEMORY|register until device is ready, then transfers each word
+NOTE|LD_IO|CPU starts I/O and continues other work; device raises an
+NOTE|LD_MEMORY|interrupt when ready; CPU runs the interrupt service routine
+NOTE|LD_IO|DMA controller transfers a block between device and memory
+NOTE|LD_MEMORY|directly without CPU; CPU gives address, count, direction; DMA
+NOTE|LD_IO|one cycle at a time), transparent (uses bus only when CPU does not). DMA registers: address register, word
+NOTE|LD_MEMORY|count, control. DMA uses signals HOLD/HLDA (bus request/grant).
+NOTE|LD_IO|passes serially through devices; position decides priority; simple, but fixed priority and slow), polling (controller
+NOTE|LD_MEMORY|polls devices by address counter), independent request (each device has its own request and grant line;
+NOTE|LD_IO|5.4 Alternative architectures: Flynn's taxonomy
+NOTE|LD_MEMORY|Single Instruction stream, Single Data stream: one processor,
+NOTE|LD_IO|One instruction operates on multiple data in lockstep
+NOTE|LD_MEMORY|Multiple instructions on a single data stream (rare)
+NOTE|LD_IO|Multiple processors execute different instructions on different
+NOTE|LD_MEMORY|Exam tip: Unit 5 exam favourites: memory hierarchy and locality; cache mapping with address split numericals;
+NOTE|LD_IO|EAT numerical; replacement and write policies; programmed vs interrupt vs DMA; bus arbitration; Flynn's
+NOTE|LD_MEMORY|Q. Why is DMA better than interrupt-driven I/O for disks?
+NOTE|LD_IO|A. DMA moves a whole block without CPU involvement per word, reducing interrupts and CPU overhead.
+NOTE|LD_MEMORY|A. A bit in a write-back cache line indicating the line was modified and must be written to memory when replaced.
+NOTE|LD_IO|A. A product term that cannot be combined with another to eliminate a variable; a largest possible group on a
+NOTE|LD_MEMORY|A. A combinational circuit that selects one of 2^n inputs using n select lines and passes it to a single output.
+NOTE|LD_IO|A. Repeated toggling of a level-triggered JK flip-flop when J = K = 1 and the clock stays high longer than the
+NOTE|LD_MEMORY|Q. How many flip-flops are needed for a mod-60 counter?
+NOTE|LD_IO|A. Moore output depends only on the state; Mealy output depends on state and input.
+NOTE|LD_MEMORY|Q. Name the three methods of I/O data transfer.
+NOTE|LD_IO|A. Programmed I/O, interrupt-driven I/O, DMA.
+NOTE|LD_MEMORY|1. Simplify given 4-variable function with don't cares using a K-map and realise with NAND gates.
+NOTE|LD_IO|2. Minimise a function using the Quine-McCluskey method.
+NOTE|LD_MEMORY|3. Design a full adder and full subtractor. Design a BCD adder.
+NOTE|LD_IO|4. Design a 3-to-8 decoder, 8-to-3 priority encoder, 4:1 MUX; implement a function using MUX.
+NOTE|LD_MEMORY|5. Explain SR, JK, D, T flip-flops with truth tables, characteristic and excitation tables.
+NOTE|LD_IO|6. Explain race-around condition and master-slave JK flip-flop. Convert JK to D and T.
+NOTE|LD_MEMORY|7. Explain shift registers (SISO, SIPO, PISO, PIPO) and the universal shift register.
+NOTE|LD_IO|8. Design a synchronous mod-N counter using JK/T flip-flops. Compare ripple and synchronous counters.
+NOTE|LD_MEMORY|9. Explain ring and Johnson counters with state sequences.
+NOTE|LD_IO|10. Compare Mealy and Moore models. Design a sequence detector with a state diagram.
+NOTE|LD_MEMORY|11. Compare Von Neumann and Harvard architectures, RISC and CISC.
+NOTE|LD_IO|12. Explain performance measures; solve CPU time, MIPS and Amdahl's law problems.
+NOTE|LD_MEMORY|13. Explain Booth's multiplication, and restoring and non-restoring division.
+NOTE|LD_IO|14. Explain IEEE 754 formats; convert a given number to single precision.
+NOTE|LD_MEMORY|15. Explain the instruction cycle and pipelining with hazards and their solutions.
+NOTE|LD_IO|16. Compare hardwired and microprogrammed control units.
+NOTE|LD_MEMORY|17. Explain memory hierarchy and locality of reference. Explain cache mapping techniques with numericals.
+NOTE|LD_IO|18. Explain cache replacement algorithms and write policies. Compute effective access time.
+NOTE|LD_MEMORY|19. Explain programmed I/O, interrupt-driven I/O and DMA. Explain bus arbitration schemes.
+NOTE|LD_IO|20. Explain Flynn's classification of computer architectures.

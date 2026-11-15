@@ -1,0 +1,70 @@
+# ============================================================
+# EVALUATION TEST BANK  --  OOP with C++ (TCS307)
+# 5 questions per topic.  Format:
+# Q|topicId|question|opt1;opt2;opt3;opt4|correctOption(1-4)|explanation
+# ============================================================
+Q|OOP_BASICS|Which OOP principle binds data and the functions that operate on it into one unit?|Data hiding;Encapsulation;Inheritance;Overloading|2|Encapsulation wraps data and methods into a single class unit.
+Q|OOP_BASICS|C++ was designed and developed by|Dennis Ritchie;Bjarne Stroustrup;James Gosling;Guido van Rossum|2|Stroustrup developed C++ at Bell Labs in the early 1980s.
+Q|OOP_BASICS|Which of these is NOT a feature of object oriented programming?|Data hiding;Inheritance;Top down design;Polymorphism|3|Top down design is the classic procedure oriented approach.
+Q|OOP_BASICS|Procedure oriented programming organises a program around|Objects;Functions;Classes;Interfaces|2|It is function driven, data is shared globally.
+Q|OOP_BASICS|A class is best described as|A runtime entity;A blueprint or template for objects;A memory location;A preprocessor directive|2|The class defines the structure, objects are instances of it.
+Q|NAMESPACE|The main purpose of a namespace in C++ is to|Speed up the program;Avoid name collisions;Allocate heap memory;Define macros|2|Namespaces create separate scopes for identical names.
+Q|NAMESPACE|Which operator is used to access a name declared inside a namespace?|Dot operator;Arrow operator;Scope resolution operator;Double colon colon|3|The :: operator qualifies the name with its namespace.
+Q|NAMESPACE|Can two different namespaces contain functions with the same name?|Yes, because they are separate scopes;No, it is a redeclaration error;Only if both are static;Only if both are declared friend|1|Each namespace is an independent scope.
+Q|NAMESPACE|Writing using namespace std; at global scope|Is compulsory in every C++ program;Is illegal;Is a syntax error;Is optional and brings std names into scope|4|It is optional, just convenient.
+Q|NAMESPACE|Header files are included in a C++ program to|Provide declarations of library entities;Increase the binary size deliberately;Replace the main function;Declare only global variables|1|Headers carry declarations, not usually definitions.
+Q|ARR_STR|If an int occupies 4 bytes, sizeof of an int array of 10 elements is|10 bytes;40 bytes;4 bytes;14 bytes|2|10 elements times 4 bytes.
+Q|ARR_STR|Every C style string is terminated by|The null character;A newline character;A semicolon;A space|1|The null character marks the end of the string.
+Q|ARR_STR|Which header provides strlen and strcpy?|iostream;string;cstring;fstream|3|The cstring header declares the C string functions.
+Q|ARR_STR|When an array is passed to a function it is actually passed|By value as a full copy;By address, it decays to a pointer;By reference to all elements;As a constant literal|2|The array name decays to a pointer to its first element.
+Q|ARR_STR|For a one dimensional array a, the expression a[i] is equivalent to|i[a];(a+i);Both a[i] and i[a];Neither|3|Array subscripting is commutative, so both work.
+Q|CLASS_OBJ|The default access specifier for members of a class is|private;public;protected;friend|1|In a class everything is private until stated otherwise.
+Q|CLASS_OBJ|A constructor|Has a return type of void;Has no return type at all;Must return an int;Can be virtual|2|Constructors never specify a return type.
+Q|CLASS_OBJ|A destructor is invoked|When the object is created;Only when delete is written;Automatically when the object goes out of scope or is destroyed;Never automatically|3|Scope exit or delete triggers it.
+Q|CLASS_OBJ|Copying an object by value uses|The default constructor;The copy constructor;The destructor;The friend function|2|Pass by value and initialisation from another object invoke it.
+Q|CLASS_OBJ|A constructor can be|virtual;static;overloaded;inherited|3|Constructors may be overloaded but not virtual, static or inherited.
+Q|STATIC|A static data member of a class is|A separate copy for every object;Shared by all objects of the class;Stored inside each member function;Illegal in C++|2|It belongs to the class, not to individual objects.
+Q|STATIC|A static member function can directly access|All data members;Only private data members;Only static members of the class;Only global variables|3|It has no this pointer, so non static members are unreachable.
+Q|STATIC|A static data member must be|Defined once outside the class;Declared inside main;Initialised inside every constructor;Made const always|1|The in-class declaration needs one out-of-class definition.
+Q|STATIC|A static member function is called using|An object name only;The class name with the scope resolution operator;The this pointer;The destructor|2|It can also be called through an object, but class name is normal.
+Q|STATIC|To count how many objects of a class were created, the usual trick is|A static data member incremented in the constructor;A local variable in main;A global array;A friend class|1|Every constructor call increments the shared counter.
+Q|FRIEND|A friend function of a class|Is a member of that class;Can access private members but is not a member;Cannot access private members;Must be static|2|Friendship grants access without membership.
+Q|FRIEND|Friendship in C++ is|Mutual and inherited;Inherited but not mutual;Neither mutual nor inherited;Mutual but not inherited|3|If A is a friend of B, B need not be a friend of A, and derived classes do not inherit it.
+Q|FRIEND|A friend function is declared inside the class using the keyword|friend;virtual;static;inline|1|The friend keyword appears in the class declaration.
+Q|FRIEND|A friend function is normally used to|Access private data of two different classes;Replace constructors;Make a class abstract;Override a virtual function|1|It is the classic way to overload binary operators for two classes.
+Q|FRIEND|Which statement about friend functions is correct?|They are called using the object dot operator as members;They are called like ordinary functions with objects as arguments;They cannot be declared in a class body;They are inherited by derived classes|2|The call is an ordinary function call.
+Q|COPY_THIS|A shallow copy copies|Only the pointer addresses, not the pointed data;The complete pointed data;Nothing at all;Only static members|1|Two objects then share the same heap memory.
+Q|COPY_THIS|A deep copy needs|Only the default constructor;A destructor only;A user defined copy constructor that allocates new memory;A static member function|3|The copy must allocate its own buffer.
+Q|COPY_THIS|The this pointer inside a member function holds|The address of the current object;The address of the class;A copy of the object;The address of the caller|1|It points to the object on which the method was invoked.
+Q|COPY_THIS|Inside class Test, the type of this is|Test;Test and;Test star;void star|3|It is a pointer to Test, that is Test pointer.
+Q|COPY_THIS|The usual signature of a copy constructor is|Test(Test);Test(Test and);Test(const Test and);Test(void)|3|A const reference avoids infinite recursion and allows temporaries.
+Q|OPOVL|Which operator cannot be overloaded in C++?|The plus operator;The scope resolution operator;The insertion operator;The equality operator|2|Only a few operators are banned, and scope resolution is one of them.
+Q|OPOVL|The insertion operator for output is usually overloaded as|A static member;A unary member function;A friend or free function taking ostream and the class;A constructor|3|The left operand is the stream, so it cannot be a member of the class.
+Q|OPOVL|A unary operator overloaded as a member function takes|No explicit argument;One argument;Two arguments;Three arguments|1|The single operand is the object itself.
+Q|OPOVL|Post increment is distinguished from pre increment by|A different operator name;A dummy int parameter;A const qualifier;A friend declaration|2|operator++(int) is the postfix form.
+Q|OPOVL|The assignment operator must be overloaded as|A non static member function;A friend function;A static member;A global function|1|It cannot be a friend or a static function.
+Q|INHERIT|Which inheritance leads to the diamond problem?|Single;Multiple or hybrid;Hierarchical only;Multilevel only|2|Two paths to a common base create duplicate copies.
+Q|INHERIT|The diamond problem is solved by|Making the base class abstract;Declaring the base constructor private;Making the common base a virtual base class;Overloading the constructor|3|A virtual base keeps only one shared copy.
+Q|INHERIT|The default mode of inheritance for a class is|private;public;protected;virtual|1|For a struct it is public, for a class it is private.
+Q|INHERIT|In private inheritance, public members of the base become|Public in the derived class;Protected in the derived class;Private in the derived class;Unchanged|3|The access level is downgraded to the most restrictive mode.
+Q|INHERIT|In single inheritance the constructor execution order is|Derived then base;Base then derived;Only the base constructor runs;Only the derived constructor runs|2|Bases are constructed first, destructors run in reverse.
+Q|VIRTUAL|Virtual functions are the mechanism behind|Compile time polymorphism;Run time polymorphism;Operator overloading;Function templates|2|The call is bound at run time through the vtable.
+Q|VIRTUAL|A class with at least one pure virtual function is|A concrete class;A friend class;An abstract class;A template class|3|It cannot be instantiated.
+Q|VIRTUAL|A virtual destructor is essential when|No pointers are used;An object is destroyed through a base class pointer;A class has only static members;The class is a template|2|Without it the derived destructor is skipped, causing a leak.
+Q|VIRTUAL|Run time binding of a virtual call is implemented using|A vtable and vptr;A macro;The preprocessor;The linker only|1|Each polymorphic class gets a table of function addresses.
+Q|VIRTUAL|Overriding differs from overloading because overriding|Uses the same name and same signature in a derived class;Uses the same name with a different signature in the same class;Needs the friend keyword;Works only with operators|1|Overloading keeps signatures different within one scope.
+Q|FILE_IO|Which header must be included for file streams?|iostream;iomanip;fstream;cstdio|3|fstream declares ifstream, ofstream and fstream.
+Q|FILE_IO|To add data to the end of an existing file you open it with|ios trunc;ios binary only;ios app;ios ate only|3|The app mode seeks to the end before every write.
+Q|FILE_IO|The class used for writing to a file is|ofstream;ifstream;fstream only;strstream|1|o stands for output.
+Q|FILE_IO|To check whether a file was opened successfully you call|is open;good;fail;eof|1|The member function is_open returns a bool.
+Q|FILE_IO|The eof function returns true|When the end of file has been reached;After every read;When the file is missing;When the mode is binary|1|It reports the end of file condition.
+Q|EXCEPT|The keyword used to raise an exception is|catch;throw;try;raise|2|throw transfers control to a matching handler.
+Q|EXCEPT|catch with three dots catches|Nothing;Only integers;Every type of exception;Only standard exceptions|3|It is the catch all handler.
+Q|EXCEPT|A custom exception class should preferably be derived from|string;std exception;ostream;vector|2|Deriving from exception allows a uniform interface.
+Q|EXCEPT|If no matching handler is found for a thrown exception, the program|Continues normally;Ignores the exception;Calls terminate;Skips the try block|3|Unhandled exceptions terminate the program.
+Q|EXCEPT|Re-throwing an exception inside a catch block is done with|throw new;throw;rethrow;catch throw|2|A bare throw re-throws the current exception.
+Q|TEMPLATE_STL|Templates in C++ support|Generic programming;Automatic memory management;Multiple inheritance only;Exception handling|1|One piece of code works for many types.
+Q|TEMPLATE_STL|A function template template with type T and parameters a b is called as|max 3 4 only;max int 3 4;max of 3 and 4 without any type;max int angle 3 comma 4|2|Explicit specialisation uses max with int in angle brackets.
+Q|TEMPLATE_STL|Which STL container stores key value pairs?|vector;map;stack;queue|2|A map holds unique keys mapped to values.
+Q|TEMPLATE_STL|A vector in the STL is|A linked list;A dynamic array;A balanced tree;A hash table|2|It grows by reallocating contiguous storage.
+Q|TEMPLATE_STL|Which header declares the vector container?|vector;array;list;deque|1|The vector header is needed for std vector.
