@@ -3,13 +3,183 @@
 #include <sstream>
 #include <iomanip>
 #include <string>
-#include <vector>
 #include <cmath>
 #include <cstdlib>
 #include <cctype>
 #include <ctime>
 
 using namespace std;
+
+// =====================================================================
+// SECTION 1B : CUSTOM DYNAMIC ARRAY (DynamicArray)
+// Hand-written dynamic array with automatic resizing (No STL containers)
+// =====================================================================
+
+template <typename T>
+class DynamicArray {
+private:
+    T* items;
+    int capacity;
+    int count;
+
+    void grow() {
+        int newCapacity = (capacity == 0) ? 4 : capacity * 2;
+        T* newItems = new T[newCapacity];
+
+        for (int i = 0; i < count; i++) {
+            newItems[i] = items[i];
+        }
+
+        delete[] items;
+        items = newItems;
+        capacity = newCapacity;
+    }
+
+public:
+    DynamicArray() {
+        items = nullptr;
+        capacity = 0;
+        count = 0;
+    }
+
+    DynamicArray(int initialCapacity) {
+        capacity = initialCapacity;
+        count = initialCapacity;
+        if (capacity > 0) {
+            items = new T[capacity];
+            for (int i = 0; i < capacity; i++) {
+                items[i] = T();
+            }
+        } else {
+            items = nullptr;
+        }
+    }
+
+    DynamicArray(int initialCapacity, const T& defaultValue) {
+        capacity = initialCapacity;
+        count = initialCapacity;
+        if (capacity > 0) {
+            items = new T[capacity];
+            for (int i = 0; i < capacity; i++) {
+                items[i] = defaultValue;
+            }
+        } else {
+            items = nullptr;
+        }
+    }
+
+    DynamicArray(const DynamicArray& other) {
+        capacity = other.capacity;
+        count = other.count;
+        if (capacity > 0) {
+            items = new T[capacity];
+            for (int i = 0; i < count; i++) {
+                items[i] = other.items[i];
+            }
+        } else {
+            items = nullptr;
+        }
+    }
+
+    DynamicArray& operator=(const DynamicArray& other) {
+        if (this != &other) {
+            delete[] items;
+            capacity = other.capacity;
+            count = other.count;
+            if (capacity > 0) {
+                items = new T[capacity];
+                for (int i = 0; i < count; i++) {
+                    items[i] = other.items[i];
+                }
+            } else {
+                items = nullptr;
+            }
+        }
+        return *this;
+    }
+
+    ~DynamicArray() {
+        delete[] items;
+    }
+
+    void push_back(const T& value) {
+        if (count == capacity) {
+            grow();
+        }
+        items[count] = value;
+        count++;
+    }
+
+    void pop_back() {
+        if (count > 0) {
+            count--;
+        }
+    }
+
+    T& operator[](int index) {
+        return items[index];
+    }
+
+    const T& operator[](int index) const {
+        return items[index];
+    }
+
+    T& back() {
+        return items[count - 1];
+    }
+
+    const T& back() const {
+        return items[count - 1];
+    }
+
+    int size() const {
+        return count;
+    }
+
+    bool empty() const {
+        return count == 0;
+    }
+
+    void clear() {
+        count = 0;
+    }
+
+    T* begin() {
+        return items;
+    }
+
+    const T* begin() const {
+        return items;
+    }
+
+    T* end() {
+        return items + count;
+    }
+
+    const T* end() const {
+        return items + count;
+    }
+
+    void erase(int index) {
+        if (index < 0 || index >= count) {
+            return;
+        }
+        for (int i = index; i < count - 1; i++) {
+            items[i] = items[i + 1];
+        }
+        count--;
+    }
+
+    void erase(T* it) {
+        if (!it || it < items || it >= items + count) {
+            return;
+        }
+        int index = (int)(it - items);
+        erase(index);
+    }
+};
+
+
 
 // ===========================================
 // SECTION 1 : HELPERS
@@ -48,8 +218,8 @@ string trimString(string text) {
     return text.substr(start, end - start + 1);
 }
 
-vector<string> splitString(string line, char delimiter) {
-    vector<string> tokens;
+DynamicArray<string> splitString(string line, char delimiter) {
+    DynamicArray<string> tokens;
     stringstream ss(line);
     string part;
     while (getline(ss, part, delimiter)) {
@@ -262,7 +432,7 @@ private:
 
     void copyFrom(const MyStack& other) {
         if (!other.topNode) return;
-        vector<T> temp;
+        DynamicArray<T> temp;
         StackNode* curr = other.topNode;
         while (curr) {
             temp.push_back(curr->data);
@@ -422,7 +592,7 @@ public:
 // ---  BINARY MAX-HEAP (PRIORITY QUEUE) ---
 class MaxHeap {
 private:
-    vector<Topic> heapArray;
+    DynamicArray<Topic> heapArray;
 
     void heapifyUp(int index) {
         while (index > 0) {
@@ -495,7 +665,7 @@ private:
     BSTNode* root;
     int nodeCount;
 
-    void insertHelper(BSTNode*& node, Topic item) {
+    void insertNode(BSTNode*& node, Topic item) {
         if (!node) {
             node = new BSTNode(item);
             nodeCount++;
@@ -503,76 +673,76 @@ private:
         }
         string itemKey = toUpperCase(item.id);
         if (itemKey < node->key) {
-            insertHelper(node->left, item);
+            insertNode(node->left, item);
         } else {
-            insertHelper(node->right, item);
+            insertNode(node->right, item);
         }
     }
 
-    Topic* searchByIdHelper(BSTNode* node, const string& searchKey) const {
+    Topic* searchById(BSTNode* node, const string& searchKey) const {
         if (!node) return nullptr;
         if (node->key == searchKey) return const_cast<Topic*>(&(node->topicData));
-        if (searchKey < node->key) return searchByIdHelper(node->left, searchKey);
-        return searchByIdHelper(node->right, searchKey);
+        if (searchKey < node->key) return searchById(node->left, searchKey);
+        return searchById(node->right, searchKey);
     }
 
-    Topic* searchByNameHelper(BSTNode* node, const string& keyword) const {
+    Topic* searchByName(BSTNode* node, const string& keyword) const {
         if (!node) return nullptr;
         string nameUpper = toUpperCase(node->topicData.name);
         if (nameUpper.find(keyword) != string::npos) {
             return const_cast<Topic*>(&(node->topicData));
         }
-        Topic* leftMatch = searchByNameHelper(node->left, keyword);
+        Topic* leftMatch = searchByName(node->left, keyword);
         if (leftMatch) return leftMatch;
-        return searchByNameHelper(node->right, keyword);
+        return searchByName(node->right, keyword);
     }
 
-    void inorderHelper(BSTNode* node, vector<Topic>& resultList) const {
+    void inorderTraversal(BSTNode* node, DynamicArray<Topic>& resultList) const {
         if (!node) return;
-        inorderHelper(node->left, resultList);
+        inorderTraversal(node->left, resultList);
         resultList.push_back(node->topicData);
-        inorderHelper(node->right, resultList);
+        inorderTraversal(node->right, resultList);
     }
 
-    int heightHelper(BSTNode* node) const {
+    int getHeight(BSTNode* node) const {
         if (!node) return 0;
-        int leftH = heightHelper(node->left);
-        int rightH = heightHelper(node->right);
+        int leftH = getHeight(node->left);
+        int rightH = getHeight(node->right);
         return 1 + max(leftH, rightH);
     }
 
-    void destroyHelper(BSTNode* node) {
+    void clearTree(BSTNode* node) {
         if (!node) return;
-        destroyHelper(node->left);
-        destroyHelper(node->right);
+        clearTree(node->left);
+        clearTree(node->right);
         delete node;
     }
 
 public:
     TopicBST() : root(nullptr), nodeCount(0) {}
-    ~TopicBST() { destroyHelper(root); }
+    ~TopicBST() { clearTree(root); }
 
     void clear() {
-        destroyHelper(root);
+        clearTree(root);
         root = nullptr;
         nodeCount = 0;
     }
 
-    void insert(Topic item) { insertHelper(root, item); }
+    void insert(Topic item) { insertNode(root, item); }
 
     Topic* search(const string& query) const {
         string cleanQuery = toUpperCase(trimString(query));
         if (cleanQuery.empty()) return nullptr;
-        Topic* res = searchByIdHelper(root, cleanQuery);
+        Topic* res = searchById(root, cleanQuery);
         if (res) return res;
-        return searchByNameHelper(root, cleanQuery);
+        return searchByName(root, cleanQuery);
     }
 
-    void getInorder(vector<Topic>& resultList) const { inorderHelper(root, resultList); }
+    void getInorder(DynamicArray<Topic>& resultList) const { inorderTraversal(root, resultList); }
     int size() const { return nodeCount; }
-    int height() const { return heightHelper(root); }
+    int height() const { return getHeight(root); }
 
-    void rebuild(const vector<Topic*>& topicPointers) {
+    void rebuild(const DynamicArray<Topic*>& topicPointers) {
         clear();
         for (int i = 0; i < (int)topicPointers.size(); i++) {
             if (topicPointers[i]) {
@@ -585,8 +755,8 @@ public:
 // ---  DIRECTED GRAPH FOR PREREQUISITES (PrereqGraph) ---
 class PrereqGraph {
 private:
-    vector<string> topicIds;
-    vector<vector<int>> adjacencyList;
+    DynamicArray<string> topicIds;
+    DynamicArray<DynamicArray<int>> adjacencyList;
 
 public:
     void clear() {
@@ -606,7 +776,7 @@ public:
         if (index != -1) return index;
         index = (int)topicIds.size();
         topicIds.push_back(id);
-        adjacencyList.push_back(vector<int>());
+        adjacencyList.push_back(DynamicArray<int>());
         return index;
     }
 
@@ -630,9 +800,9 @@ public:
         return edges;
     }
 
-    vector<string> topologicalSort() const {
+    DynamicArray<string> topologicalSort() const {
         int n = (int)topicIds.size();
-        vector<int> inDegree(n, 0);
+        DynamicArray<int> inDegree(n, 0);
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < (int)adjacencyList[i].size(); j++) {
@@ -648,7 +818,7 @@ public:
             }
         }
 
-        vector<string> sortedList;
+        DynamicArray<string> sortedList;
         while (!readyQueue.empty()) {
             int current = readyQueue.front();
             readyQueue.pop();
@@ -665,12 +835,12 @@ public:
         return sortedList;
     }
 
-    vector<string> breadthFirstSearch(const string& startId) const {
-        vector<string> visitedOrder;
+    DynamicArray<string> breadthFirstSearch(const string& startId) const {
+        DynamicArray<string> visitedOrder;
         int startIndex = findTopicIndex(startId);
         if (startIndex == -1) return visitedOrder;
 
-        vector<bool> visited(topicIds.size(), false);
+        DynamicArray<bool> visited(topicIds.size(), false);
         MyQueue<int> q;
 
         visited[startIndex] = true;
@@ -692,12 +862,12 @@ public:
         return visitedOrder;
     }
 
-    vector<string> depthFirstSearch(const string& startId) const {
-        vector<string> visitedOrder;
+    DynamicArray<string> depthFirstSearch(const string& startId) const {
+        DynamicArray<string> visitedOrder;
         int startIndex = findTopicIndex(startId);
         if (startIndex == -1) return visitedOrder;
 
-        vector<bool> visited(topicIds.size(), false);
+        DynamicArray<bool> visited(topicIds.size(), false);
         MyStack<int> s;
 
         s.push(startIndex);
@@ -797,14 +967,14 @@ public:
 struct QuizQuestion {
     string topicId;
     string text;
-    vector<string> options;
+    DynamicArray<string> options;
     int correctOption;
     string explanation;
 };
 
 class QuizBank {
 public:
-    vector<QuizQuestion> questions;
+    DynamicArray<QuizQuestion> questions;
 
     void load(const string& filename) {
         questions.clear();
@@ -815,7 +985,7 @@ public:
         while (getline(file, line)) {
             line = trimString(line);
             if (line.empty() || line[0] == '#') continue;
-            vector<string> parts = splitString(line, '|');
+            DynamicArray<string> parts = splitString(line, '|');
             if (parts.size() >= 6 && parts[0] == "Q") {
                 QuizQuestion q;
                 q.topicId = parts[1];
@@ -829,8 +999,8 @@ public:
         file.close();
     }
 
-    vector<QuizQuestion> getQuestionsForTopic(const string& topicId) const {
-        vector<QuizQuestion> result;
+    DynamicArray<QuizQuestion> getQuestionsForTopic(const string& topicId) const {
+        DynamicArray<QuizQuestion> result;
         for (int i = 0; i < (int)questions.size(); i++) {
             if (questions[i].topicId == topicId) {
                 result.push_back(questions[i]);
@@ -842,8 +1012,8 @@ public:
 
 class NotesStore {
 public:
-    vector<pair<string, string>> notesList;
-    vector<pair<string, pair<string, string>>> linksList;
+    DynamicArray<pair<string, string>> notesList;
+    DynamicArray<pair<string, pair<string, string>>> linksList;
 
     void load(const string& filename) {
         notesList.clear();
@@ -855,7 +1025,7 @@ public:
         while (getline(file, line)) {
             line = trimString(line);
             if (line.empty() || line[0] == '#') continue;
-            vector<string> parts = splitString(line, '|');
+            DynamicArray<string> parts = splitString(line, '|');
             if (parts[0] == "NOTE" && parts.size() >= 3) {
                 notesList.push_back(make_pair(parts[1], parts[2]));
             } else if (parts[0] == "LINK" && parts.size() >= 4) {
@@ -904,8 +1074,8 @@ public:
     string code;
     string name;
     string courseCode;
-    vector<Topic*> topics;
-    vector<pair<string, string>> prereqPairs;
+    DynamicArray<Topic*> topics;
+    DynamicArray<pair<string, string>> prereqPairs;
     PrereqGraph graph;
     TopicBST bst;
 
@@ -1001,7 +1171,7 @@ public:
         while (getline(file, line)) {
             line = trimString(line);
             if (line.empty() || line[0] == '#') continue;
-            vector<string> parts = splitString(line, '|');
+            DynamicArray<string> parts = splitString(line, '|');
             if (parts[0] == "SUBJECT" && parts.size() >= 5) {
                 sub.code = parts[1];
                 sub.name = parts[2];
@@ -1031,7 +1201,7 @@ public:
         while (getline(file, line)) {
             line = trimString(line);
             if (line.empty() || line[0] == '#') continue;
-            vector<string> parts = splitString(line, '|');
+            DynamicArray<string> parts = splitString(line, '|');
             if (parts[0] == "HIT" && parts.size() >= 4) {
                 string topicId = parts[2];
                 double marks = atof(parts[3].c_str());
@@ -1130,7 +1300,7 @@ public:
         }
 
         PlanList studyPlan;
-        vector<Topic> droppedTopics;
+        DynamicArray<Topic> droppedTopics;
         int remainingMinutes = usableMinutes;
         int sessionOrder = 1;
 
@@ -1216,7 +1386,7 @@ public:
         int weakTopicsCount = 0;
 
         while (curr) {
-            vector<QuizQuestion> questions = quizBanks[s].getQuestionsForTopic(curr->topicId);
+            DynamicArray<QuizQuestion> questions = quizBanks[s].getQuestionsForTopic(curr->topicId);
             if (!questions.empty()) {
                 cout << "\n  Quiz for Topic: " << curr->topicName << " (" << curr->topicId << ")\n";
                 int topicScore = 0;
@@ -1351,7 +1521,7 @@ public:
                     cout << "  Nothing to undo.\n";
                     continue;
                 }
-                vector<string> parts = splitString(undoAction, '|');
+                DynamicArray<string> parts = splitString(undoAction, '|');
                 if (parts[0] == "DELETE") {
                     for (int i = 0; i < (int)sub.topics.size(); i++) {
                         if (sub.topics[i]->id == parts[1]) {
@@ -1452,7 +1622,7 @@ public:
             cout << "  Total Edges    : " << sub.graph.edgeCount() << "\n";
 
             cout << "\n  Topological Sort (Logical Sequence of Study):\n   ";
-            vector<string> topoOrder = sub.graph.topologicalSort();
+            DynamicArray<string> topoOrder = sub.graph.topologicalSort();
             for (int i = 0; i < (int)topoOrder.size(); i++) {
                 cout << topoOrder[i];
                 if (i + 1 < (int)topoOrder.size()) cout << " -> ";
@@ -1462,11 +1632,11 @@ public:
             if (sub.topics.size() > 0) {
                 string startId = sub.topics[0]->id;
                 cout << "\n  BFS from " << startId << ": ";
-                vector<string> bfs = sub.graph.breadthFirstSearch(startId);
+                DynamicArray<string> bfs = sub.graph.breadthFirstSearch(startId);
                 for (int i = 0; i < (int)bfs.size(); i++) cout << bfs[i] << " ";
 
                 cout << "\n  DFS from " << startId << ": ";
-                vector<string> dfs = sub.graph.depthFirstSearch(startId);
+                DynamicArray<string> dfs = sub.graph.depthFirstSearch(startId);
                 for (int i = 0; i < (int)dfs.size(); i++) cout << dfs[i] << " ";
                 cout << "\n";
             }
@@ -1502,7 +1672,7 @@ public:
         int pick = readNumberInRange("  Enter topic number (1-" + to_string(sub.topics.size()) + "): ", 1, (int)sub.topics.size());
         Topic* selected = sub.topics[pick - 1];
 
-        vector<QuizQuestion> questions = quizBanks[s].getQuestionsForTopic(selected->id);
+        DynamicArray<QuizQuestion> questions = quizBanks[s].getQuestionsForTopic(selected->id);
         if (questions.empty()) {
             cout << "  [!] No questions found in question bank for this topic.\n";
             return;
@@ -1631,7 +1801,7 @@ public:
             string line;
             int count = 0;
             while (getline(file, line)) {
-                vector<string> parts = splitString(line, '|');
+                DynamicArray<string> parts = splitString(line, '|');
                 if (parts.size() < 5 || parts[0] != "QUESTION") continue;
                 Topic* topic = subjects[i].findTopic(parts[2]);
                 count++;
